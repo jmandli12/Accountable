@@ -1,12 +1,13 @@
 package com.cs506.accountable;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.cs506.accountable.sqlite.TestDatabaseActivity;
+
+public class MainActivity extends TestDatabaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
