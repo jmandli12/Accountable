@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.cs506.accountable.R;
+import com.cs506.accountable.dto.Comment;
 
 /**
  * Created by tkobl on 3/8/2017.

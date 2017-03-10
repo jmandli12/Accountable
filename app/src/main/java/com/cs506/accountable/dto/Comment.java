@@ -1,4 +1,4 @@
-package com.cs506.accountable.sqlite;
+package com.cs506.accountable.dto;
 
 /**
  * Created by tkobl on 3/8/2017.

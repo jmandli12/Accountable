@@ -10,10 +10,17 @@
         android:layout_height="wrap_content" >
 
         <Button
+            android:id="@+id/addUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add User"
+            android:onClick="onClick"/>
+
+        <Button
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add New"
+            android:text="Add Comment"
             android:onClick="onClick"/>
 
         <Button

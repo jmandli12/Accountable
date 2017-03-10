@@ -9,6 +9,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.cs506.accountable.dto.Comment;
+
 /**
  * Created by tkobl on 3/8/2017.
  */
