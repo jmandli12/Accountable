@@ -1,6 +1,5 @@
 package com.cs506.accountable;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,24 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class Setup_7_Activity extends AppCompatActivity {
+public class Status_0_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setup_7_);
+        setContentView(R.layout.activity_status_0_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Accountable Setup");
+        toolbar.setTitle("Accountable");
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    /*
-    Save Goal and move to next Activity
-     */
-    public void moveNext(View view) {
-        Intent intent = new Intent(this, Main_Activity.class);
-        startActivity(intent);
-    }
 }

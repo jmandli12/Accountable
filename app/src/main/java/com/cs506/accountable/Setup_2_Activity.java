@@ -1,14 +1,14 @@
 package com.cs506.accountable;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.view.View;
-        import android.widget.EditText;
-        import android.widget.Toast;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class Setup_2_Activity extends AppCompatActivity {
 
@@ -28,12 +28,13 @@ public class Setup_2_Activity extends AppCompatActivity {
      */
     public void addAccount(View view) {
 
-        EditText et = (EditText) findViewById(R.id.accountName);
-        String accountName = et.getText().toString();
-        et = (EditText) findViewById(R.id.accountValue);
-        String accountValue = et.getText().toString();
+        String accountName;
+        String accountValue;
 
-        //TODO: change accountValue to double and save info
+        EditText et = (EditText) findViewById(R.id.accountName);
+        accountName = et.getText().toString();
+        et = (EditText) findViewById(R.id.accountValue);
+        accountValue = et.getText().toString();
 
         Toast.makeText(this, "Account Name: " + accountName + " Account Value: " + accountValue, Toast.LENGTH_LONG).show();
 

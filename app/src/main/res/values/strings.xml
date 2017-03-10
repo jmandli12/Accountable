@@ -10,6 +10,7 @@
     <string name="title_activity_setup_6_">Setup_6_Activity</string>
     <string name="title_activity_setup_7_">Setup_7_Activity</string>
     <string name="title_activity_main_">Main_Activity</string>
+    <string name="title_activity_purchase_0_">Purchase_0_Activity</string>
     <string-array name="budget_array">
         <item>(Select One)</item>
         <item>Weekly</item>
@@ -46,6 +47,20 @@
         <item>Hourly</item>
         <item>Salary</item>
     </string-array>
-    <string name="title_activity_jhgfhh">jhgfhh</string>
-    <string name="title_activity_asdf">asdf</string>
+    <string-array name="category_array">
+        <item>Category (Select One)</item>
+        <item>Groceries</item>
+        <item>General</item>
+        <item>Household</item>
+        <item>Transportation</item>
+        <item>Drinks</item>
+        <item>Restaurant</item>
+        <item>Entertainment</item>
+        <item>Education</item>
+        <item>Clothing</item>
+        <item>Pet</item>
+    </string-array>
+    <string name="title_activity_lock__screen_">Lock_Screen_Activity</string>
+    <string name="title_activity_status_0_">Status_0_Activity</string>
+
 </resources>

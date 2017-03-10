@@ -1,17 +1,17 @@
 package com.cs506.accountable;
 
-        import android.content.Intent;
-        import android.icu.text.DecimalFormat;
-        import android.os.Bundle;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.view.View;
-        import android.widget.ArrayAdapter;
-        import android.widget.EditText;
-        import android.widget.Spinner;
-        import android.widget.Toast;
+import android.content.Intent;
+import android.icu.text.DecimalFormat;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 public class Setup_4_Activity extends AppCompatActivity {
 
@@ -25,13 +25,13 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.income_hours_array, android.R.layout.simple_spinner_dropdown_item );
+                R.array.income_hours_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         adapter = ArrayAdapter.createFromResource(this,
-                R.array.pay_period_array, android.R.layout.simple_spinner_dropdown_item );
+                R.array.pay_period_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -46,6 +46,7 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         String incomeName;
         String incomeAmount;
+        double doubleAmount;
         String hours;
         String payPeriod;
 
@@ -61,16 +62,14 @@ public class Setup_4_Activity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = spinner.getSelectedItem().toString();
 
+        doubleAmount = Double.parseDouble(incomeAmount);
         //Create Object
 
         //Save Income
         //^This will be its own method
 
 
-
-
-
-        Toast.makeText(this,"IncomeName: "+incomeName+"\nIncomeAmount: "+incomeAmount+"\nHours: "+hours+"\nPayPeriod: "+payPeriod,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hours + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
 
     }
 
@@ -80,7 +79,6 @@ public class Setup_4_Activity extends AppCompatActivity {
     public void moveNext(View view) {
         Intent intent = new Intent(this, Setup_5_Activity.class);
         startActivity(intent);
-
     }
 
     public void incomeNameHelp(View view) {

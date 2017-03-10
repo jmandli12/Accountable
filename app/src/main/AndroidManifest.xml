@@ -94,6 +94,28 @@
             android:name=".Main_Activity"
             android:label="@string/title_activity_main_"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Purchase_0_Activity"
+            android:label="@string/title_activity_purchase_0_"
+            android:parentActivityName=".Main_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Main_Activity" />
+        </activity>
+        <activity
+            android:name=".Lock_Screen_Activity"
+            android:label="@string/title_activity_lock__screen_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Status_0_Activity"
+            android:label="@string/title_activity_status_0_"
+            android:parentActivityName=".Main_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Main_Activity" />
+        </activity>
     </application>
 
 </manifest>
