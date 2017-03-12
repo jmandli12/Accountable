@@ -23,15 +23,6 @@ public class Setup_2_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    /**
-     * We want to go to first PIN entry screen, not the second.
-     */
-    public void onBackPressed() {
-        //super.onBackPressed();
-        startActivity(new Intent(this, Setup_0_Activity.class));
-    }
-
     /*
     In charge of saving bank info and for now moving to next screen.
      */
