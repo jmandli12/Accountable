@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class Setup_1_Activity extends AppCompatActivity {
-
+    String unconfirmedPIN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,8 +19,9 @@ public class Setup_1_Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Accountable Setup");
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Bundle prev = getIntent().getExtras();
+        unconfirmedPIN = prev.getString("unconfirmedPIN");
     }
 
     /*
@@ -31,13 +32,20 @@ public class Setup_1_Activity extends AppCompatActivity {
         EditText et = (EditText) findViewById(R.id.secondPin);
         String pinString = et.getText().toString();
 
+        if(pinString.equals(unconfirmedPIN) && pinString.length() == 4) {
+            // TODO: Save the Entered PIN
 
-        // Save the Entered PIN
+            Toast.makeText(this, "PIN confirmed", Toast.LENGTH_LONG).show();
 
-        Toast.makeText(this, "PIN = " + pinString, Toast.LENGTH_LONG).show();
-
-        //Move onto next screen
-        Intent intent = new Intent(this, Setup_2_Activity.class);
-        startActivity(intent);
+            //Move onto next screen
+            Intent intent = new Intent(this, Setup_2_Activity.class);
+            startActivity(intent);
+        }
+        else if(pinString.length() != 4) {
+            Toast.makeText(this, "PIN must be 4 digits long", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this, "Entered PIN does not equal previous PIN", Toast.LENGTH_LONG).show();
+        }
     }
 }
