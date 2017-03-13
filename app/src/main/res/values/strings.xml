@@ -17,7 +17,7 @@
         <item>Monthly</item>
     </string-array>
     <string-array name="time_period_array">
-        <item>(Select One)</item>
+        <item>(Press to Select)</item>
         <item>Daily</item>
         <item>Weekly</item>
         <item>Monthly</item>
@@ -30,7 +30,7 @@
         <item>% of Savings</item>
     </string-array>
     <string-array name="bill_occurrence_array">
-        <item>Select One)</item>
+        <item>(Press to Select)</item>
         <item>Weekly</item>
         <item>Monthly</item>
         <item>Yearly</item>

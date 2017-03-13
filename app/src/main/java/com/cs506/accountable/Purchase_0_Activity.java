@@ -36,7 +36,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
     public void addPurchase(View view) {
 
         String category;
-        String purchasePrice;
+        String price;
         double doubleAmount;
         String date;
         String time;
@@ -45,7 +45,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
 
 
         EditText et = (EditText) findViewById(R.id.purchasePrice);
-        purchasePrice = et.getText().toString();
+        price = et.getText().toString();
 
         et = (EditText) findViewById(R.id.purchaseDate);
         date = et.getText().toString();
@@ -61,20 +61,33 @@ public class Purchase_0_Activity extends AppCompatActivity {
 
         Spinner spinner = (Spinner) findViewById(R.id.categorySpinner);
         category = spinner.getSelectedItem().toString();
-/*
+
+        boolean isValidAmount = price.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+
+        /*
 
         doubleAmount = Double.parseDouble(purchasePrice);
         //Create Object
-*/
+        */
         //Save Income
         //^This will be its own method
 
+        if (isValidAmount && price.length() > 2 && !category.equals("Category (Select One)")) {
 
-        Toast.makeText(this,"Purchase Price: "+purchasePrice+"\nDate/Time: "+date+" "+time+"\nCategory: "+category+"\nLocation: "+location+"\nComments: "+comments,Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Purchase Price: "+price+"\nDate/Time: "+date+" "+time+"\nCategory: "+category+"\nLocation: "+location+"\nComments: "+comments,Toast.LENGTH_LONG).show();
 
+            Intent intent = new Intent(this, Main_Activity.class);
+            startActivity(intent);
 
-        Intent intent = new Intent(this, Main_Activity.class);
-        startActivity(intent);
+        } else {
+            if (price.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Price amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                //TODO:Check for invalid leading 0 in dollar side?
+            }
+            if (category.equals("Category (Select One)")) {
+                Toast.makeText(this, "Category must be selected", Toast.LENGTH_LONG).show();
+            }
+        }
 
     }
 }

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
 public class Setup_3_Activity extends AppCompatActivity {
 
     @Override
@@ -32,11 +33,31 @@ public class Setup_3_Activity extends AppCompatActivity {
     }
 
     /*
-    Move to the next Activity
+    Move to the next Activity if no fields are filled
      */
     public void moveNext(View view) {
-        Intent intent = new Intent(this, Setup_4_Activity.class);
-        startActivity(intent);
+
+        String billName;
+        String billAmount;
+        String dueDate;
+        String occurrence;
+
+        EditText et = (EditText) findViewById(R.id.billName);
+        billName = et.getText().toString();
+        et = (EditText) findViewById(R.id.billAmount);
+        billAmount = et.getText().toString();
+        et = (EditText) findViewById(R.id.dueDate);
+        dueDate = et.getText().toString();
+        Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
+        occurrence = spinner.getSelectedItem().toString();
+
+        if (billName.equals("") && billAmount.equals("") && occurrence.equals("(Press to Select)")) {
+            Intent intent = new Intent(this, Setup_4_Activity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Must complete adding bill", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     /*
@@ -58,9 +79,27 @@ public class Setup_3_Activity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
         occurrence = spinner.getSelectedItem().toString();
 
-        Toast.makeText(this, "BillName: " + billName + " BillAmount: " + billAmount + " DueDate:" + dueDate + " Occurrence: " + occurrence, Toast.LENGTH_LONG).show();
+        boolean isValidAmount = billAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+//      boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|)");
 
-        Snackbar.make(view, "Added Bill", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        if (isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("(Press to Select)")) {
+
+            Toast.makeText(this, "BillName: " + billName + " BillAmount: " + billAmount + " DueDate:" + dueDate + " Occurrence: " + occurrence, Toast.LENGTH_LONG).show();
+            et.getText().clear();
+
+        }
+        else {
+            if (billName.length() == 0) {
+                Toast.makeText(this, "Bill name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            if (billAmount.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Bill amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                //TODO:Check for invalid leading 0 in dollar side?
+            }
+            if (occurrence.equals("(Press to Select)")) {
+                Toast.makeText(this, "Occurrence must be selected", Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 }

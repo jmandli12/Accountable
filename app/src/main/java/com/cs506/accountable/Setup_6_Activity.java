@@ -49,6 +49,12 @@ public class Setup_6_Activity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.unitSavingSpinner);
         unitSaving = spinner.getSelectedItem().toString();
 
+//        boolean isValidAmount = amountToSave.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+
+        if (!timePeriod.equals("(Press to Select)") && !unitSaving.equals("(Select One)")) {
+
+        }
+
         Toast.makeText(this, "TimePeriod Selected: " + timePeriod + " UnitSaving Selected: " + unitSaving, Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, Setup_7_Activity.class);
