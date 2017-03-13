@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 public class Status_0_Activity extends AppCompatActivity {
 
@@ -18,6 +19,12 @@ public class Status_0_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Set the Daily Allowence Value
+        TextView dailyAllowence = (TextView) findViewById(R.id.dailyAllowence);
+        //TODO: call method to get this value
+        Double amount = 100.45;
+        dailyAllowence.setText("$"+amount);
     }
 
 }

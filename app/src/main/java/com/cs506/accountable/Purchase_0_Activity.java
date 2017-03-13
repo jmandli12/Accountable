@@ -2,15 +2,15 @@ package com.cs506.accountable;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import java.util.Date;
 
 public class Purchase_0_Activity extends AppCompatActivity {
 
@@ -28,6 +28,17 @@ public class Purchase_0_Activity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Set the date and time so the user does not have to
+        EditText date = (EditText)findViewById(R.id.purchaseDate);
+        EditText time = (EditText)findViewById(R.id.purchaseTime);
+        Date d = new Date();
+        String pdate = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
+        String ptime = (String) DateFormat.format("hh:mm", d.getTime());
+        date.setText(pdate);
+        time.setText(ptime);
+
+
     }
 
     /*

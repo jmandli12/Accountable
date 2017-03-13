@@ -15,4 +15,21 @@
     tools:context="com.cs506.accountable.Status_0_Activity"
     tools:showIn="@layout/activity_status_0_">
 
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="50dp"
+        android:paddingTop="20dp"
+        android:text="Your Allowence for Today"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/dailyAllowence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="$x.xx"
+        android:textSize="40dp" />
 </LinearLayout>
