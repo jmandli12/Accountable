@@ -13,6 +13,14 @@ public class Lock_Screen_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //Check to see if it is users first time running application
+        boolean firstTime = true; //TODO: get this value from the database
+        if(firstTime){
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock__screen_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
