@@ -24,7 +24,7 @@ public class Main_Activity extends AppCompatActivity {
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.gear);
         toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
-
+        
     }
 
     @Override
