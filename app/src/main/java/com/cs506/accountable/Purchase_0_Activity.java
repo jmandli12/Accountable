@@ -34,7 +34,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
         EditText time = (EditText)findViewById(R.id.purchaseTime);
         Date d = new Date();
         String pdate = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
-        String ptime = (String) DateFormat.format("hh:mm", d.getTime());
+        String ptime = (String) DateFormat.format("hh:mm a", d.getTime());
         date.setText(pdate);
         time.setText(ptime);
 

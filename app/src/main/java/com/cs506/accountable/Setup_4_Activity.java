@@ -69,7 +69,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         //^This will be its own method
 
 
-        Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hours + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + doubleAmount + "\nHours: " + hours + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
 
     }
 
