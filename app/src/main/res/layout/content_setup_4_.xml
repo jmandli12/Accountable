@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_setup_4_"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.cs506.accountable.Setup_4_Activity"
+    tools:showIn="@layout/activity_setup_4_">
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your Sources of Income"
+        android:gravity="center"
+        android:textSize="30dp" />
+
+    <!--    <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Income Name:"
+            android:textSize="24dp" />-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/incomeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Income Name"
+            android:inputType="textPersonName"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="'?'"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button13"
+            android:onClick="incomeNameHelp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!--   <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Income Amount:"
+        android:textSize="24dp" />-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+
+        <TextView
+            android:text="$"
+            android:layout_width="19dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView13" />
+
+        <EditText
+            android:id="@+id/incomeAmount"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Income Amount"
+            android:inputType="numberDecimal"
+            android:layout_weight="0.99" />
+
+        <Button
+            android:text="'?'"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="incomeAmountHelp"
+            android:id="@+id/button14" />
+
+    </LinearLayout>
+
+    <!--   <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hourly or Salary?:"
+        android:textSize="24dp" />-->
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hoursSpinner" />
+
+    <!--    <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PayPeriod"
+            android:textSize="24dp" />-->
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/payPeriodSpinner" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addIncome"
+        android:text="Add Income"
+        android:textSize="24dp" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="moveNext"
+        android:text="Next"
+        android:textSize="24dp" />
+
+</LinearLayout>
