@@ -6,15 +6,115 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Setup_0_Activity"
+            android:label="@string/title_activity_setup_0_"
+            android:parentActivityName=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.WelcomeActivity" />
+        </activity>
+        <activity
+            android:name=".Setup_1_Activity"
+            android:label="@string/title_activity_setup_1_"
+            android:parentActivityName=".Setup_0_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Setup_0_Activity" />
+        </activity>
+        <activity
+            android:name=".Setup_2_Activity"
+            android:label="@string/title_activity_setup_2_"
+            android:parentActivityName=".Setup_1_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Setup_1_Activity" />
+        </activity>
+        <activity
+            android:name=".Setup_3_Activity"
+            android:label="@string/title_activity_setup_3_"
+            android:parentActivityName=".Setup_2_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Setup_2_Activity" />
+        </activity>
+        <activity
+            android:name=".Setup_4_Activity"
+            android:label="@string/title_activity_setup_4_"
+            android:parentActivityName=".Setup_3_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Setup_3_Activity" />
+        </activity>
+        <activity
+            android:name=".Setup_5_Activity"
+            android:label="@string/title_activity_setup_5_"
+            android:parentActivityName=".Setup_4_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Setup_4_Activity" />
+        </activity>
+        <activity
+            android:name=".Setup_6_Activity"
+            android:label="@string/title_activity_setup_6_"
+            android:parentActivityName=".Setup_5_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Setup_5_Activity" />
+        </activity>
+        <activity
+            android:name=".Setup_7_Activity"
+            android:label="@string/title_activity_setup_7_"
+            android:parentActivityName=".Setup_6_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Setup_6_Activity" />
+        </activity>
+        <activity
+            android:name=".Main_Activity"
+            android:label="@string/title_activity_main_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Purchase_0_Activity"
+            android:label="@string/title_activity_purchase_0_"
+            android:parentActivityName=".Main_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Main_Activity" />
+        </activity>
+        <activity
+            android:name=".Lock_Screen_Activity"
+            android:label="@string/title_activity_lock__screen_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Status_0_Activity"
+            android:label="@string/title_activity_status_0_"
+            android:parentActivityName=".Main_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Main_Activity" />
         </activity>
     </application>
 

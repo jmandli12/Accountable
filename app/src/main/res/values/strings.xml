@@ -1,3 +1,66 @@
 <resources>
     <string name="app_name">Accountable</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_setup_0_">Setup_0_Activity</string>
+    <string name="title_activity_setup_1_">Setup_1_Activity</string>
+    <string name="title_activity_setup_2_">Setup_2_Activity</string>
+    <string name="title_activity_setup_3_">Setup_3_Activity</string>
+    <string name="title_activity_setup_4_">Setup_4_Activity</string>
+    <string name="title_activity_setup_5_">Setup_5_Activity</string>
+    <string name="title_activity_setup_6_">Setup_6_Activity</string>
+    <string name="title_activity_setup_7_">Setup_7_Activity</string>
+    <string name="title_activity_main_">Main_Activity</string>
+    <string name="title_activity_purchase_0_">Purchase_0_Activity</string>
+    <string-array name="budget_array">
+        <item>(Select One)</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+    <string-array name="time_period_array">
+        <item>(Select One)</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+    <string-array name="unit_of_saving_array">
+        <item>(Select One)</item>
+        <item>$</item>
+        <item>% of Income</item>
+        <item>% of Savings</item>
+    </string-array>
+    <string-array name="bill_occurrence_array">
+        <item>Select One)</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+    <string-array name="pay_period_array">
+        <item>Pay Period (Pick One)</item>
+        <item>Weekly</item>
+        <item>BiWeekly</item>
+        <item>Monthly</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="income_hours_array">
+        <item>Hourly or Salary? (Pick One)</item>
+        <item>Hourly</item>
+        <item>Salary</item>
+    </string-array>
+    <string-array name="category_array">
+        <item>Category (Select One)</item>
+        <item>Groceries</item>
+        <item>General</item>
+        <item>Household</item>
+        <item>Transportation</item>
+        <item>Drinks</item>
+        <item>Restaurant</item>
+        <item>Entertainment</item>
+        <item>Education</item>
+        <item>Clothing</item>
+        <item>Pet</item>
+    </string-array>
+    <string name="title_activity_lock__screen_">Lock_Screen_Activity</string>
+    <string name="title_activity_status_0_">Status_0_Activity</string>
+
 </resources>
