@@ -17,7 +17,7 @@
         <item>Monthly</item>
     </string-array>
     <string-array name="time_period_array">
-        <item>(Select One)</item>
+        <item>(Press to Select)</item>
         <item>Daily</item>
         <item>Weekly</item>
         <item>Monthly</item>
@@ -30,20 +30,20 @@
         <item>% of Savings</item>
     </string-array>
     <string-array name="bill_occurrence_array">
-        <item>Select One)</item>
+        <item>Occurrence (Press to Select)</item>
         <item>Weekly</item>
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
     <string-array name="pay_period_array">
-        <item>Pay Period (Pick One)</item>
+        <item>Pay Period (Select One)</item>
         <item>Weekly</item>
         <item>BiWeekly</item>
         <item>Monthly</item>
         <item>Other</item>
     </string-array>
     <string-array name="income_hours_array">
-        <item>Hourly or Salary? (Pick One)</item>
+        <item>Hourly or Salary? (Select One)</item>
         <item>Hourly</item>
         <item>Salary</item>
     </string-array>

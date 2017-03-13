@@ -9,8 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 
 public class Setup_3_Activity extends AppCompatActivity {
 
@@ -29,14 +31,41 @@ public class Setup_3_Activity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+ /*       String[] bills;
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, bills);
+        ListView lv = (ListView) findViewById(R.id.billsList);
+        lv.setAdapter(arrayAdapter);*/
+
     }
 
     /*
-    Move to the next Activity
+    Move to the next Activity if no fields are filled
      */
     public void moveNext(View view) {
-        Intent intent = new Intent(this, Setup_4_Activity.class);
-        startActivity(intent);
+
+        String billName;
+        String billAmount;
+        String dueDate;
+        String occurrence;
+
+        EditText et = (EditText) findViewById(R.id.billName);
+        billName = et.getText().toString();
+        et = (EditText) findViewById(R.id.billAmount);
+        billAmount = et.getText().toString();
+        et = (EditText) findViewById(R.id.dueDate);
+        dueDate = et.getText().toString();
+        Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
+        occurrence = spinner.getSelectedItem().toString();
+
+        if (billName.equals("") && billAmount.equals("") && occurrence.equals("Occurrence (Press to Select)")) {
+            Intent intent = new Intent(this, Setup_4_Activity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Must complete adding bill", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     /*
@@ -58,9 +87,47 @@ public class Setup_3_Activity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
         occurrence = spinner.getSelectedItem().toString();
 
-        Toast.makeText(this, "BillName: " + billName + " BillAmount: " + billAmount + " DueDate:" + dueDate + " Occurrence: " + occurrence, Toast.LENGTH_LONG).show();
+        boolean isValidAmount = billAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
 
-        Snackbar.make(view, "Added Bill", Snackbar.LENGTH_LONG)
+        if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("Occurrence (Press to Select)")) {
+            Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
+            et.setText("");
+
+        } else {
+            if (billName.length() == 0) {
+                Toast.makeText(this, "Bill name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            if (billAmount.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Bill amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                //TODO:Check for invalid leading 0 in dollar side?
+            }
+            if (!isValidDate) {
+                Toast.makeText(this, "Due date must be in the format mm/dd/year from this current date or onwards", Toast.LENGTH_LONG).show();
+            }
+            if (occurrence.equals("Occurrence (Press to Select)")) {
+                Toast.makeText(this, "Occurrence must be selected", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public void billAmountHelp(View view) {
+        Snackbar.make(view, "Amount the bill is worth \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void billNameHelp(View view) {
+        Snackbar.make(view, "Name of the Bill ('Electric','Phone', etc) \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void occurrenceHelp(View view) {
+        Snackbar.make(view, "How often do you pay the Bill. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void dueDateHelp(View view) {
+        Snackbar.make(view, "When the bill is due. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 }

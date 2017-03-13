@@ -39,10 +39,12 @@ public class Setup_5_Activity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.budgetSpinner);
         String budget = spinner.getSelectedItem().toString();
 
-        Toast.makeText(this, "Budget Selected: " + budget, Toast.LENGTH_LONG).show();
-
-
-        Intent intent = new Intent(this, Setup_6_Activity.class);
-        startActivity(intent);
+        if (!budget.equals("(Select One)")) {
+            Toast.makeText(this, "Budget Selected: " + budget, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, Setup_6_Activity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Must select a budget", Toast.LENGTH_LONG).show();
+        }
     }
 }
