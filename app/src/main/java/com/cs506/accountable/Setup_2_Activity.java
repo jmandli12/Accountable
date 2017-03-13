@@ -43,12 +43,16 @@ public class Setup_2_Activity extends AppCompatActivity {
 
             // Move onto next Activity
             Intent intent = new Intent(this, Setup_3_Activity.class);
+            intent.putExtra("name", accountName);
+            intent.putExtra("balance", accountBalance);
             startActivity(intent);
+            
         }
         else {
             if (accountName.length() == 0) {
                 Toast.makeText(this, "Account Name cannot be empty", Toast.LENGTH_LONG).show();
             }
+            //TODO: ALLOW USER TO START WITH NEGATIVE BALANCE
             if (accountBalance.length() < 3 || !isValidAmount) {
                 Toast.makeText(this, "Account Balance must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 //TODO:Check for invalid leading 0 in dollar side?
