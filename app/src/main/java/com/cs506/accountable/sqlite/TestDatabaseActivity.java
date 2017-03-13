@@ -8,20 +8,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import com.cs506.accountable.Main_Activity;
 import com.cs506.accountable.R;
 import com.cs506.accountable.dto.Comment;
 
 /**
  * Created by tkobl on 3/8/2017.
- */
+ * */
 
 public class TestDatabaseActivity extends ListActivity {
-    private CommentsDataSource datasource;
+    private TestDatabaseActivity db;
+    public Main_Activity ma;
+    public CommentsDataSource datasource;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_main_);
 
         datasource = new CommentsDataSource(this);
         datasource.open();
@@ -30,9 +33,10 @@ public class TestDatabaseActivity extends ListActivity {
 
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
-        ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(this,
+        ArrayAdapter<Comment> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
+        this.db = this;
     }
 
     // Will be called via the onClick attribute
