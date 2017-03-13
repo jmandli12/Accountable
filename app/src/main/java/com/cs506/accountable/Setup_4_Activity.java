@@ -124,12 +124,22 @@ public class Setup_4_Activity extends AppCompatActivity {
     }
 
     public void incomeNameHelp(View view) {
-        Snackbar.make(view, "Name of your Source of Income ('Work', 'Company_Name', 'Shoveling Snow', etc)", Snackbar.LENGTH_LONG)
+        Snackbar.make(view, "Name of your Source of Income ('Work', 'Company', etc)\n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 
     public void incomeAmountHelp(View view) {
-        Snackbar.make(view, "Amount of Money on Paycheck (Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(view, "Amount of Money on Paycheck \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void payPeriodHelp(View view) {
+        Snackbar.make(view, "How often you get a Paychek \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void workKindHelp(View view) {
+        Snackbar.make(view, "Do you work Hourly or Salary\n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 }

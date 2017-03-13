@@ -30,13 +30,13 @@
         <item>% of Savings</item>
     </string-array>
     <string-array name="bill_occurrence_array">
-        <item>(Press to Select)</item>
+        <item>Occurrence (Press to Select)</item>
         <item>Weekly</item>
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
     <string-array name="pay_period_array">
-        <item>Pay Period (Pick One)</item>
+        <item>Pay Period (Select One)</item>
         <item>Weekly</item>
         <item>BiWeekly</item>
         <item>Monthly</item>
