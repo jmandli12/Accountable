@@ -10,6 +10,11 @@ public class User {
     private String username;
     private int accountID;
     private int jobID;
+    private boolean first_time_open;
+
+    public void setFirst_time_open(boolean bool) { first_time_open = bool; }
+
+    public boolean getFirst_time_open() {return first_time_open; }
 
     public long getId() {
         return id;
