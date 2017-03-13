@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,6 +30,13 @@ public class Setup_3_Activity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+ /*       String[] bills;
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, bills);
+        ListView lv = (ListView) findViewById(R.id.billsList);
+        lv.setAdapter(arrayAdapter);*/
+
     }
 
     /*
@@ -58,9 +66,26 @@ public class Setup_3_Activity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
         occurrence = spinner.getSelectedItem().toString();
 
-        Toast.makeText(this, "BillName: " + billName + " BillAmount: " + billAmount + " DueDate:" + dueDate + " Occurrence: " + occurrence, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate:" + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
+}
 
-        Snackbar.make(view, "Added Bill", Snackbar.LENGTH_LONG)
+    public void billAmountHelp(View view) {
+        Snackbar.make(view, "Amount the bill is worth \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void billNameHelp(View view) {
+        Snackbar.make(view, "Name of the Bill ('Electric','Phone', etc) \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void occurrenceHelp(View view) {
+        Snackbar.make(view, "How often do you pay the Bill. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void dueDateHelp(View view) {
+        Snackbar.make(view, "When the bill is due. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 }
