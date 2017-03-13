@@ -30,11 +30,16 @@ public class Setup_0_Activity extends AppCompatActivity {
         // Save the Entered PIN
 
 
-        Toast.makeText(this, "PIN: " + pinString, Toast.LENGTH_LONG).show();
-
-        // Move to next Screen
-        Intent intent = new Intent(this, Setup_1_Activity.class);
-        startActivity(intent);
+        //Toast.makeText(this, "PIN: " + pinString, Toast.LENGTH_LONG).show();
+        if(pinString.length() == 4) {
+            // Move to next Screen
+            Intent intent = new Intent(this, Setup_1_Activity.class);
+            intent.putExtra("unconfirmedPIN", pinString);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this, "PIN must be 4 digits long", Toast.LENGTH_LONG).show();
+        }
     }
 }
 

@@ -29,20 +29,30 @@ public class Setup_2_Activity extends AppCompatActivity {
     public void addAccount(View view) {
 
         String accountName;
-        String accountValue;
+        String accountBalance;
 
         EditText et = (EditText) findViewById(R.id.accountName);
         accountName = et.getText().toString();
-        et = (EditText) findViewById(R.id.accountValue);
-        accountValue = et.getText().toString();
+        et = (EditText) findViewById(R.id.accountBalance);
+        accountBalance = et.getText().toString();
+        boolean isValidAmount = accountBalance.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+        if (isValidAmount && accountName.length() > 0 && accountBalance.length() > 2) {
+            Toast.makeText(this, "Account Name: " + accountName + " Account Balance: " + accountBalance, Toast.LENGTH_LONG).show();
 
-        Toast.makeText(this, "Account Name: " + accountName + " Account Value: " + accountValue, Toast.LENGTH_LONG).show();
+            //Save Bank Info
 
-        //Save Bank Info
-
-        // Move onto next Activity
-        Intent intent = new Intent(this, Setup_3_Activity.class);
-        startActivity(intent);
-
+            // Move onto next Activity
+            Intent intent = new Intent(this, Setup_3_Activity.class);
+            startActivity(intent);
+        }
+        else {
+            if (accountName.length() == 0) {
+                Toast.makeText(this, "Account Name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            if (accountBalance.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Account Balance must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                //TODO:Check for invalid leading 0 in dollar side?
+            }
+        }
     }
 }
