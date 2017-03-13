@@ -70,7 +70,7 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
 
-        if (isValidAmount && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("Hourly or Salary? (Pick One)") && !payPeriod.equals("Pay Period (Pick One)")) {
+        if (isValidAmount && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
             Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hoursOrSalary + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
         }
         else {
@@ -82,11 +82,11 @@ public class Setup_4_Activity extends AppCompatActivity {
                 Toast.makeText(this, "Income amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 //TODO:Check for invalid leading 0 in dollar side?
             }
-            if (hoursOrSalary.equals("Hourly or Salary? (Pick One)")) {
-                Toast.makeText(this, "Method of pay must be selected", Toast.LENGTH_LONG).show();
-            }
-            if (payPeriod.equals("Pay Period (Pick One)")) {
+            if (payPeriod.equals("Pay Period (Select One)")) {
                 Toast.makeText(this, "Pay period must be selected", Toast.LENGTH_LONG).show();
+            }
+            if (hoursOrSalary.equals("Hourly or Salary? (Select One)")) {
+                Toast.makeText(this, "Method of pay must be selected", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -115,7 +115,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = spinner.getSelectedItem().toString();
 
-        if (incomeName.equals("") && incomeAmount.equals("") && hoursOrSalary.equals("Hourly or Salary? (Pick One)") && payPeriod.equals("Pay Period (Pick One)")) {
+        if (incomeName.equals("") && incomeAmount.equals("") && hoursOrSalary.equals("Hourly or Salary? (Select One)") && payPeriod.equals("Pay Period (Select One)")) {
             Intent intent = new Intent(this, Setup_5_Activity.class);
             startActivity(intent);
         } else {
@@ -134,7 +134,7 @@ public class Setup_4_Activity extends AppCompatActivity {
     }
 
     public void payPeriodHelp(View view) {
-        Snackbar.make(view, "How often you get a Paychek \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(view, "How often you get a Paycheck \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 

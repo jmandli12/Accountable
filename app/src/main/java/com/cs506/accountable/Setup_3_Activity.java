@@ -59,7 +59,7 @@ public class Setup_3_Activity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
         occurrence = spinner.getSelectedItem().toString();
 
-        if (billName.equals("") && billAmount.equals("") && occurrence.equals("(Press to Select)")) {
+        if (billName.equals("") && billAmount.equals("") && occurrence.equals("Occurrence (Press to Select)")) {
             Intent intent = new Intent(this, Setup_4_Activity.class);
             startActivity(intent);
         } else {
@@ -88,14 +88,13 @@ public class Setup_3_Activity extends AppCompatActivity {
         occurrence = spinner.getSelectedItem().toString();
 
         boolean isValidAmount = billAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
-//      boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|)");
+        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
 
-        if (isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("(Press to Select)")) {
-            Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate:" + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
-        }
+        if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("Occurrence (Press to Select)")) {
+            Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
+            et.setText("");
 
-        }
-        else {
+        } else {
             if (billName.length() == 0) {
                 Toast.makeText(this, "Bill name cannot be empty", Toast.LENGTH_LONG).show();
             }
@@ -103,10 +102,14 @@ public class Setup_3_Activity extends AppCompatActivity {
                 Toast.makeText(this, "Bill amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 //TODO:Check for invalid leading 0 in dollar side?
             }
-            if (occurrence.equals("(Press to Select)")) {
+            if (!isValidDate) {
+                Toast.makeText(this, "Due date must be in the format mm/dd/year from this current date or onwards", Toast.LENGTH_LONG).show();
+            }
+            if (occurrence.equals("Occurrence (Press to Select)")) {
                 Toast.makeText(this, "Occurrence must be selected", Toast.LENGTH_LONG).show();
             }
         }
+    }
 
     public void billAmountHelp(View view) {
         Snackbar.make(view, "Amount the bill is worth \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)

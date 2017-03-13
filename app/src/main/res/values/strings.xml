@@ -43,7 +43,7 @@
         <item>Other</item>
     </string-array>
     <string-array name="income_hours_array">
-        <item>Hourly or Salary? (Pick One)</item>
+        <item>Hourly or Salary? (Select One)</item>
         <item>Hourly</item>
         <item>Salary</item>
     </string-array>
