@@ -13,7 +13,7 @@ public class User {
     private String username;
     private int accountID;
     private int jobID;
-    private boolean firstTime;
+    private int firstTime;
 
     public User() {
         id = 0;
@@ -23,11 +23,11 @@ public class User {
         username = "";
         accountID = 0;
         jobID = 0;
-        firstTime = true;
+        firstTime = 0;
     }
 
     public User(long ID, int PIN_HASH, int PIN, String SALT, String USERNAME, int ACCOUNTID, int JOBID,
-                boolean FIRSTTIME) {
+                int FIRSTTIME) {
         id = ID;
         pin_hash = PIN_HASH;
         pin = PIN;
@@ -80,8 +80,8 @@ public class User {
 
     public void setSalt(String salt) {this.salt = salt;}
 
-    public boolean getFirstTime() {return this.firstTime;}
+    public int getFirstTime() {return this.firstTime;}
 
-    public void setFirstTime(boolean firstTime) {this.firstTime = firstTime;}
+    public void setFirstTime(int firstTime) {this.firstTime = firstTime;}
 
 }

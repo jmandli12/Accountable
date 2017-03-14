@@ -24,18 +24,30 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SALT = "salt";
     public static final String COLUMN_FIRSTTIME = "first_time";
 
+    public static final String TABLE_BILL = "bills";
+    public static final String COLUMN_BILLID = "bill_id";
+    public static final String COLUMN_BILLNAME = "bill_name";
+    public static final String COLUMN_BILLAMT = "bill_amt";
+    public static final String COLUMN_DUEDTE = "due_dte";
+    public static final String COLUMN_OCCURANCERTE = "occurance_rte";
+
     private static final String DATABASE_NAME = "accountable.db";
     private static final int DATABASE_VERSION = 1;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table "
             + TABLE_COMMENTS + "( " + COLUMN_ID
-            + " integer primary key autoincrement, " + COLUMN_COMMENT
-            + " text not null); create table " + TABLE_USERS + "( " + COLUMN_USERID + " integer"
+            + " integer primary key autoincrement, " + COLUMN_COMMENT + " text not null);"
+            + " create table " + TABLE_USERS + "( " + COLUMN_USERID + " integer"
             + " primary key autoincrement, " + COLUMN_USERNAME + " text, " + COLUMN_JOBID
             + " integer key autoincrement, " + COLUMN_ACCOUNTID + " integer key autoincrement, "
             + COLUMN_PINHASH + " integer, " + COLUMN_PIN + " integer, " + COLUMN_SALT +" integer, "
-            + COLUMN_FIRSTTIME + " boolean);";
+            + COLUMN_FIRSTTIME + " boolean);"
+            + " create table " + TABLE_BILL + "( " + COLUMN_BILLID
+            + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_ACCOUNTID + " integer references account_id," + COLUMN_BILLNAME + " text, "
+            + COLUMN_BILLAMT + " integer, " + COLUMN_DUEDTE + " date, " + COLUMN_OCCURANCERTE
+            + " integer);";
 
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
