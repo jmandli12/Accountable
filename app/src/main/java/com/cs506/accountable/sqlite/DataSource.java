@@ -78,7 +78,7 @@ public class DataSource {
 
     public Object retrieve(String str, String[] args) {
         try {
-            ContentValues values = new ContentValues();
+            ContentValues values;
             switch (str.toLowerCase()) {
                 case "user":
                     User user = new User(Long.parseLong(args[0]), Integer.parseInt(args[1]),
