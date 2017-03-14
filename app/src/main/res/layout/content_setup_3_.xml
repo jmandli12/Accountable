@@ -90,6 +90,7 @@
             android:layout_weight="3.47"
             android:ems="10"
             android:hint="Due Date (mm/dd/year)"
+            android:maxLength="10"
             android:inputType="date" />
 
         <ImageButton

@@ -55,26 +55,27 @@ public class Purchase_0_Activity extends AppCompatActivity {
         String comments;
 
 
-        EditText et = (EditText) findViewById(R.id.purchasePrice);
-        price = et.getText().toString();
+        EditText purchasePrice = (EditText) findViewById(R.id.purchasePrice);
+        price = purchasePrice.getText().toString();
 
-        et = (EditText) findViewById(R.id.purchaseDate);
-        date = et.getText().toString();
+        EditText purchaseDate = (EditText) findViewById(R.id.purchaseDate);
+        date = purchaseDate.getText().toString();
 
-        et = (EditText) findViewById(R.id.purchaseTime);
-        time = et.getText().toString();
+        EditText purchaseTime = (EditText) findViewById(R.id.purchaseTime);
+        time = purchaseTime.getText().toString();
 
-        et = (EditText) findViewById(R.id.purchaseLocation);
-        location = et.getText().toString();
+        EditText purchaseLocation = (EditText) findViewById(R.id.purchaseLocation);
+        location = purchaseLocation.getText().toString();
 
-        et = (EditText) findViewById(R.id.purchaseComments);
-        comments = et.getText().toString();
+        EditText purchaseComments = (EditText) findViewById(R.id.purchaseComments);
+        comments = purchaseComments.getText().toString();
 
-        Spinner spinner = (Spinner) findViewById(R.id.categorySpinner);
-        category = spinner.getSelectedItem().toString();
+        Spinner categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
+        category = categorySpinner.getSelectedItem().toString();
 
         boolean isValidAmount = price.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
-
+        boolean isValidDate = date.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
+        boolean isValidTime = time.matches("((0[1-9])|(1[0-2])):([0-5][0-9]) ((AM)|(PM))");
         /*
 
         doubleAmount = Double.parseDouble(purchasePrice);
@@ -83,22 +84,60 @@ public class Purchase_0_Activity extends AppCompatActivity {
         //Save Income
         //^This will be its own method
 
-        if (isValidAmount && price.length() > 2 && !category.equals("Category (Select One)")) {
+        if (isValidTime && isValidDate && isValidAmount && price.length() > 2 && !category.equals("Category (Select One)")) {
 
-            Toast.makeText(this,"Purchase Price: "+price+"\nDate/Time: "+date+" "+time+"\nCategory: "+category+"\nLocation: "+location+"\nComments: "+comments,Toast.LENGTH_LONG).show();
+            if(!price.isEmpty() && !date.isEmpty() && !time.isEmpty() && !category.isEmpty() && !location.isEmpty() && !comments.isEmpty()){
+                Toast.makeText(this,"Purchase Price: "+price+"\nDate/Time: "+date+" "+time+"\nCategory: "+category+"\nLocation: "+location+"\nComments: "+comments,Toast.LENGTH_LONG).show();
+            } else if (!price.isEmpty() && !date.isEmpty() && !time.isEmpty() && !category.isEmpty() && !location.isEmpty()){
+                Toast.makeText(this,"Purchase Price: "+price+"\nDate/Time: "+date+" "+time+"\nCategory: "+category+"\nLocation: "+location,Toast.LENGTH_LONG).show();
+            } else if (!price.isEmpty() && !date.isEmpty() && !time.isEmpty() && !category.isEmpty() && !comments.isEmpty()){
+                Toast.makeText(this,"Purchase Price: "+price+"\nDate/Time: "+date+" "+time+"\nCategory: "+category+"\nComments: "+comments,Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this,"Purchase Price: "+price+"\nDate/Time: "+date+" "+time+"\nCategory: "+category,Toast.LENGTH_LONG).show();
+            }
 
-            Intent intent = new Intent(this, Main_Activity.class);
-            startActivity(intent);
+            purchasePrice.setText("");
+            purchaseDate.setText("");
+            purchaseTime.setText("");
+            purchaseLocation.setText("");
+            purchaseComments.setText("");
+            categorySpinner.setSelection(0);
+
+            //Set the date and time so the user does not have to
+            EditText date2 = (EditText)findViewById(R.id.purchaseDate);
+            EditText time2 = (EditText)findViewById(R.id.purchaseTime);
+            Date d = new Date();
+            String pdate = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
+            String ptime = (String) DateFormat.format("hh:mm a", d.getTime());
+            date2.setText(pdate);
+            time2.setText(ptime);
+
+
 
         } else {
             if (price.length() < 3 || !isValidAmount) {
                 Toast.makeText(this, "Price amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 //TODO:Check for invalid leading 0 in dollar side?
             }
+            if (!isValidDate) {
+                Toast.makeText(this, "Purchase date must be in the format of a valid mm/dd/year", Toast.LENGTH_LONG).show();
+            }
+            if (!isValidTime){
+                Toast.makeText(this, "Purchase time must be in the format of a valid {hr}:{min}", Toast.LENGTH_LONG).show();
+            }
             if (category.equals("Category (Select One)")) {
                 Toast.makeText(this, "Category must be selected", Toast.LENGTH_LONG).show();
             }
         }
 
+    }
+
+    /*
+    Move to the next Activity if no fields are filled
+     */
+    public void backToHome(View view) {
+
+        Intent intent = new Intent(this, Main_Activity.class);
+        startActivity(intent);
     }
 }

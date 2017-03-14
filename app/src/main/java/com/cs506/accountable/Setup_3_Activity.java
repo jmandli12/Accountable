@@ -59,7 +59,7 @@ public class Setup_3_Activity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
         occurrence = spinner.getSelectedItem().toString();
 
-        if (billName.equals("") && billAmount.equals("") && occurrence.equals("Occurrence (Press to Select)")) {
+        if (billName.equals("") && billAmount.equals("") && dueDate.equals("") && occurrence.equals("Occurrence (Press to Select)")) {
             Intent intent = new Intent(this, Setup_4_Activity.class);
             startActivity(intent);
         } else {
@@ -78,12 +78,12 @@ public class Setup_3_Activity extends AppCompatActivity {
         String dueDate;
         String occurrence;
 
-        EditText et = (EditText) findViewById(R.id.billName);
-        billName = et.getText().toString();
-        et = (EditText) findViewById(R.id.billAmount);
-        billAmount = et.getText().toString();
-        et = (EditText) findViewById(R.id.dueDate);
-        dueDate = et.getText().toString();
+        EditText bill = (EditText) findViewById(R.id.billName);
+        billName = bill.getText().toString();
+        EditText amount = (EditText) findViewById(R.id.billAmount);
+        billAmount = amount.getText().toString();
+        EditText date = (EditText) findViewById(R.id.dueDate);
+        dueDate = date.getText().toString();
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
         occurrence = spinner.getSelectedItem().toString();
 
@@ -91,8 +91,11 @@ public class Setup_3_Activity extends AppCompatActivity {
         boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
 
         if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("Occurrence (Press to Select)")) {
-            Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
-            et.setText("");
+            Toast.makeText(this, "(Added Bill)" + "\nBillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
+            amount.setText("");
+            bill.setText("");
+            date.setText("");
+            spinner.setSelection(0);
 
         } else {
             if (billName.length() == 0) {
