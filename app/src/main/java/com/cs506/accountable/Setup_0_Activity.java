@@ -41,5 +41,10 @@ public class Setup_0_Activity extends AppCompatActivity {
             Toast.makeText(this, "PIN must be 4 digits long", Toast.LENGTH_LONG).show();
         }
     }
+
+    public void skipButton(View view) {
+        Intent intent = new Intent(this, Setup_2_Activity.class);
+        startActivity(intent);
+    }
 }
 

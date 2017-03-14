@@ -40,4 +40,16 @@
         android:onClick="buttonClickHandler"
         android:text="Submit"
         android:textSize="24dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="75dp" />
+
+    <Button
+        android:id="@+id/skipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:onClick="skipButton"
+        android:text="Skip" />
 </LinearLayout>
