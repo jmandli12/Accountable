@@ -19,7 +19,8 @@ public class Setup_2_Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Accountable Setup");
         setSupportActionBar(toolbar);
-
+        Bundle prev = getIntent().getExtras();
+        // unconfirmedPIN = prev.getString("unconfirmedPIN");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

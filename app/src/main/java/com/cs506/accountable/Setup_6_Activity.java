@@ -52,6 +52,9 @@ public class Setup_6_Activity extends AppCompatActivity {
         Toast.makeText(this, "TimePeriod Selected: " + timePeriod + " UnitSaving Selected: " + unitSaving, Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, Setup_7_Activity.class);
+
+        // TODO:
+        //create new user with pushed info, if fails, popup notification and go back to beginnning
         startActivity(intent);
     }
 }

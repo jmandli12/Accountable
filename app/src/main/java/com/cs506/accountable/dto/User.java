@@ -15,6 +15,29 @@ public class User {
     private int jobID;
     private boolean firstTime;
 
+    public User() {
+        id = 0;
+        pin_hash = 0;
+        pin = 0;
+        salt = "";
+        username = "";
+        accountID = 0;
+        jobID = 0;
+        firstTime = true;
+    }
+
+    public User(long ID, int PIN_HASH, int PIN, String SALT, String USERNAME, int ACCOUNTID, int JOBID,
+                boolean FIRSTTIME) {
+        id = ID;
+        pin_hash = PIN_HASH;
+        pin = PIN;
+        salt = SALT;
+        username = USERNAME;
+        accountID = ACCOUNTID;
+        jobID = JOBID;
+        firstTime = FIRSTTIME;
+    }
+
     public long getId() {
         return id;
     }
