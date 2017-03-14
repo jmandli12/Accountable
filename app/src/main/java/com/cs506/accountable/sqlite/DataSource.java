@@ -15,14 +15,14 @@ import com.cs506.accountable.dto.Comment;
  * Created by tkobl on 3/8/2017.
  */
 
-public class CommentsDataSource {
+public class DataSource {
     // Database fields
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
     private String[] allColumns = { SQLiteHelper.COLUMN_ID,
             SQLiteHelper.COLUMN_COMMENT };
 
-    public CommentsDataSource(Context context) {
+    public DataSource(Context context) {
         dbHelper = new SQLiteHelper(context);
     }
 

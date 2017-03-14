@@ -19,6 +19,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_JOBID = "job_id";
     public static final String COLUMN_ACCOUNTID = "account_id";
+    public static final String COLUMN_PINHASH = "pin_hash";
+    public static final String COLUMN_PIN = "pin";
+    public static final String COLUMN_SALT = "salt";
 
     private static final String DATABASE_NAME = "accountable.db";
     private static final int DATABASE_VERSION = 1;
@@ -29,7 +32,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + " integer primary key autoincrement, " + COLUMN_COMMENT
             + " text not null); create table " + TABLE_USERS + "( " + COLUMN_USERID + " integer"
             + " primary key autoincrement, " + COLUMN_USERNAME + " text, " + COLUMN_JOBID
-            + " integer key autoincrement, " + COLUMN_ACCOUNTID + " integer key autoincrement);";
+            + " integer key autoincrement, " + COLUMN_ACCOUNTID + " integer key autoincrement, "
+            + "); create table " + TABLE_BILL;
 
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

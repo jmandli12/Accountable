@@ -49,7 +49,6 @@
         android:onClick="lockScreen"/>
 
     <Button
-
         android:id="@+id/addUser"
         android:layout_width="119dp"
         android:layout_height="wrap_content"
