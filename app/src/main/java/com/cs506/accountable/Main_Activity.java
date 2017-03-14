@@ -12,11 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.cs506.accountable.sqlite.TestDatabaseActivity;
 
 public class Main_Activity extends AppCompatActivity {
 
-    TestDatabaseActivity db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -28,11 +26,6 @@ public class Main_Activity extends AppCompatActivity {
         toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
 
-        db.onCreate(savedInstanceState);
-    }
-
-    public void onClick(View view) {
-        db.onClick(view);
     }
 
     @Override

@@ -12,7 +12,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_COMMENTS = "comments";
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_COMMENT = "comment";
 
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_USERID = "user_id";
@@ -24,12 +23,30 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SALT = "salt";
     public static final String COLUMN_FIRSTTIME = "first_time";
 
-    public static final String TABLE_BILL = "bills";
+    public static final String TABLE_BILLS = "bills";
     public static final String COLUMN_BILLID = "bill_id";
     public static final String COLUMN_BILLNAME = "bill_name";
     public static final String COLUMN_BILLAMT = "bill_amt";
     public static final String COLUMN_DUEDTE = "due_dte";
     public static final String COLUMN_OCCURANCERTE = "occurance_rte";
+
+    public static final String TABLE_ACCOUNTS = "accounts";
+    public static final String COLUMN_ACCOUNTNAME = "account_name";
+    public static final String COLUMN_BALANCE = "balance";
+
+    public static final String TABLE_INCOMES = "incomes";
+    public static final String COLUMN_INCOMEID = "income_id";
+    public static final String COLUMN_INCOMENAME = "income_name";
+    public static final String COLUMN_PAYPERIOD = "pay_period";
+    public static final String COLUMN_HOURS = "hours";
+
+    public static final String TABLE_PURCHASES = "purchases";
+    public static final String COLUMN_PURCHASEID = "purchase_id";
+    public static final String COLUMN_PRICE = "price";
+    public static final String COLUMN_DATETIME = "datetime";
+    public static final String COLUMN_CATEGORY = "category";
+    public static final String COLUMN_LOCATION = "location";
+    public static final String COLUMN_COMMENT = "comment";
 
     private static final String DATABASE_NAME = "accountable.db";
     private static final int DATABASE_VERSION = 1;
@@ -43,11 +60,23 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + " integer key autoincrement, " + COLUMN_ACCOUNTID + " integer key autoincrement, "
             + COLUMN_PINHASH + " integer, " + COLUMN_PIN + " integer, " + COLUMN_SALT +" integer, "
             + COLUMN_FIRSTTIME + " boolean);"
-            + " create table " + TABLE_BILL + "( " + COLUMN_BILLID
+            + " create table " + TABLE_BILLS + "( " + COLUMN_BILLID
             + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id," + COLUMN_BILLNAME + " text, "
             + COLUMN_BILLAMT + " integer, " + COLUMN_DUEDTE + " date, " + COLUMN_OCCURANCERTE
-            + " integer);";
+            + " integer);"
+            + " create table " + TABLE_ACCOUNTS + "("+ COLUMN_ACCOUNTID
+            + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_ACCOUNTNAME + " text," + COLUMN_BALANCE + " double);"
+            + " create table " + TABLE_INCOMES + "("+ COLUMN_INCOMEID
+            + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_INCOMENAME + " text, "
+            + COLUMN_PAYPERIOD + " text, " + COLUMN_HOURS + " double);"
+            + " create table " + TABLE_PURCHASES + "("+ COLUMN_PURCHASEID
+            + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_PRICE + " double, "
+            + COLUMN_DATETIME + " text, " + COLUMN_CATEGORY + " text, " + COLUMN_LOCATION
+            + " text, " + COLUMN_COMMENT + " text);";
 
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
