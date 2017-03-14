@@ -7,14 +7,36 @@ package com.cs506.accountable.dto;
 public class User {
 
     private long id;
+    private int pin_hash;
+    private int pin;
+    private String salt;
     private String username;
     private int accountID;
     private int jobID;
-    private boolean first_time_open;
+    private boolean firstTime;
 
-    public void setFirst_time_open(boolean bool) { first_time_open = bool; }
+    public User() {
+        id = 0;
+        pin_hash = 0;
+        pin = 0;
+        salt = "";
+        username = "";
+        accountID = 0;
+        jobID = 0;
+        firstTime = true;
+    }
 
-    public boolean getFirst_time_open() {return first_time_open; }
+    public User(long ID, int PIN_HASH, int PIN, String SALT, String USERNAME, int ACCOUNTID, int JOBID,
+                boolean FIRSTTIME) {
+        id = ID;
+        pin_hash = PIN_HASH;
+        pin = PIN;
+        salt = SALT;
+        username = USERNAME;
+        accountID = ACCOUNTID;
+        jobID = JOBID;
+        firstTime = FIRSTTIME;
+    }
 
     public long getId() {
         return id;
@@ -44,13 +66,22 @@ public class User {
         return jobID;
     }
 
-    public void setJobID(int jobID) {
-        this.jobID = jobID;
-    }
+    public void setJobID(int jobID) {this.jobID = jobID;}
 
-    // Will be used by the ArrayAdapter in the ListView
-    @Override
-    public String toString() {
-        return username;
-    }
+    public int getPin_hash() {return this.pin_hash;}
+
+    public void setPin_hash(int pin_hash) {this.pin_hash = pin_hash;}
+
+    public int getPin() {return this.pin;}
+
+    public void setPin(int pin) {this.pin = pin;}
+
+    public String getSalt() {return this.salt;}
+
+    public void setSalt(String salt) {this.salt = salt;}
+
+    public boolean getFirstTime() {return this.firstTime;}
+
+    public void setFirstTime(boolean firstTime) {this.firstTime = firstTime;}
+
 }

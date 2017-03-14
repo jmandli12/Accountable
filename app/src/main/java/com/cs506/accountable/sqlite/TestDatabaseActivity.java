@@ -19,14 +19,14 @@ import com.cs506.accountable.dto.Comment;
 public class TestDatabaseActivity extends ListActivity {
     private TestDatabaseActivity db;
     public Main_Activity ma;
-    public CommentsDataSource datasource;
+    public DataSource datasource;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main_);
 
-        datasource = new CommentsDataSource(this);
+        datasource = new DataSource(this);
         datasource.open();
 
         List<Comment> values = datasource.getAllComments();
@@ -36,7 +36,6 @@ public class TestDatabaseActivity extends ListActivity {
         ArrayAdapter<Comment> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
-        this.db = this;
     }
 
     // Will be called via the onClick attribute

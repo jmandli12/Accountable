@@ -39,6 +39,7 @@ public class Setup_1_Activity extends AppCompatActivity {
 
             //Move onto next screen
             Intent intent = new Intent(this, Setup_2_Activity.class);
+
             startActivity(intent);
             finish();
         }
