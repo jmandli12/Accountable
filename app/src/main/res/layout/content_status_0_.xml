@@ -22,11 +22,11 @@
         android:gravity="center"
         android:paddingBottom="50dp"
         android:paddingTop="20dp"
-        android:text="Your Allowence for Today"
+        android:text="Your Allowance for Today"
         android:textSize="30dp" />
 
     <TextView
-        android:id="@+id/dailyAllowence"
+        android:id="@+id/dailyAllowance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

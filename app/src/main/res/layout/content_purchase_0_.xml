@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:hint="Date"
             android:ems="10"
+            android:maxLength="10"
             android:inputType="date" />
 
         <EditText
@@ -81,7 +82,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Location" />
+        android:hint="Location (Optional)" />
 
     <EditText
         android:id="@+id/purchaseComments"
@@ -89,7 +90,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Comments" />
+        android:hint="Comments (Optional)" />
 
     <Button
         android:id="@+id/button3"
@@ -98,5 +99,13 @@
         android:textSize="24dp"
         android:text="Add Purchase"
         android:onClick="addPurchase"/>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:text="Back to Home"
+        android:onClick="backToHome"/>
 
 </LinearLayout>
