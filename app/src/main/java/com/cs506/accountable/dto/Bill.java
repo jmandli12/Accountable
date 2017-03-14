@@ -1,70 +1,76 @@
 package com.cs506.accountable.dto;
 
+import java.util.Date;
+
 /**
- * Created by mberger on 3/13/2017.
+ * Created by tkobl on 3/13/2017.
  */
 
 public class Bill {
-    private String id;
-    private String userId;
-    private String accId;
     private String billName;
-    private String billAmount;
+    private int billId;
+    private int userId;
+    private int accountId;
+    private double billAmount;
     private String dueDate;
-    private String occurance;
+    private int occuranceRte;
 
     public Bill() {
-        this.id = "";
-        this.userId = "";
-        this.accId = "";
         this.billName = "";
-        this.billAmount = "";
-        this.dueDate = "";
+        this.billAmount = 0;
+        this.dueDate = null;
+        this.occuranceRte = 0;
     }
 
-    public Bill(String id, String userId, String accId, String billName, String billAmount, String dueDate, String occurance) {
-        this.id = id;
+    public Bill(int billId, int userId, int accountId, String billName, double billAmount, String dueDate, int occuranceRte) {
+        this.billId = billId;
         this.userId = userId;
-        this.accId = accId;
+        this.accountId = accountId;
         this.billName = billName;
         this.billAmount = billAmount;
         this.dueDate = dueDate;
+        this.occuranceRte = occuranceRte;
     }
 
-    public void setId(String id) { this.id = id; }
-    public String getId() { return this.id; }
+    public int getUserId() {return userId;}
 
-    public void setUserId(String userId) { this.userId = userId; }
-    public String getUserId() { return this.userId; }
+    public void setUserId(int userId) {this.userId = userId;}
 
-    public void setAccId(String accId) { this.accId = accId; }
-    public String getAccId() { return this.accId; }
+    public int getAccountId() {return accountId;}
+
+    public void setAccountId(int accountId) {this.accountId = accountId;}
+
+    public int getBillId() {return billId;}
+
+    public void setBillId(int billId) {this.billId = billId;}
 
     public void setBillName(String billName) {
         this.billName = billName;
     }
+
     public String getBillName() {
         return this.billName;
     }
 
-    public void setBillAmount(String billAmount) {
+    public void setBillAmount(double billAmount) {
         this.billAmount = billAmount;
     }
-    public String getBillAmount() {
+
+    public double getBillAmount() {
         return this.billAmount;
     }
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
+
     public String getDueDate() {
         return this.dueDate;
     }
 
-    public void setOccurance(String occurance) {
-        this.occurance = occurance;
-    }
-    public String getOccurance() {
-        return this.occurance;
+    public void setOccuranceRte(int occuranceRte) {this.occuranceRte = occuranceRte;}
+
+    public int getOccuranceRte() {
+        return this.occuranceRte;
     }
 }
