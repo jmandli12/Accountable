@@ -47,7 +47,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         String incomeName;
         String incomeAmount;
         double doubleAmount;
-        String hours;
+        String hoursOrSalary;
         String payPeriod;
 
 
@@ -57,19 +57,38 @@ public class Setup_4_Activity extends AppCompatActivity {
         incomeAmount = et.getText().toString();
 
         Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
-        hours = spinner.getSelectedItem().toString();
+        hoursOrSalary = spinner.getSelectedItem().toString();
 
         spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = spinner.getSelectedItem().toString();
 
-        doubleAmount = Double.parseDouble(incomeAmount);
+        if(!incomeAmount.isEmpty()) doubleAmount = Double.parseDouble(incomeAmount);
         //Create Object
 
         //Save Income
         //^This will be its own method
 
+        boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
 
-        Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + doubleAmount + "\nHours: " + hours + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+        if (isValidAmount && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
+            Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hoursOrSalary + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+        }
+        else {
+            if (incomeName.length() == 0) {
+                Toast.makeText(this, "Income Name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            //TODO: ALLOW USER TO START WITH NEGATIVE BALANCE
+            if (incomeAmount.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Income amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                //TODO:Check for invalid leading 0 in dollar side?
+            }
+            if (payPeriod.equals("Pay Period (Select One)")) {
+                Toast.makeText(this, "Pay period must be selected", Toast.LENGTH_LONG).show();
+            }
+            if (hoursOrSalary.equals("Hourly or Salary? (Select One)")) {
+                Toast.makeText(this, "Method of pay must be selected", Toast.LENGTH_LONG).show();
+            }
+        }
 
     }
 
@@ -77,8 +96,31 @@ public class Setup_4_Activity extends AppCompatActivity {
     Move to next Activity
      */
     public void moveNext(View view) {
-        Intent intent = new Intent(this, Setup_5_Activity.class);
-        startActivity(intent);
+
+        String incomeName;
+        String incomeAmount;
+        double doubleAmount;
+        String hoursOrSalary;
+        String payPeriod;
+
+
+        EditText et = (EditText) findViewById(R.id.incomeName);
+        incomeName = et.getText().toString();
+        et = (EditText) findViewById(R.id.incomeAmount);
+        incomeAmount = et.getText().toString();
+
+        Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
+        hoursOrSalary = spinner.getSelectedItem().toString();
+
+        spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
+        payPeriod = spinner.getSelectedItem().toString();
+
+        if (incomeName.equals("") && incomeAmount.equals("") && hoursOrSalary.equals("Hourly or Salary? (Select One)") && payPeriod.equals("Pay Period (Select One)")) {
+            Intent intent = new Intent(this, Setup_5_Activity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Must complete adding income information", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void incomeNameHelp(View view) {
@@ -92,7 +134,7 @@ public class Setup_4_Activity extends AppCompatActivity {
     }
 
     public void payPeriodHelp(View view) {
-        Snackbar.make(view, "How often you get a Paychek \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(view, "How often you get a Paycheck \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 
