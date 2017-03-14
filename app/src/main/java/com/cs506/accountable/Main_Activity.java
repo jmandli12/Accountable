@@ -73,4 +73,9 @@ public class Main_Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
 }

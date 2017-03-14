@@ -16,8 +16,13 @@ public class Lock_Screen_Activity extends AppCompatActivity {
 
         //Check to see if it is users first time running application
         boolean firstTime = true; //TODO: get this value from the database
+        boolean noPin = false; //TODO: get this value from the database
         if(firstTime){
             Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+        }
+        else if(noPin){
+            Intent intent = new Intent(this, Main_Activity.class);
             startActivity(intent);
         }
 
