@@ -58,16 +58,15 @@ public class Setup_4_Activity extends AppCompatActivity {
         String payPeriod;
 
 
-        EditText et = (EditText) findViewById(R.id.incomeName);
-        incomeName = et.getText().toString();
-        et = (EditText) findViewById(R.id.incomeAmount);
-        incomeAmount = et.getText().toString();
+        EditText name = (EditText) findViewById(R.id.incomeName);
+        incomeName = name.getText().toString();
+        EditText amount = (EditText) findViewById(R.id.incomeAmount);
+        incomeAmount = amount.getText().toString();
 
-        Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
-        hours = spinner.getSelectedItem().toString();
-
-        spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
-        payPeriod = spinner.getSelectedItem().toString();
+        Spinner hOrS = (Spinner) findViewById(R.id.hoursSpinner);
+        hoursOrSalary = hOrS.getSelectedItem().toString();
+        Spinner payPer = (Spinner) findViewById(R.id.payPeriodSpinner);
+        payPeriod = payPer.getSelectedItem().toString();
 
         if(!incomeAmount.isEmpty()) doubleAmount = Double.parseDouble(incomeAmount);
         //Create Object
@@ -79,8 +78,14 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
 
-        if (isValidAmount && incomeName.length() > 0 && incomeAmount.length() > 2 && !hours.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
-            Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hours + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+        if (isValidAmount && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
+
+            Toast.makeText(this, "(Added Income Type)" + "\nIncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hoursOrSalary + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+            name.setText("");
+            amount.setText("");
+            hOrS.setSelection(0);
+            payPer.setSelection(0);
+
         }
         else {
             if (incomeName.length() == 0) {
@@ -92,9 +97,9 @@ public class Setup_4_Activity extends AppCompatActivity {
                 //TODO:Check for invalid leading 0 in dollar side?
             }
             if (payPeriod.equals("Pay Period (Select One)")) {
-                Toast.makeText(this, "Pay period must be selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Pay Period must be selected", Toast.LENGTH_LONG).show();
             }
-            if (hours.equals("Hourly or Salary? (Select One)")) {
+            if (hoursOrSalary.equals("Hourly or Salary? (Select One)")) {
                 Toast.makeText(this, "Method of pay must be selected", Toast.LENGTH_LONG).show();
             }
         }
@@ -132,7 +137,6 @@ public class Setup_4_Activity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Must complete adding income information", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void incomeNameHelp(View view) {

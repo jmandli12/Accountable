@@ -20,11 +20,11 @@ public class Status_0_Activity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Set the Daily Allowence Value
-        TextView dailyAllowence = (TextView) findViewById(R.id.dailyAllowence);
+        //Set the Daily Allowance Value
+        TextView dailyAllowance = (TextView) findViewById(R.id.dailyAllowance);
         //TODO: call method to get this value
         Double amount = 100.45;
-        dailyAllowence.setText("$"+amount);
+        dailyAllowance.setText("$"+amount);
     }
 
 }

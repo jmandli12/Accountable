@@ -50,19 +50,9 @@ public class Setup_3_Activity extends AppCompatActivity {
     }
 
     /*
-    Move to the next Activity
+    Move to the next Activity if no fields are filled
      */
     public void moveNext(View view) {
-        Intent intent = new Intent(this, Setup_4_Activity.class);
-        intent.putExtra("accountID", accountID);
-        intent.putExtra("pin", pin);
-        startActivity(intent);
-    }
-
-    /*
-    Add bill to list
-     */
-    public void addBill(View view) {
 
         String billName;
         String billAmount;
@@ -78,15 +68,50 @@ public class Setup_3_Activity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
         occurrence = spinner.getSelectedItem().toString();
 
+        if (billName.equals("") && billAmount.equals("") && dueDate.equals("") && occurrence.equals("Occurrence (Press to Select)")) {
+            Intent intent = new Intent(this, Setup_4_Activity.class);
+            intent.putExtra("accountID", accountID);
+            intent.putExtra("pin", pin);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Must complete adding bill", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    /*
+    Add bill to list
+     */
+    public void addBill(View view) {
+
+        String billName;
+        String billAmount;
+        String dueDate;
+        String occurrence;
+
+        EditText bill = (EditText) findViewById(R.id.billName);
+        billName = bill.getText().toString();
+        EditText amount = (EditText) findViewById(R.id.billAmount);
+        billAmount = amount.getText().toString();
+        EditText date = (EditText) findViewById(R.id.dueDate);
+        dueDate = date.getText().toString();
+        Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
+        occurrence = spinner.getSelectedItem().toString();
+
         boolean isValidAmount = billAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
 
         if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("Occurrence (Press to Select)")) {
+            Toast.makeText(this, "(Added Bill)" + "\nBillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
+            amount.setText("");
+            bill.setText("");
+            date.setText("");
+            spinner.setSelection(0);
             String[] billArgs = {"0", accountID, billName, billAmount, dueDate, occurrence};
             ds.create("bill", billArgs);
             //bills.add(new Bill(null, 1, 1, ));
             Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
-            et.setText("");
 
         } else {
             if (billName.length() == 0) {
@@ -104,7 +129,6 @@ public class Setup_3_Activity extends AppCompatActivity {
             }
         }
     }
-
 
     public void billAmountHelp(View view) {
         Snackbar.make(view, "Amount the bill is worth \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
