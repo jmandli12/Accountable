@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+
 public class Main_Activity extends AppCompatActivity {
 
     @Override
@@ -24,7 +25,7 @@ public class Main_Activity extends AppCompatActivity {
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.gear);
         toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
-        
+
     }
 
     @Override

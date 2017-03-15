@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cs506.accountable.sqlite.DataSource;
+
 public class Setup_1_Activity extends AppCompatActivity {
     String unconfirmedPIN;
+    //DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class Setup_1_Activity extends AppCompatActivity {
 
             //Move onto next screen
             Intent intent = new Intent(this, Setup_2_Activity.class);
+            //intent.putExtra("userID", "0");
+            intent.putExtra("pin", pinString);
             startActivity(intent);
             finish();
         }

@@ -13,9 +13,16 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cs506.accountable.dto.Account;
+import com.cs506.accountable.dto.Bill;
+import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.*;
 
 public class Setup_3_Activity extends AppCompatActivity {
-
+    DataSource ds = new DataSource(Setup_3_Activity.this);
+    String pin;
+    String accountID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +36,9 @@ public class Setup_3_Activity extends AppCompatActivity {
                 R.array.bill_occurrence_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
+        Bundle prev = getIntent().getExtras();
+        pin = prev.getString("pin");
+        accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
  /*       String[] bills;
@@ -61,10 +70,13 @@ public class Setup_3_Activity extends AppCompatActivity {
 
         if (billName.equals("") && billAmount.equals("") && dueDate.equals("") && occurrence.equals("Occurrence (Press to Select)")) {
             Intent intent = new Intent(this, Setup_4_Activity.class);
+            intent.putExtra("accountID", accountID);
+            intent.putExtra("pin", pin);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Must complete adding bill", Toast.LENGTH_LONG).show();
         }
+
 
     }
 
@@ -96,6 +108,10 @@ public class Setup_3_Activity extends AppCompatActivity {
             bill.setText("");
             date.setText("");
             spinner.setSelection(0);
+            String[] billArgs = {"0", accountID, billName, billAmount, dueDate, occurrence};
+            ds.create("bill", billArgs);
+            //bills.add(new Bill(null, 1, 1, ));
+            Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
 
         } else {
             if (billName.length() == 0) {
