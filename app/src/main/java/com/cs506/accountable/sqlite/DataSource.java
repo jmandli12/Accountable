@@ -1,5 +1,6 @@
 package com.cs506.accountable.sqlite;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -76,52 +77,48 @@ public class DataSource {
         return null;
     }
 
-    public Object retrieve(String str, String[] args) {
+    public Object deleteById(String str, Integer id) {
+        Integer result = 0;
         try {
             ContentValues values = new ContentValues();
             switch (str.toLowerCase()) {
                 case "user":
-                    User user = new User(Long.parseLong(args[0]), Integer.parseInt(args[1]),
-                            Integer.parseInt(args[2]), args[3], args[4], Integer.parseInt(args[5]),
-                            Integer.parseInt(args[6]), Integer.parseInt(args[7]));
-
-                    values = new ContentValues();
-                    values.put(SQLiteHelper.COLUMN_USERID, Long.parseLong(args[0]));
-                    values.put(SQLiteHelper.COLUMN_PINHASH, Integer.parseInt(args[1]));
-                    values.put(SQLiteHelper.COLUMN_PIN, Integer.parseInt(args[2]));
-                    values.put(SQLiteHelper.COLUMN_SALT, args[3]);
-                    values.put(SQLiteHelper.COLUMN_USERNAME, args[4]);
-                    values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[5]));
-                    values.put(SQLiteHelper.COLUMN_JOBID, Integer.parseInt(args[6]));
-                    values.put(SQLiteHelper.COLUMN_FIRSTTIME, Boolean.parseBoolean(args[7]));
-                    Cursor findUser = database.query("TABLE_USER", allColumnsUser,
-                            "user_id = " + Long.parseLong(args[0]), new String[] {}, null, null,
-                            null);
-                    findUser.moveToFirst();
-                    User newUser = cursorToUser(findUser);
-                    findUser.close();
-                    return newUser;
+                    String[] whereArgs = new String[id];
+                    result = 0;
+                    Cursor cursor = database.query(SQLiteHelper.TABLE_USERS, null, null, null, null, null, null);
+                    if(cursor.moveToFirst()) {
+                        result = database.delete(
+                                SQLiteHelper.TABLE_USERS, //User Table
+                                "? = " + SQLiteHelper.COLUMN_USERID, whereArgs);
+                    }
+                    cursor.close();
+                break;
                 case "bill":
-                    /*Bill bill = new Bill(Long.parseLong(args[0]), Integer.parseInt(args[1]),
-                            Integer.parseInt(args[2]), args[3], args[4], Integer.parseInt(args[5]),
-                            Integer.parseInt(args[6]), Boolean.parseBoolean(args[7]));*/
-
-                    values = new ContentValues();
-                    values.put(SQLiteHelper.COLUMN_BILLID, Integer.parseInt(args[0]));
-                    values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
-                    values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
-                    values.put(SQLiteHelper.COLUMN_BILLNAME, args[3]);
-                    values.put(SQLiteHelper.COLUMN_BILLAMT, Double.parseDouble(args[4]));
-                    values.put(SQLiteHelper.COLUMN_DUEDTE, args[5]);
-                    values.put(SQLiteHelper.COLUMN_OCCURANCERTE, Integer.parseInt(args[6]));
-                    // returns cursor with bill that matches bill id in args
-                    Cursor findBill = database.query("TABLE_BILL", allColumnsUser,
-                            "bill_id = " + Integer.parseInt(args[0]), new String[] {}, null, null,
-                            null);
-                    findBill.moveToFirst();
-                    Bill newBill = cursorToBill(findBill);
-                    findBill.close();
-                    return newBill;
+                    whereArgs = new String[id];
+                    result = 0;
+                    cursor = database.query(SQLiteHelper.TABLE_BILL, null, null, null, null, null, null);
+                    if(cursor.moveToFirst()) {
+                        result = database.delete(
+                                SQLiteHelper.TABLE_BILL, //Table
+                                "? = " + SQLiteHelper.COLUMN_BILLID, //Where clause
+                                whereArgs //Replaces ? with where args incrementally
+                        );
+                    }
+                    cursor.close();
+                break;
+                case "account":
+                    whereArgs = new String[id];
+                    result = 0;
+                    cursor = database.query("TABLE_ACCOUNTS", null, null, null, null, null, null);
+                    if(cursor.moveToFirst()) {
+                        result = database.delete(
+                                SQLiteHelper.TABLE_BILL, //Table
+                                "? = " + SQLiteHelper.COLUMN_BILLID, //Where clause
+                                whereArgs //Replaces ? with where args incrementally
+                        );
+                    }
+                    cursor.close();
+                    break;
                 default:
                     break;
             }
@@ -129,8 +126,10 @@ public class DataSource {
         catch (Exception e) {
             System.out.println(e);
         }
-        return null;
+        return result;
     }
+
+
 
     public Comment createComment(String comment) {
         ContentValues values = new ContentValues();
