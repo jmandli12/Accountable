@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_5_Activity extends AppCompatActivity {
-    DataSource ds;
     String pin;
     String accountID;
     @Override

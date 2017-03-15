@@ -76,9 +76,7 @@ public class DataSource {
     };
 
 
-    public DataSource(Context context) {
-        dbHelper = new SQLiteHelper(context);
-    }
+    public DataSource(Context context) { dbHelper = new SQLiteHelper(context); }
 
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();

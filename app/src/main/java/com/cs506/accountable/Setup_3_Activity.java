@@ -20,7 +20,7 @@ import com.cs506.accountable.sqlite.DataSource;
 import java.util.*;
 
 public class Setup_3_Activity extends AppCompatActivity {
-    DataSource ds;
+    DataSource ds = new DataSource(Setup_3_Activity.this);
     String pin;
     String accountID;
     @Override

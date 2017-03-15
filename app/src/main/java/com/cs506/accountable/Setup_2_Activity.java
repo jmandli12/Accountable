@@ -14,7 +14,7 @@ import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_2_Activity extends AppCompatActivity {
-    DataSource ds;
+    DataSource ds = new DataSource(Setup_2_Activity.this);
     String pin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
