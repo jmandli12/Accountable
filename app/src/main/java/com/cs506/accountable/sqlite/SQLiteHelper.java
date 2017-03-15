@@ -16,8 +16,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_USERID = "user_id";
     public static final String COLUMN_USERNAME = "username";
-    //public static final String COLUMN_JOBID = "job_id";
-    //public static final String COLUMN_ACCOUNTID = "account_id";
     public static final String COLUMN_PINHASH = "pin_hash";
     public static final String COLUMN_PIN = "pin";
     public static final String COLUMN_SALT = "salt";

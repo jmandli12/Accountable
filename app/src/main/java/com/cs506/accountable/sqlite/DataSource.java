@@ -25,9 +25,56 @@ public class DataSource {
     private SQLiteHelper dbHelper;
     private String[] allColumns = { SQLiteHelper.COLUMN_ID,
             SQLiteHelper.COLUMN_COMMENT };
-    private String[] allColumnsUser = { SQLiteHelper.COLUMN_USERID,
-            SQLiteHelper.COLUMN_USERNAME, SQLiteHelper.COLUMN_ACCOUNTID, SQLiteHelper.COLUMN_JOBID,
-            SQLiteHelper.COLUMN_PINHASH, SQLiteHelper.COLUMN_PIN, SQLiteHelper.COLUMN_SALT};
+
+
+
+    private String[] getAllColumnsAccount = {
+        SQLiteHelper.COLUMN_USERID,
+        SQLiteHelper.COLUMN_USERNAME,
+        SQLiteHelper.COLUMN_PINHASH,
+        SQLiteHelper.COLUMN_PIN,
+        SQLiteHelper.COLUMN_SALT,
+        SQLiteHelper.COLUMN_FIRSTTIME,
+        SQLiteHelper.COLUMN_BUDGET
+    };
+    private String[] getAllColumnsBill = {
+            SQLiteHelper.COLUMN_BILLID,
+            SQLiteHelper.COLUMN_BILLNAME,
+            SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_ACCOUNTID,
+            SQLiteHelper.COLUMN_BILLAMT,
+            SQLiteHelper.COLUMN_DUEDTE,
+            SQLiteHelper.COLUMN_OCCURANCERTE
+    };
+
+    private String[] getAllColumnsIncome = {
+            SQLiteHelper.COLUMN_INCOMEID,
+            SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_ACCOUNTID,
+            SQLiteHelper.COLUMN_INCOMENAME,
+            SQLiteHelper.COLUMN_AMOUNT,
+            SQLiteHelper.COLUMN_PAYPERIOD,
+            SQLiteHelper.COLUMN_HOURS
+    };
+    private String[] getAllColumnsPurchase = {
+            SQLiteHelper.COLUMN_PURCHASEID,
+            SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_ACCOUNTID,
+            SQLiteHelper.COLUMN_INCOMENAME,
+            SQLiteHelper.COLUMN_AMOUNT,
+            SQLiteHelper.COLUMN_PAYPERIOD,
+            SQLiteHelper.COLUMN_HOURS
+    };
+    private String[] getAllColumnsUser = {
+            SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_USERNAME,
+            SQLiteHelper.COLUMN_PINHASH,
+            SQLiteHelper.COLUMN_PIN,
+            SQLiteHelper.COLUMN_SALT,
+            SQLiteHelper.COLUMN_FIRSTTIME,
+            SQLiteHelper.COLUMN_BUDGET
+    };
+
 
     public DataSource(Context context) {
         dbHelper = new SQLiteHelper(context);
@@ -115,7 +162,7 @@ public class DataSource {
                     cursor.close();
 
                     return newUser;
-                    break;
+                    //break;
                 case "bill":
                     /*Bill bill = new Bill(Long.parseLong(args[0]), Integer.parseInt(args[1]),
                             Integer.parseInt(args[2]), args[3], args[4], Integer.parseInt(args[5]),
@@ -140,7 +187,7 @@ public class DataSource {
 
                     return newUser;
 
-                    break;
+                    //break;
                 case "purchase":
                     values.put(SQLiteHelper.COLUMN_PURCHASEID, Integer.parseInt(args[0]));
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
@@ -162,7 +209,7 @@ public class DataSource {
 
                     return newUser;
 
-                break;
+                //break;
                 default:
                     break;
             }
@@ -319,9 +366,9 @@ public class DataSource {
         user.setPin(cursor.getInt(2));
         user.setSalt(cursor.getString(3));
         user.setUsername(cursor.getString(4));
-        user.setAccountID(cursor.getInt(5));
-        user.setJobID(cursor.getInt(6));
-        user.setFirstTime(cursor.getInt(7));
+       // user.setAccountID(cursor.getInt(5));
+        //user.setJobID(cursor.getInt(6));
+        user.setFirstTime(cursor.getInt(5));
         return user;
     }
 
