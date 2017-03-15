@@ -11,8 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Setup_6_Activity extends AppCompatActivity {
+import com.cs506.accountable.sqlite.DataSource;
 
+public class Setup_6_Activity extends AppCompatActivity {
+    DataSource ds;
+    String pin;
+    String accountID;
+    String budget;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +37,10 @@ public class Setup_6_Activity extends AppCompatActivity {
                 R.array.unit_of_saving_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
+        Bundle prev = getIntent().getExtras();
+        pin = prev.getString("pin");
+        accountID = prev.getString("accountID");
+        budget = prev.getString("budget");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -48,9 +56,12 @@ public class Setup_6_Activity extends AppCompatActivity {
         timePeriod = spinner.getSelectedItem().toString();
         spinner = (Spinner) findViewById(R.id.unitSavingSpinner);
         unitSaving = spinner.getSelectedItem().toString();
-
+        //Save goal
         Toast.makeText(this, "TimePeriod Selected: " + timePeriod + " UnitSaving Selected: " + unitSaving, Toast.LENGTH_LONG).show();
-
+        //finally create user
+        String[] userArgs = {"0", "null", pin, "null", "User", "0", budget};
+        //userID, pinHash, pin, salt, userName, firstTime(now it is false), budget
+        ds.create("user", userArgs);
         Intent intent = new Intent(this, Setup_7_Activity.class);
 
         // TODO:

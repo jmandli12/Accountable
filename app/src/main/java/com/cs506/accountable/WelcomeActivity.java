@@ -18,7 +18,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //TODO: Check for FirstTime in database; if FirstTime, wipe database.
     }
 
     /*

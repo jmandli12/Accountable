@@ -13,8 +13,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Setup_4_Activity extends AppCompatActivity {
+import com.cs506.accountable.sqlite.DataSource;
 
+public class Setup_4_Activity extends AppCompatActivity {
+    DataSource ds;
+    String pin;
+    String accountID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,9 @@ public class Setup_4_Activity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        Bundle prev = getIntent().getExtras();
+        pin = prev.getString("pin");
+        accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -62,12 +69,11 @@ public class Setup_4_Activity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = spinner.getSelectedItem().toString();
 
-        doubleAmount = Double.parseDouble(incomeAmount);
         //Create Object
 
         //Save Income
-        //^This will be its own method
-
+        String[] incomeArgs = {"0", accountID, incomeName, incomeAmount, payPeriod, hours};
+        ds.create("income", incomeArgs);
 
         Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hours + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
 
@@ -78,6 +84,8 @@ public class Setup_4_Activity extends AppCompatActivity {
      */
     public void moveNext(View view) {
         Intent intent = new Intent(this, Setup_5_Activity.class);
+        intent.putExtra("accountID", accountID);
+        intent.putExtra("pin", pin);
         startActivity(intent);
     }
 

@@ -13,8 +13,16 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Setup_3_Activity extends AppCompatActivity {
+import com.cs506.accountable.dto.Account;
+import com.cs506.accountable.dto.Bill;
+import com.cs506.accountable.sqlite.DataSource;
 
+import java.util.*;
+
+public class Setup_3_Activity extends AppCompatActivity {
+    DataSource ds;
+    String pin;
+    String accountID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +36,9 @@ public class Setup_3_Activity extends AppCompatActivity {
                 R.array.bill_occurrence_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
+        Bundle prev = getIntent().getExtras();
+        pin = prev.getString("pin");
+        accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
  /*       String[] bills;
@@ -44,6 +54,8 @@ public class Setup_3_Activity extends AppCompatActivity {
      */
     public void moveNext(View view) {
         Intent intent = new Intent(this, Setup_4_Activity.class);
+        intent.putExtra("accountID", accountID);
+        intent.putExtra("pin", pin);
         startActivity(intent);
     }
 
@@ -65,7 +77,9 @@ public class Setup_3_Activity extends AppCompatActivity {
         dueDate = et.getText().toString();
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner);
         occurrence = spinner.getSelectedItem().toString();
-
+        String[] billArgs = {"0", accountID, billName, billAmount, dueDate, occurrence};
+        ds.create("bill", billArgs);
+        //bills.add(new Bill(null, 1, 1, ));
         Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate:" + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
 }
 

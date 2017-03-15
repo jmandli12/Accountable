@@ -12,8 +12,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Setup_5_Activity extends AppCompatActivity {
+import com.cs506.accountable.sqlite.DataSource;
 
+public class Setup_5_Activity extends AppCompatActivity {
+    DataSource ds;
+    String pin;
+    String accountID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +31,9 @@ public class Setup_5_Activity extends AppCompatActivity {
                 R.array.budget_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
+        Bundle prev = getIntent().getExtras();
+        pin = prev.getString("pin");
+        accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -38,11 +44,15 @@ public class Setup_5_Activity extends AppCompatActivity {
 
         Spinner spinner = (Spinner) findViewById(R.id.budgetSpinner);
         String budget = spinner.getSelectedItem().toString();
-
+        //TODO: Retrieve user and add budget?
+        //TODO: Perhaps move this screen to earlier spot? Closer to creation of user?
+        //TODO: Perhaps pass userID, pin, accountID, and this budget to the end of the Setup?
         Toast.makeText(this, "Budget Selected: " + budget, Toast.LENGTH_LONG).show();
 
-
         Intent intent = new Intent(this, Setup_6_Activity.class);
+        intent.putExtra("accountID", accountID);
+        intent.putExtra("pin", pin);
+        intent.putExtra("budget", budget);
         startActivity(intent);
     }
 }
