@@ -7,8 +7,8 @@ import java.util.Date;
  */
 
 public class Bill {
-    private String billName;
     private int billId;
+    private String billName;
     private int userId;
     private int accountId;
     private double billAmount;
@@ -16,21 +16,31 @@ public class Bill {
     private int occuranceRte;
 
     public Bill() {
+        this.billId = 0;
         this.billName = "";
+        this.userId = 0;
+        this.accountId = 0;
         this.billAmount = 0;
         this.dueDate = null;
         this.occuranceRte = 0;
     }
 
-    public Bill(int billId, int userId, int accountId, String billName, double billAmount, String dueDate, int occuranceRte) {
+    public Bill(int billId, String billName, int userId, int accountId, double billAmount, String dueDate, int occuranceRte) {
         this.billId = billId;
+        this.billName = billName;
         this.userId = userId;
         this.accountId = accountId;
-        this.billName = billName;
         this.billAmount = billAmount;
         this.dueDate = dueDate;
         this.occuranceRte = occuranceRte;
     }
+    public int getBillId() {return billId;}
+
+    public void setBillId(int billId) {this.billId = billId;}
+
+    public void setBillName(String billName) { this.billName = billName; }
+
+    public String getBillName() { return this.billName; }
 
     public int getUserId() {return userId;}
 
@@ -39,18 +49,6 @@ public class Bill {
     public int getAccountId() {return accountId;}
 
     public void setAccountId(int accountId) {this.accountId = accountId;}
-
-    public int getBillId() {return billId;}
-
-    public void setBillId(int billId) {this.billId = billId;}
-
-    public void setBillName(String billName) {
-        this.billName = billName;
-    }
-
-    public String getBillName() {
-        return this.billName;
-    }
 
     public void setBillAmount(double billAmount) {
         this.billAmount = billAmount;

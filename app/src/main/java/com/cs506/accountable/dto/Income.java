@@ -10,6 +10,7 @@ public class Income {
     private int userId;
     private int accountId;
     private String incomeName;
+    private double amount;
     private String payPeriod;
     private double hours;
 
@@ -18,6 +19,7 @@ public class Income {
         this.userId = 0;
         this.accountId = 0;
         this.incomeName = "";
+        this.amount = 0;
         this.payPeriod = "";
         this.hours = 0.00;
     }
@@ -28,6 +30,7 @@ public class Income {
         this.userId = userId;
         this.accountId = accountId;
         this.incomeName = incomeName;
+        this.amount = amount;
         this.payPeriod = payPeriod;
         this.hours = hours;
     }

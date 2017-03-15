@@ -16,27 +16,35 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_USERID = "user_id";
     public static final String COLUMN_USERNAME = "username";
-    public static final String COLUMN_JOBID = "job_id";
-    public static final String COLUMN_ACCOUNTID = "account_id";
+    //public static final String COLUMN_JOBID = "job_id";
+    //public static final String COLUMN_ACCOUNTID = "account_id";
     public static final String COLUMN_PINHASH = "pin_hash";
     public static final String COLUMN_PIN = "pin";
     public static final String COLUMN_SALT = "salt";
     public static final String COLUMN_FIRSTTIME = "first_time";
+    public static final String COLUMN_BUDGET = "budget";
 
     public static final String TABLE_BILLS = "bills";
     public static final String COLUMN_BILLID = "bill_id";
     public static final String COLUMN_BILLNAME = "bill_name";
+    //public static final String COLUMN_USERID = "user_id";
+    //public static final String COLUMN_ACCOUNTID = "account_id";
     public static final String COLUMN_BILLAMT = "bill_amt";
     public static final String COLUMN_DUEDTE = "due_dte";
     public static final String COLUMN_OCCURANCERTE = "occurance_rte";
 
     public static final String TABLE_ACCOUNTS = "accounts";
+    //public static final String COLUMN_ACCOUNTID = "account_id";
+    //public static final String COLUMN_USERID = "user_id";
     public static final String COLUMN_ACCOUNTNAME = "account_name";
     public static final String COLUMN_BALANCE = "balance";
 
     public static final String TABLE_INCOMES = "incomes";
     public static final String COLUMN_INCOMEID = "income_id";
+    //public static final String COLUMN_USERID = "user_id";
+    public static final String COLUMN_ACCOUNTID = "account_id";
     public static final String COLUMN_INCOMENAME = "income_name";
+    public static final String COLUMN_AMOUNT = "amount";
     public static final String COLUMN_PAYPERIOD = "pay_period";
     public static final String COLUMN_HOURS = "hours";
 
@@ -55,24 +63,34 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE = "create table "
             + TABLE_COMMENTS + "( " + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_COMMENT + " text not null);"
-            + " create table " + TABLE_USERS + "( " + COLUMN_USERID + " integer"
-            + " primary key autoincrement, " + COLUMN_USERNAME + " text, " + COLUMN_JOBID
-            + " integer key autoincrement, " + COLUMN_ACCOUNTID + " integer key autoincrement, "
+            + " create table "
+
+            + TABLE_USERS + "( " + COLUMN_USERID + " integer"
+            + " primary key autoincrement, " + COLUMN_USERNAME + " text, " /*+ COLUMN_JOBID
+            + " integer key autoincrement, " + COLUMN_ACCOUNTID + " integer key autoincrement, "*/
             + COLUMN_PINHASH + " integer, " + COLUMN_PIN + " integer, " + COLUMN_SALT +" integer, "
             + COLUMN_FIRSTTIME + " boolean);"
-            + " create table " + TABLE_BILLS + "( " + COLUMN_BILLID
+            + " create table "
+
+            + TABLE_BILLS + "( " + COLUMN_BILLID
             + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id," + COLUMN_BILLNAME + " text, "
             + COLUMN_BILLAMT + " integer, " + COLUMN_DUEDTE + " date, " + COLUMN_OCCURANCERTE
             + " integer);"
-            + " create table " + TABLE_ACCOUNTS + "("+ COLUMN_ACCOUNTID
+            + " create table "
+
+            + TABLE_ACCOUNTS + "("+ COLUMN_ACCOUNTID
             + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTNAME + " text," + COLUMN_BALANCE + " double);"
-            + " create table " + TABLE_INCOMES + "("+ COLUMN_INCOMEID
+            + " create table "
+
+            + TABLE_INCOMES + "("+ COLUMN_INCOMEID
             + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_INCOMENAME + " text, "
             + COLUMN_PAYPERIOD + " text, " + COLUMN_HOURS + " double);"
-            + " create table " + TABLE_PURCHASES + "("+ COLUMN_PURCHASEID
+            + " create table "
+
+            + TABLE_PURCHASES + "("+ COLUMN_PURCHASEID
             + "integer primary key autoincrement, " + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_PRICE + " double, "
             + COLUMN_DATETIME + " text, " + COLUMN_CATEGORY + " text, " + COLUMN_LOCATION
