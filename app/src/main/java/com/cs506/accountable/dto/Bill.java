@@ -32,6 +32,11 @@ public class Bill {
         this.occuranceRte = occuranceRte;
     }
 
+    public Bill(long l, int i, int i1, String arg, String arg1, int i2, int i3, boolean b) {
+      //Created this to fix an error in DataSource.java, the constructor above was invalid
+        //Not sure which one we want
+    }
+
     public int getUserId() {return userId;}
 
     public void setUserId(int userId) {this.userId = userId;}

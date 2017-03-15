@@ -115,10 +115,10 @@ public class DataSource {
                 case "bill":
                     whereArgs = new String[id];
                     result = 0;
-                    cursor = database.query(SQLiteHelper.TABLE_BILL, null, null, null, null, null, null);
+                    cursor = database.query(SQLiteHelper.TABLE_BILLS, null, null, null, null, null, null);
                     if(cursor.moveToFirst()) {
                         result = database.delete(
-                                SQLiteHelper.TABLE_BILL, //Table
+                                SQLiteHelper.TABLE_BILLS, //Table
                                 "? = " + SQLiteHelper.COLUMN_BILLID, //Where clause
                                 whereArgs //Replaces ? with where args incrementally
                         );
@@ -128,11 +128,50 @@ public class DataSource {
                 case "account":
                     whereArgs = new String[id];
                     result = 0;
-                    cursor = database.query("TABLE_ACCOUNTS", null, null, null, null, null, null);
+                    cursor = database.query(SQLiteHelper.TABLE_ACCOUNTS, null, null, null, null, null, null);
                     if(cursor.moveToFirst()) {
                         result = database.delete(
-                                SQLiteHelper.TABLE_BILL, //Table
-                                "? = " + SQLiteHelper.COLUMN_BILLID, //Where clause
+                                SQLiteHelper.TABLE_ACCOUNTS, //Table
+                                "? = " + SQLiteHelper.COLUMN_ACCOUNTID, //Where clause
+                                whereArgs //Replaces ? with where args incrementally
+                        );
+                    }
+                    cursor.close();
+                    break;
+                case "comment":
+                    whereArgs = new String[id];
+                    result = 0;
+                    cursor = database.query(SQLiteHelper.TABLE_COMMENTS, null, null, null, null, null, null);
+                    if(cursor.moveToFirst()) {
+                        result = database.delete(
+                                SQLiteHelper.TABLE_COMMENTS, //Table
+                                "? = " + SQLiteHelper.COLUMN_ID, //Where clause
+                                whereArgs //Replaces ? with where args incrementally
+                        );
+                    }
+                    cursor.close();
+                    break;
+                case "purchase":
+                    whereArgs = new String[id];
+                    result = 0;
+                    cursor = database.query(SQLiteHelper.TABLE_PURCHASES, null, null, null, null, null, null);
+                    if(cursor.moveToFirst()) {
+                        result = database.delete(
+                                SQLiteHelper.TABLE_PURCHASES, //Table
+                                "? = " + SQLiteHelper.COLUMN_PURCHASEID, //Where clause
+                                whereArgs //Replaces ? with where args incrementally
+                        );
+                    }
+                    cursor.close();
+                    break;
+                case "income":
+                    whereArgs = new String[id];
+                    result = 0;
+                    cursor = database.query(SQLiteHelper.TABLE_INCOMES, null, null, null, null, null, null);
+                    if(cursor.moveToFirst()) {
+                        result = database.delete(
+                                SQLiteHelper.TABLE_INCOMES, //Table
+                                "? = " + SQLiteHelper.COLUMN_INCOMEID, //Where clause
                                 whereArgs //Replaces ? with where args incrementally
                         );
                     }
