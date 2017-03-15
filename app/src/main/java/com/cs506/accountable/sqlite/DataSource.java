@@ -43,13 +43,13 @@ public class DataSource {
 
     public Object create(String str, String[] args) {
         try {
+            ContentValues values = new ContentValues();
             switch (str.toLowerCase()) {
                 case "user":
                     User user = new User(Long.parseLong(args[0]), Integer.parseInt(args[1]),
                             Integer.parseInt(args[2]), args[3], args[4], Integer.parseInt(args[5]),
                             Integer.parseInt(args[6]), Integer.parseInt(args[7]));
 
-                    ContentValues values = new ContentValues();
                     values.put(SQLiteHelper.COLUMN_USERID, Long.parseLong(args[0]));
                     values.put(SQLiteHelper.COLUMN_PINHASH, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_PIN, Integer.parseInt(args[2]));
@@ -67,6 +67,25 @@ public class DataSource {
                     User newUser = cursorToUser(cursor);
                     cursor.close();
                     return newUser;
+                case "income":
+                    break;
+                case "account":
+                    break;
+                case "bill":
+                    Bill bill = new Bill(Long.parseLong(args[0]), Integer.parseInt(args[1]),
+                            Integer.parseInt(args[2]), args[3], args[4], Integer.parseInt(args[5]),
+                            Integer.parseInt(args[6]), Boolean.parseBoolean(args[7]));
+
+                    values.put(SQLiteHelper.COLUMN_BILLID, Integer.parseInt(args[0]));
+                    values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
+                    values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
+                    values.put(SQLiteHelper.COLUMN_BILLNAME, args[3]);
+                    values.put(SQLiteHelper.COLUMN_BILLAMT, Double.parseDouble(args[4]));
+                    values.put(SQLiteHelper.COLUMN_DUEDTE, args[5]);
+                    values.put(SQLiteHelper.COLUMN_OCCURANCERTE, Integer.parseInt(args[6]));
+                    break;
+                case "purchase":
+                    break;
                 default:
                     break;
             }
@@ -80,7 +99,7 @@ public class DataSource {
     public Object deleteById(String str, Integer id) {
         Integer result = 0;
         try {
-            ContentValues values = new ContentValues();
+            ContentValues values;
             switch (str.toLowerCase()) {
                 case "user":
                     String[] whereArgs = new String[id];
