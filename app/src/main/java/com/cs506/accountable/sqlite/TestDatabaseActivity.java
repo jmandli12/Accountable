@@ -52,13 +52,13 @@ public class TestDatabaseActivity extends ListActivity {
                 comment = datasource.createComment(comments[nextInt]);
                 adapter.add(comment);
                 break;
-            case R.id.delete:
+            /**case R.id.delete:
                 if (getListAdapter().getCount() > 0) {
                     comment = (Comment) getListAdapter().getItem(0);
                     datasource.deleteComment(comment);
                     adapter.remove(comment);
                 }
-                break;
+                break;*/
         }
         adapter.notifyDataSetChanged();
     }

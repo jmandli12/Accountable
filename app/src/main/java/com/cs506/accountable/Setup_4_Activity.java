@@ -79,8 +79,8 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
 
-        if (isValidAmount && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
-            Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hoursOrSalary + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+        if (isValidAmount && incomeName.length() > 0 && incomeAmount.length() > 2 && !hours.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
+            Toast.makeText(this, "IncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hours + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
         }
         else {
             if (incomeName.length() == 0) {
@@ -94,7 +94,7 @@ public class Setup_4_Activity extends AppCompatActivity {
             if (payPeriod.equals("Pay Period (Select One)")) {
                 Toast.makeText(this, "Pay period must be selected", Toast.LENGTH_LONG).show();
             }
-            if (hoursOrSalary.equals("Hourly or Salary? (Select One)")) {
+            if (hours.equals("Hourly or Salary? (Select One)")) {
                 Toast.makeText(this, "Method of pay must be selected", Toast.LENGTH_LONG).show();
             }
         }

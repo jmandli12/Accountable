@@ -28,7 +28,7 @@ public class DataSource {
 
 
 
-    private String[] getAllColumnsAccount = {
+    private String[] allColumnsAccount = {
         SQLiteHelper.COLUMN_USERID,
         SQLiteHelper.COLUMN_USERNAME,
         SQLiteHelper.COLUMN_PINHASH,
@@ -37,7 +37,7 @@ public class DataSource {
         SQLiteHelper.COLUMN_FIRSTTIME,
         SQLiteHelper.COLUMN_BUDGET
     };
-    private String[] getAllColumnsBill = {
+    private String[] allColumnsBill = {
             SQLiteHelper.COLUMN_BILLID,
             SQLiteHelper.COLUMN_BILLNAME,
             SQLiteHelper.COLUMN_USERID,
@@ -47,7 +47,7 @@ public class DataSource {
             SQLiteHelper.COLUMN_OCCURANCERTE
     };
 
-    private String[] getAllColumnsIncome = {
+    private String[] allColumnsIncome = {
             SQLiteHelper.COLUMN_INCOMEID,
             SQLiteHelper.COLUMN_USERID,
             SQLiteHelper.COLUMN_ACCOUNTID,
@@ -56,7 +56,7 @@ public class DataSource {
             SQLiteHelper.COLUMN_PAYPERIOD,
             SQLiteHelper.COLUMN_HOURS
     };
-    private String[] getAllColumnsPurchase = {
+    private String[] allColumnsPurchase = {
             SQLiteHelper.COLUMN_PURCHASEID,
             SQLiteHelper.COLUMN_USERID,
             SQLiteHelper.COLUMN_ACCOUNTID,
@@ -65,7 +65,7 @@ public class DataSource {
             SQLiteHelper.COLUMN_PAYPERIOD,
             SQLiteHelper.COLUMN_HOURS
     };
-    private String[] getAllColumnsUser = {
+    private String[] allColumnsUser = {
             SQLiteHelper.COLUMN_USERID,
             SQLiteHelper.COLUMN_USERNAME,
             SQLiteHelper.COLUMN_PINHASH,
