@@ -54,7 +54,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         String incomeName;
         String incomeAmount;
         double doubleAmount;
-        String hours;
+        String hoursOrSalary;
         String payPeriod;
 
 
@@ -72,7 +72,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         //Create Object
 
         //Save Income
-        String[] incomeArgs = {"0", accountID, incomeName, incomeAmount, payPeriod, hours};
+        String[] incomeArgs = {"0", accountID, incomeName, incomeAmount, payPeriod, hoursOrSalary};
         ds.create("income", incomeArgs);
         //^This will be its own method
 
