@@ -13,8 +13,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Setup_4_Activity extends AppCompatActivity {
+import com.cs506.accountable.sqlite.DataSource;
 
+public class Setup_4_Activity extends AppCompatActivity {
+    DataSource ds;
+    String pin;
+    String accountID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,9 @@ public class Setup_4_Activity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        Bundle prev = getIntent().getExtras();
+        pin = prev.getString("pin");
+        accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -47,7 +54,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         String incomeName;
         String incomeAmount;
         double doubleAmount;
-        String hoursOrSalary;
+        String hours;
         String payPeriod;
 
 
@@ -57,7 +64,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         incomeAmount = et.getText().toString();
 
         Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
-        hoursOrSalary = spinner.getSelectedItem().toString();
+        hours = spinner.getSelectedItem().toString();
 
         spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = spinner.getSelectedItem().toString();
@@ -66,6 +73,8 @@ public class Setup_4_Activity extends AppCompatActivity {
         //Create Object
 
         //Save Income
+        String[] incomeArgs = {"0", accountID, incomeName, incomeAmount, payPeriod, hours};
+        ds.create("income", incomeArgs);
         //^This will be its own method
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
@@ -117,10 +126,13 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         if (incomeName.equals("") && incomeAmount.equals("") && hoursOrSalary.equals("Hourly or Salary? (Select One)") && payPeriod.equals("Pay Period (Select One)")) {
             Intent intent = new Intent(this, Setup_5_Activity.class);
+            intent.putExtra("accountID", accountID);
+            intent.putExtra("pin", pin);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Must complete adding income information", Toast.LENGTH_LONG).show();
         }
+
     }
 
     public void incomeNameHelp(View view) {
