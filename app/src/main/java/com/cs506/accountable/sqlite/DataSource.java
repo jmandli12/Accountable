@@ -44,7 +44,7 @@ public class DataSource {
     public Object create(String str, String[] args) {
         try {
             ContentValues values = new ContentValues();
-            long insertUser = -1;
+            long returnValue = -1;
             Cursor cursor;
             User newUser;
             switch (str.toLowerCase()) {
@@ -68,10 +68,10 @@ public class DataSource {
                     //values.put(SQLiteHelper.COLUMN_JOBID, Integer.parseInt(args[6]));
                     values.put(SQLiteHelper.COLUMN_FIRSTTIME, Boolean.parseBoolean(args[5]));
 
-                    insertUser = database.insert(SQLiteHelper.TABLE_USERS, null, values);
+                    returnValue = database.insert(SQLiteHelper.TABLE_USERS, null, values);
 
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + insertUser, null,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
@@ -86,30 +86,29 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_INCOMENAME, args[3]);
                     values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[4]));
                     values.put(SQLiteHelper.COLUMN_PAYPERIOD, args[5]);
-                    values.put(SQLiteHelper.COLUMN_HOURS, Double.parseDouble(args[6]);
+                    values.put(SQLiteHelper.COLUMN_HOURS, Double.parseDouble(args[6]));
 
-                    insertUser = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
+                    returnValue = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
 
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + insertUser, null,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
                     cursor.close();
 
                     return newUser;
-
-                    break;
+                    //break;
                 case "account":
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[0]));
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTNAME, args[2]);
                     values.put(SQLiteHelper.COLUMN_BALANCE, Double.parseDouble(args[3]));
 
-                    insertUser = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
+                    returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
 
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + insertUser, null,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
@@ -130,10 +129,10 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[5]);
                     values.put(SQLiteHelper.COLUMN_OCCURANCERTE, Integer.parseInt(args[6]));
 
-                    insertUser = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
+                    returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
 
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + insertUser, null,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
@@ -152,10 +151,10 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_LOCATION, args[6]);
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[7]);
 
-                    insertUser = database.insert(SQLiteHelper.TABLE_PURCHASES, null, values);
+                    returnValue = database.insert(SQLiteHelper.TABLE_PURCHASES, null, values);
 
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + insertUser, null,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
@@ -263,8 +262,6 @@ public class DataSource {
             System.out.println(e);
         }
         return result;
-        cursur.close();
-        return null;
     }
 
 
