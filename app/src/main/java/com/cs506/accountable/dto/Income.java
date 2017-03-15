@@ -1,59 +1,58 @@
 package com.cs506.accountable.dto;
 
 /**
- * Created by mberger on 3/13/2017.
+ * Created by tkobl on 3/14/2017.
  */
 
 public class Income {
-    private String id;
-    private String userId;
-    private String accId;
-    private String incName;
+
+    private int incomeId;
+    private int userId;
+    private int accountId;
+    private String incomeName;
     private String payPeriod;
-    //TODO: last two variables from picture (can't read)
+    private double hours;
 
     public Income() {
-        this.id = "";
-        this.userId = "";
-        this.accId = "";
-        this.incName = "";
+        this.incomeId = 0;
+        this.userId = 0;
+        this.accountId = 0;
+        this.incomeName = "";
         this.payPeriod = "";
-        //TODO: last two variables from picture (can't read)
+        this.hours = 0.00;
     }
 
-    public Income(String id, String userId, String accId, String incName, String payPeriod) {
-        this.id = id;
+    public Income(int incomeId, int userId, int accountId, String incomeName, String payPeriod,
+                  double hours) {
+        this.incomeId = incomeId;
         this.userId = userId;
-        this.accId = accId;
-        this.incName = incName;
+        this.accountId = accountId;
+        this.incomeName = incomeName;
         this.payPeriod = payPeriod;
-        //TODO: last two variables from picture (can't read)
+        this.hours = hours;
     }
 
-    public void setId(String id) { this.id = id; }
-    public String getId() { return this.id; }
+    public int getIncomeId() {return incomeId;}
 
-    public void setUserId(String userId) { this.userId = userId; }
-    public String getUserId() {  return this.userId; }
+    public void setIncomeId(int incomeId) {this.incomeId = incomeId;}
 
-    public void setAccId(String accId) {  this.accId = accId; }
-    public String getAccId() { return this.accId; }
+    public int getUserId() {return userId;}
 
-    public void setIncName(String incName) {
-        this.incName = incName;
-    }
-    public String getIncName() {
-        return this.incName;
-    }
+    public void setUserId(int userId) {this.userId = userId;}
 
-    public void setPayPeriod(String payPeriod) {
-        this.payPeriod = payPeriod;
-    }
-    public String getPayPeriod() {
-        return this.payPeriod;
-    }
+    public int getAccountId() {return accountId;}
 
-    //TODO: last two variables from picture (can't read)
+    public void setAccountId(int accountId) {this.accountId = accountId;}
 
+    public String getIncomeName() {return incomeName;}
 
+    public void setIncomeName(String incomeName) {this.incomeName = incomeName;}
+
+    public String getPayPeriod() {return payPeriod;}
+
+    public void setPayPeriod(String payPeriod) {this.payPeriod = payPeriod;}
+
+    public double getHours() {return hours;}
+
+    public void setHours(double hours) {this.hours = hours;}
 }

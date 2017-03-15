@@ -1,59 +1,72 @@
 package com.cs506.accountable.dto;
 
 /**
- * Created by mberger on 3/13/2017.
+ * Created by tkobl on 3/14/2017.
  */
 
 public class Purchase {
-    private String id;
-    private String userId;
-    private String accId;
-    private String price;
-    private String date;
-    private String time;
+
+    private int purchaseId;
+    private int userId;
+    private int accountId;
+    private double price;
+    private String datetime;
     private String category;
     private String location;
     private String comment;
 
     public Purchase() {
-        this.id = "";
-        this.userId = "";
-        this.accId = "";
-        this.price = "";
-        this.date = "";
-        this.time = "";
+        this.purchaseId = 0;
+        this.userId = 0;
+        this.accountId = 0;
+        this.price = 0.00;
+        this.datetime = "";
         this.category = "";
         this.location = "";
         this.comment = "";
     }
 
-    public Purchase(String id, String userId, String accId, String price, String date,
-                    String time, String category, String location, String comment) {
-        this.id = id;
+    public Purchase(int purchaseId, int userId, int accountId, double price, String datetime,
+                    String category, String location, String comment) {
+        this.purchaseId = purchaseId;
         this.userId = userId;
-        this.accId = accId;
+        this.accountId = accountId;
         this.price = price;
-        this.date = date;
-        this.time = time;
+        this.datetime = datetime;
         this.category = category;
         this.location = location;
         this.comment = comment;
     }
 
-    public void setId(String id) { this.id = id; }
-    public String getId() { return this.id; }
+    public int getPurchaseId() {return purchaseId;}
 
-    public void setUserId(String userId) { this.userId = userId; }
-    public String getUserId() {  return this.userId; }
+    public void setPurchaseId(int purchaseId) {this.purchaseId = purchaseId;}
 
-    public void setAccId(String accId) {  this.accId = accId; }
-    public String getAccId() { return this.accId; }
+    public int getUserId() {return userId;}
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
-    public String setPrice() { return this.price; }
+    public void setUserId(int userId) {this.userId = userId;}
 
-    //TODO: date, time, category, location, comment
+    public int getAccountId() {return accountId;}
 
+    public void setAccountId(int accountId) {this.accountId = accountId;}
+
+    public double getPrice() {return price;}
+
+    public void setPrice(double price) {this.price = price;}
+
+    public String getDatetime() {return datetime;}
+
+    public void setDatetime(String datetime) {this.datetime = datetime;}
+
+    public String getCategory() {return category;}
+
+    public void setCategory(String category) {this.category = category;}
+
+    public String getLocation() {return location;}
+
+    public void setLocation(String location) {this.location = location;}
+
+    public String getComment() {return comment;}
+
+    public void setComment(String comment) {this.comment = comment;}
 }
