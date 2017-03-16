@@ -103,15 +103,17 @@ public class Setup_3_Activity extends AppCompatActivity {
         boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
 
         if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("Occurrence (Press to Select)")) {
+
+            String[] billArgs = {null, billName, "1", accountID, billAmount, dueDate, occurrence};
+            ds.create("bill", billArgs);
+
             Toast.makeText(this, "(Added Bill)" + "\nBillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
+
             amount.setText("");
             bill.setText("");
             date.setText("");
             spinner.setSelection(0);
-            String[] billArgs = {"0", accountID, billName, billAmount, dueDate, occurrence};
-            ds.create("bill", billArgs);
-            //bills.add(new Bill(null, 1, 1, ));
-            Toast.makeText(this, "BillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();
+
 
         } else {
             if (billName.length() == 0) {

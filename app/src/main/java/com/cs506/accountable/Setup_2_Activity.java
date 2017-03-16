@@ -45,12 +45,12 @@ public class Setup_2_Activity extends AppCompatActivity {
             Toast.makeText(this, "Account Name: " + accountName + " Account Balance: " + accountBalance, Toast.LENGTH_LONG).show();
 
             //Save Bank Info
-            String[] accountArgs = {"0", "0", accountName, accountBalance};
+            String[] accountArgs = {"1", "1", accountName, accountBalance};
             //accountID, userID, accountName, accountBalance
             ds.create("account", accountArgs);
             // Move onto next Activity
             Intent intent = new Intent(this, Setup_3_Activity.class);
-            intent.putExtra("accountID", "0");
+            intent.putExtra("accountID", "1");
             intent.putExtra("pin", pin);
             startActivity(intent);
 

@@ -10,7 +10,8 @@ public class Purchase {
     private int userId;
     private int accountId;
     private double price;
-    private String datetime;
+    private String date;
+    private String time;
     private String category;
     private String location;
     private String comment;
@@ -20,19 +21,21 @@ public class Purchase {
         this.userId = 0;
         this.accountId = 0;
         this.price = 0.00;
-        this.datetime = "";
+        this.date = "";
+        this.time = "";
         this.category = "";
         this.location = "";
         this.comment = "";
     }
 
-    public Purchase(int purchaseId, int userId, int accountId, double price, String datetime,
+    public Purchase(int purchaseId, int userId, int accountId, double price, String date, String time,
                     String category, String location, String comment) {
         this.purchaseId = purchaseId;
         this.userId = userId;
         this.accountId = accountId;
         this.price = price;
-        this.datetime = datetime;
+        this.date = date;
+        this.time = time;
         this.category = category;
         this.location = location;
         this.comment = comment;
@@ -54,9 +57,17 @@ public class Purchase {
 
     public void setPrice(double price) {this.price = price;}
 
-    public String getDatetime() {return datetime;}
+    public String getDate() {return date;}
 
-    public void setDatetime(String datetime) {this.datetime = datetime;}
+    public void setDate(String date) {this.date = date;}
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getCategory() {return category;}
 

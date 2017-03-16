@@ -53,7 +53,7 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         String incomeName;
         String incomeAmount;
-        double doubleAmount;
+        String dueDate;
         String hoursOrSalary;
         String payPeriod;
 
@@ -62,29 +62,29 @@ public class Setup_4_Activity extends AppCompatActivity {
         incomeName = name.getText().toString();
         EditText amount = (EditText) findViewById(R.id.incomeAmount);
         incomeAmount = amount.getText().toString();
+        EditText date = (EditText) findViewById(R.id.dueDate);
+        dueDate = date.getText().toString();
 
         Spinner hOrS = (Spinner) findViewById(R.id.hoursSpinner);
         hoursOrSalary = hOrS.getSelectedItem().toString();
         Spinner payPer = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = payPer.getSelectedItem().toString();
 
-        if(!incomeAmount.isEmpty()) doubleAmount = Double.parseDouble(incomeAmount);
-        //Create Object
-
-        //Save Income
-        String[] incomeArgs = {"0", accountID, incomeName, incomeAmount, payPeriod, hoursOrSalary};
-        ds.create("income", incomeArgs);
-        //^This will be its own method
-
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
 
-        if (isValidAmount && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
+        if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
 
-            Toast.makeText(this, "(Added Income Type)" + "\nIncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nHours: " + hoursOrSalary + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+            String[] incomeArgs = {null, "1", accountID, incomeName, incomeAmount, dueDate, payPeriod, hoursOrSalary};
+            ds.create("income", incomeArgs);
+
+            Toast.makeText(this, "(Added Income Type)" + "\nIncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nRecievingDate: " + dueDate + "\nHours: " + hoursOrSalary + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+
             name.setText("");
             amount.setText("");
             hOrS.setSelection(0);
             payPer.setSelection(0);
+            date.setText("");
 
         }
         else {
@@ -93,8 +93,11 @@ public class Setup_4_Activity extends AppCompatActivity {
             }
             //TODO: ALLOW USER TO START WITH NEGATIVE BALANCE
             if (incomeAmount.length() < 3 || !isValidAmount) {
-                Toast.makeText(this, "Income amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Income Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 //TODO:Check for invalid leading 0 in dollar side?
+            }
+            if (!isValidDate) {
+                Toast.makeText(this, "Receiving Date must be in the format mm/dd/year from this current date or onwards", Toast.LENGTH_LONG).show();
             }
             if (payPeriod.equals("Pay Period (Select One)")) {
                 Toast.makeText(this, "Pay Period must be selected", Toast.LENGTH_LONG).show();
@@ -113,15 +116,17 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         String incomeName;
         String incomeAmount;
-        double doubleAmount;
         String hoursOrSalary;
         String payPeriod;
+        String dueDate;
 
 
         EditText et = (EditText) findViewById(R.id.incomeName);
         incomeName = et.getText().toString();
         et = (EditText) findViewById(R.id.incomeAmount);
         incomeAmount = et.getText().toString();
+        et = (EditText) findViewById(R.id.dueDate);
+        dueDate = et.getText().toString();
 
         Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
         hoursOrSalary = spinner.getSelectedItem().toString();
@@ -129,7 +134,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = spinner.getSelectedItem().toString();
 
-        if (incomeName.equals("") && incomeAmount.equals("") && hoursOrSalary.equals("Hourly or Salary? (Select One)") && payPeriod.equals("Pay Period (Select One)")) {
+        if (incomeName.equals("") && incomeAmount.equals("") && dueDate.equals("") && hoursOrSalary.equals("Hourly or Salary? (Select One)") && payPeriod.equals("Pay Period (Select One)")) {
             Intent intent = new Intent(this, Setup_5_Activity.class);
             intent.putExtra("accountID", accountID);
             intent.putExtra("pin", pin);
@@ -146,6 +151,11 @@ public class Setup_4_Activity extends AppCompatActivity {
 
     public void incomeAmountHelp(View view) {
         Snackbar.make(view, "Amount of Money on Paycheck \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
+
+    public void dueDateHelp(View view) {
+        Snackbar.make(view, "When the paycheck is received. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 
