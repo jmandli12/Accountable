@@ -311,8 +311,6 @@ public class DataSource {
         return result;
     }
 
-
-    // TODO: to be completed by Tony
     public Object retrieveById(String str, String id) {
         try {
             Cursor cursor;
@@ -345,28 +343,28 @@ public class DataSource {
                             allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
                             null, null, null, null);
                     cursor.moveToFirst();
-                    newUser = cursorToUser(cursor);
+                    newIncome = cursorToIncome(cursor);
                     cursor.close();
 
-                    return newUser;
+                    return newIncome;
                 case "bill":
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
                             allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
                             null, null, null, null);
                     cursor.moveToFirst();
-                    newUser = cursorToUser(cursor);
+                    newBill = cursorToBill(cursor);
                     cursor.close();
 
-                    return newUser;
+                    return newBill;
                 case "account":
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
                             allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
                             null, null, null, null);
                     cursor.moveToFirst();
-                    newUser = cursorToUser(cursor);
+                    newAccount = cursorToAccount(cursor);
                     cursor.close();
 
-                    return newUser;
+                    return newAccount;
                 default:
                     break;
             }
@@ -379,11 +377,18 @@ public class DataSource {
     public List<Object> retrieveAll(String str) {
         try {
             Cursor cursor;
+            List<User> userList;
+            List<Object> userObjects = new ArrayList<>();
+            List<Purchase> purchaseList;
+            List<Object> purchaseObjects = new ArrayList<>();
+            List<Income> incomeList;
+            List<Object> incomeObjects = new ArrayList<>();
+            List<Bill> billList;
+            List<Object> billObjects = new ArrayList<>();
+            List<Account> accountList;
+            List<Object> accountObjects = new ArrayList<>();
             switch (str.toLowerCase()) {
                 case "purchase":
-                    List<Purchase> purchaseList = new ArrayList<>();
-                    List<Object> purchaseObjects = new ArrayList<>();
-
                     cursor = database.query(SQLiteHelper.TABLE_PURCHASES,
                             allColumnsPurchase, null, null, null, null, null);
                     cursor.moveToFirst();
@@ -395,7 +400,54 @@ public class DataSource {
                     }
 
                     return purchaseObjects;
-                // TODO: cases for account, bill, income, user : completed by Tony
+                case "user":
+                    cursor = database.query(SQLiteHelper.TABLE_USERS,
+                            allColumnsUser, null, null, null, null, null);
+                    cursor.moveToFirst();
+                    userList = cursorToUserList(cursor);
+                    cursor.close();
+
+                    for (int i = 0; i < userList.size(); i++) {
+                        userObjects.add((Object) userList.get(i));
+                    }
+
+                    return userObjects;
+                case "account":
+                    cursor = database.query(SQLiteHelper.TABLE_ACCOUNTS,
+                            allColumnsAccount, null, null, null, null, null);
+                    cursor.moveToFirst();
+                    accountList = cursorToAccountList(cursor);
+                    cursor.close();
+
+                    for (int i = 0; i < accountList.size(); i++) {
+                        accountObjects.add((Object) accountList.get(i));
+                    }
+
+                    return accountObjects;
+                case "bill":
+                    cursor = database.query(SQLiteHelper.TABLE_BILLS,
+                            allColumnsBill, null, null, null, null, null);
+                    cursor.moveToFirst();
+                    billList = cursorToBillList(cursor);
+                    cursor.close();
+
+                    for (int i = 0; i < billList.size(); i++) {
+                        billObjects.add((Object) billList.get(i));
+                    }
+
+                    return billObjects;
+                case "income":
+                    cursor = database.query(SQLiteHelper.TABLE_INCOMES,
+                            allColumnsIncome, null, null, null, null, null);
+                    cursor.moveToFirst();
+                    incomeList = cursorToIncomeList(cursor);
+                    cursor.close();
+
+                    for (int i = 0; i < incomeList.size(); i++) {
+                        incomeObjects.add((Object) incomeList.get(i));
+                    }
+
+                    return incomeObjects;
                 default:
                     break;
             }
@@ -502,7 +554,20 @@ public class DataSource {
         return purchase;
     }
 
-    // TODO: complete other cursorTo<Object>List methods
+    private User cursorToUser(Cursor cursor) {
+        User user = new User(
+                cursor.getLong(0),
+                cursor.getInt(1),
+                cursor.getInt(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getInt(5),
+                cursor.getString(6),
+                cursor.getInt(7)
+        );
+        return user;
+    }
+
     private List<Purchase> cursorToPurchaseList(Cursor cursor) {
         List<Purchase> purchaseList = new ArrayList<>();
         cursor.moveToFirst();
@@ -516,18 +581,56 @@ public class DataSource {
         return purchaseList;
     }
 
-    private User cursorToUser(Cursor cursor) {
-        User user = new User(
-            cursor.getLong(0),
-            cursor.getInt(1),
-            cursor.getInt(2),
-            cursor.getString(3),
-            cursor.getString(4),
-            cursor.getInt(5),
-            cursor.getString(6),
-            cursor.getInt(7)
-        );
-        return user;
+    private List<User> cursorToUserList(Cursor cursor) {
+        List<User> userList = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            User user = cursorToUser(cursor);
+            userList.add(user);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return userList;
+    }
+
+    private List<Account> cursorToAccountList(Cursor cursor) {
+        List<Account> accountList = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Account account = cursorToAccount(cursor);
+            accountList.add(account);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return accountList;
+    }
+
+    private List<Income> cursorToIncomeList(Cursor cursor) {
+        List<Income> incomeList = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Income income = cursorToIncome(cursor);
+            incomeList.add(income);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return incomeList;
+    }
+
+    private List<Bill> cursorToBillList(Cursor cursor) {
+        List<Bill> billList = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Bill bill = cursorToBill(cursor);
+            billList.add(bill);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return billList;
     }
 
 }
