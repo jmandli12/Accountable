@@ -120,7 +120,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
             String[] purchaseArgs = {null, "1", "1", price, date, time,
                     category, location, comments};
             ds.create("purchase", purchaseArgs);
-            Account account = ds.retrieveByID("account", "1");
+            Account account = (Account) ds.retrieveById("account", "1");  //TODO
             Double balance = account.getBalance();
             account.setBalance(balance - Double.parseDouble(price));
             String[] newAccountArgs = {"1", "1", account.getAccountName(), balance.toString()};

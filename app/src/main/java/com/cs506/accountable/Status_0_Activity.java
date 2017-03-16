@@ -40,10 +40,10 @@ public class Status_0_Activity extends AppCompatActivity {
         //TODO: call method to get this value
         //Double amount = 100.45;
         ds = new DataSource(this);
-        Account account = ds.retrieveByID("account", "1");
+        Account account = (Account) ds.retrieveById("account", "1"); //TODO
         Double currAmount = account.getBalance();
-        allBills = ds.retrieveAll("bill");
-        allIncomes = ds.retrieveAll("income");
+        allBills = (List<Bill>)(List<?>) ds.retrieveAll("bill"); //TODO
+        allIncomes = (List<Income>)(List<?>) ds.retrieveAll("income"); //TODO
         Iterator<Bill> iterateBills = allBills.iterator();
         Iterator<Income> iterateIncomes = allIncomes.iterator();
         validBills = new ArrayList<Bill>();
