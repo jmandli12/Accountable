@@ -69,8 +69,14 @@ public class Setup_6_Activity extends AppCompatActivity {
 
         Toast.makeText(this, "TimePeriod Selected: " + timePeriod + " UnitSaving Selected: " + unitSaving, Toast.LENGTH_LONG).show();
         //finally create user
-        String[] userArgs = {"0", "null", pin, "null", "User", "0", budget};
-        //userID, pinHash, pin, salt, userName, firstTime(now it is false), budget
+        String hasPin;
+        if (pin.equals("noPin")) {
+            hasPin = "false";
+        } else {
+            hasPin = "true";
+        }
+        String[] userArgs = {"0", "null", pin, "null", "User", "false", budget, hasPin};
+        //userID, pinHash, pin, salt, userName, firstTime(now it is false), budget, hasPin
         ds.create("user", userArgs);
         Intent intent = new Intent(this, Setup_7_Activity.class);
 

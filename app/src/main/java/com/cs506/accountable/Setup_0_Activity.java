@@ -17,7 +17,6 @@ public class Setup_0_Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Accountable Setup");
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -25,10 +24,6 @@ public class Setup_0_Activity extends AppCompatActivity {
 
         EditText et = (EditText) findViewById(R.id.firstPin);
         String pinString = et.getText().toString();
-
-
-        // Save the Entered PIN
-
 
         //Toast.makeText(this, "PIN: " + pinString, Toast.LENGTH_LONG).show();
         if(pinString.length() == 4) {

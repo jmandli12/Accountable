@@ -15,7 +15,7 @@ import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_2_Activity extends AppCompatActivity {
     DataSource ds;
-    String pin;
+    String pin = "noPin";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,7 @@ public class Setup_2_Activity extends AppCompatActivity {
         toolbar.setTitle("Accountable Setup");
         setSupportActionBar(toolbar);
         Bundle prev = getIntent().getExtras();
-        pin = prev.getString("pin");
+        if (prev != null) pin = prev.getString("pin");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ds = new DataSource(Setup_2_Activity.this);
@@ -56,8 +56,6 @@ public class Setup_2_Activity extends AppCompatActivity {
             intent.putExtra("accountID", "0");
             intent.putExtra("pin", pin);
             startActivity(intent);
-
-
 
         }
         else {
