@@ -13,10 +13,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cs506.accountable.dto.Income;
 import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_4_Activity extends AppCompatActivity {
-    DataSource ds = new DataSource(Setup_4_Activity.this);
+    DataSource ds;
     String pin;
     String accountID;
     @Override
@@ -43,6 +44,9 @@ public class Setup_4_Activity extends AppCompatActivity {
         pin = prev.getString("pin");
         accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Setup_4_Activity.this);
+        ds.open();
 
     }
 
@@ -73,7 +77,7 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         //Save Income
         String[] incomeArgs = {"0", accountID, incomeName, incomeAmount, payPeriod, hoursOrSalary};
-        ds.create("income", incomeArgs);
+        Income income = (Income) ds.create("income", incomeArgs);
         //^This will be its own method
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");

@@ -20,7 +20,7 @@ import com.cs506.accountable.sqlite.DataSource;
 import java.util.*;
 
 public class Setup_3_Activity extends AppCompatActivity {
-    DataSource ds = new DataSource(Setup_3_Activity.this);
+    DataSource ds;
     String pin;
     String accountID;
     @Override
@@ -40,6 +40,10 @@ public class Setup_3_Activity extends AppCompatActivity {
         pin = prev.getString("pin");
         accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Setup_3_Activity.this);
+        ds.open();
+
 
  /*       String[] bills;
 
