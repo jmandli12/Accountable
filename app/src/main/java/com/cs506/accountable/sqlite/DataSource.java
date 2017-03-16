@@ -11,9 +11,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.Comment;
+import com.cs506.accountable.dto.Income;
 import com.cs506.accountable.dto.User;
 import com.cs506.accountable.dto.Bill;
+import com.cs506.accountable.dto.Purchase;
 
 /**
  * Created by tkobl on 3/8/2017.
@@ -310,6 +313,98 @@ public class DataSource {
     }
 
 
+    // TODO: to be completed by Tony
+    public Object retrieveById(String str, String id) {
+        try {
+            Cursor cursor;
+            User newUser;
+            Purchase newPurchase;
+            Income newIncome;
+            Bill newBill;
+            Account newAccount;
+            switch (str.toLowerCase()) {
+                case "user":
+                    cursor = database.query(SQLiteHelper.TABLE_USERS,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
+                            null, null, null, null);
+                    cursor.moveToFirst();
+                    newUser = cursorToUser(cursor);
+                    cursor.close();
+
+                    return newUser;
+                case "purchase":
+                    cursor = database.query(SQLiteHelper.TABLE_PURCHASES,
+                            allColumnsPurchase, SQLiteHelper.COLUMN_PURCHASEID + " = " + id,
+                            null, null, null, null);
+                    cursor.moveToFirst();
+                    newPurchase = cursorToPurchase(cursor);
+                    cursor.close();
+
+                    return newUser;
+                case "income":
+                    cursor = database.query(SQLiteHelper.TABLE_USERS,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
+                            null, null, null, null);
+                    cursor.moveToFirst();
+                    newUser = cursorToUser(cursor);
+                    cursor.close();
+
+                    return newUser;
+                case "bill":
+                    cursor = database.query(SQLiteHelper.TABLE_USERS,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
+                            null, null, null, null);
+                    cursor.moveToFirst();
+                    newUser = cursorToUser(cursor);
+                    cursor.close();
+
+                    return newUser;
+                case "account":
+                    cursor = database.query(SQLiteHelper.TABLE_USERS,
+                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
+                            null, null, null, null);
+                    cursor.moveToFirst();
+                    newUser = cursorToUser(cursor);
+                    cursor.close();
+
+                    return newUser;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public List<Object> retrieveAll(String str) {
+        try {
+            Cursor cursor;
+            switch (str.toLowerCase()) {
+                case "purchase":
+                    List<Purchase> purchaseList = new ArrayList<>();
+                    List<Object> purchaseObjects = new ArrayList<>();
+
+                    cursor = database.query(SQLiteHelper.TABLE_PURCHASES,
+                            allColumnsPurchase, null, null, null, null, null);
+                    cursor.moveToFirst();
+                    purchaseList = cursorToPurchaseList(cursor);
+                    cursor.close();
+
+                    for (int i = 0; i < purchaseList.size(); i++) {
+                        purchaseObjects.add((Object) purchaseList.get(i));
+                    }
+
+                    return purchaseObjects;
+                // TODO: cases for account, bill, income, user : completed by Tony
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public Comment createComment(String comment) {
         ContentValues values = new ContentValues();
@@ -364,8 +459,6 @@ public class DataSource {
         user.setPin(cursor.getInt(2));
         user.setSalt(cursor.getString(3));
         user.setUsername(cursor.getString(4));
-       // user.setAccountID(cursor.getInt(5));
-        //user.setJobID(cursor.getInt(6));
         user.setFirstTime(cursor.getInt(5));
         return user;
     }
@@ -381,4 +474,33 @@ public class DataSource {
         bill.setOccuranceRte(cursor.getInt(6));
         return bill;
     }
+
+    private Purchase cursorToPurchase(Cursor cursor) {
+        Purchase purchase = new Purchase();
+        purchase.setPurchaseId(cursor.getInt(0));
+        purchase.setUserId(cursor.getInt(1));
+        purchase.setAccountId(cursor.getInt(2));
+        purchase.setPrice(cursor.getDouble(3));
+        purchase.setDate(cursor.getString(4));
+        purchase.setTime(cursor.getString(5));
+        purchase.setCategory(cursor.getString(6));
+        purchase.setLocation(cursor.getString(7));
+        purchase.setComment(cursor.getString(8));
+        return purchase;
+    }
+
+    // TODO: complete other cursorTo<Object>List methods
+    private List<Purchase> cursorToPurchaseList(Cursor cursor) {
+        List<Purchase> purchaseList = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Purchase purchase = cursorToPurchase(cursor);
+            purchaseList.add(purchase);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return purchaseList;
+    }
+
 }
