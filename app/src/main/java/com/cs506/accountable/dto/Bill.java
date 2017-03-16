@@ -16,12 +16,12 @@ public class Bill {
     private int occuranceRte;
 
     public Bill() {
-        this.billId = 0;
+        this.billId = -1;
         this.billName = "";
-        this.userId = 0;
-        this.accountId = 0;
-        this.billAmount = 0;
-        this.dueDate = null;
+        this.userId = -1;
+        this.accountId = -1;
+        this.billAmount = -1.00;
+        this.dueDate = "";
         this.occuranceRte = 0;
     }
 

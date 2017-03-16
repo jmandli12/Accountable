@@ -21,6 +21,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SALT = "salt";
     public static final String COLUMN_FIRSTTIME = "first_time";
     public static final String COLUMN_BUDGET = "budget";
+    public static final String COLUMN_HASPIN = "has_pin";
 
     public static final String TABLE_BILLS = "bills";
     public static final String COLUMN_BILLID = "bill_id";
@@ -64,10 +65,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_USERS =        " create table "
             + TABLE_USERS + "( " + COLUMN_USERID + " integer"
-            + " primary key autoincrement, " + COLUMN_USERNAME + " text, " /*+ COLUMN_JOBID
-            + " integer key autoincrement, " + COLUMN_ACCOUNTID + " integer key autoincrement, "*/
+            + " primary key autoincrement, " + COLUMN_USERNAME + " text, "
             + COLUMN_PINHASH + " integer, " + COLUMN_PIN + " integer, " + COLUMN_SALT +" integer, "
-            + COLUMN_FIRSTTIME + " boolean);";
+            + COLUMN_FIRSTTIME + " boolean, " + COLUMN_BUDGET + " text, " + COLUMN_HASPIN + " boolean);";
+
 
     private static final String DATABASE_CREATE_BILLS =  " create table "
            + TABLE_BILLS + "( " + COLUMN_BILLID

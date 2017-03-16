@@ -11,31 +11,31 @@ public class User {
     private int pin;
     private String salt;
     private String username;
-    //private int accountID;
-    //private int jobID;
     private int firstTime;
+    private String budget;
+    private int hasPin;
 
     public User() {
-        id = 0;
-        pin_hash = 0;
-        pin = 0;
+        id = -1;
+        pin_hash = -1;
+        pin = -1;
         salt = "";
         username = "";
-        //accountID = 0;
-        //jobID = 0;
         firstTime = 1;
+        budget = "";
+        hasPin = 0;
     }
 
     public User(long ID, int PIN_HASH, int PIN, String SALT, String USERNAME, /*int ACCOUNTID, int JOBID,*/
-                int FIRSTTIME) {
+                int FIRSTTIME, String budget, int hasPin) {
         id = ID;
         pin_hash = PIN_HASH;
         pin = PIN;
         salt = SALT;
         username = USERNAME;
-        //accountID = ACCOUNTID;
-        //jobID = JOBID;
         firstTime = FIRSTTIME;
+        this.budget = budget;
+        this.hasPin = hasPin;
     }
 
     public long getId() {
@@ -54,14 +54,6 @@ public class User {
         this.username = username;
     }
 
-    //public int getAccountID() { return accountID; }
-
-    //public void setAccountID(int accountID) { this.accountID = accountID; }
-
-    //public int getJobID() { return jobID; }
-
-    //public void setJobID(int jobID) {this.jobID = jobID;}
-
     public int getPin_hash() {return this.pin_hash;}
 
     public void setPin_hash(int pin_hash) {this.pin_hash = pin_hash;}
@@ -78,4 +70,11 @@ public class User {
 
     public void setFirstTime(int firstTime) {this.firstTime = firstTime;}
 
+    public String getBudget() { return this.budget;}
+
+    public void setBudget(String budget){this.budget = budget;}
+
+    public int getHasPin() { return this.hasPin;}
+
+    public void setHasPin(int hasPin){this.hasPin = hasPin;}
 }

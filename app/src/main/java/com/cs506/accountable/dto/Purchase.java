@@ -16,10 +16,10 @@ public class Purchase {
     private String comment;
 
     public Purchase() {
-        this.purchaseId = 0;
-        this.userId = 0;
-        this.accountId = 0;
-        this.price = 0.00;
+        this.purchaseId = -1;
+        this.userId = -1;
+        this.accountId = -1;
+        this.price = -1;
         this.datetime = "";
         this.category = "";
         this.location = "";
