@@ -340,7 +340,7 @@ public class DataSource {
                     newPurchase = cursorToPurchase(cursor);
                     cursor.close();
 
-                    return newUser;
+                    return newPurchase;
                 case "income":
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
                             allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
@@ -481,8 +481,8 @@ public class DataSource {
         purchase.setUserId(cursor.getInt(1));
         purchase.setAccountId(cursor.getInt(2));
         purchase.setPrice(cursor.getDouble(3));
-        purchase.setDate(cursor.getString(4));
-        purchase.setTime(cursor.getString(5));
+        /*purchase.setDate(cursor.getString(4));
+        purchase.setTime(cursor.getString(5));*/
         purchase.setCategory(cursor.getString(6));
         purchase.setLocation(cursor.getString(7));
         purchase.setComment(cursor.getString(8));
