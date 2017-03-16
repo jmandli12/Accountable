@@ -100,7 +100,7 @@
         </activity>
         <activity
             android:name=".Lock_Screen_Activity"
-            android:label="@string/title_activity_lock__screen_"
+            android:label="Accountable"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

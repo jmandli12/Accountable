@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_4_Activity extends AppCompatActivity {
-    DataSource ds = new DataSource(Setup_4_Activity.this);
+    DataSource ds;
     String pin;
     String accountID;
     @Override
@@ -43,6 +43,9 @@ public class Setup_4_Activity extends AppCompatActivity {
         pin = prev.getString("pin");
         accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Setup_4_Activity.this);
+        ds.open();
 
     }
 

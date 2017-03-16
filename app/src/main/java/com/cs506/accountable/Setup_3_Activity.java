@@ -20,7 +20,7 @@ import com.cs506.accountable.sqlite.DataSource;
 import java.util.*;
 
 public class Setup_3_Activity extends AppCompatActivity {
-    DataSource ds = new DataSource(Setup_3_Activity.this);
+    DataSource ds;
     String pin;
     String accountID;
     @Override
@@ -40,6 +40,10 @@ public class Setup_3_Activity extends AppCompatActivity {
         pin = prev.getString("pin");
         accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Setup_3_Activity.this);
+        ds.open();
+
 
  /*       String[] bills;
 
@@ -119,7 +123,7 @@ public class Setup_3_Activity extends AppCompatActivity {
             if (billName.length() == 0) {
                 Toast.makeText(this, "Bill name cannot be empty", Toast.LENGTH_LONG).show();
             }
-            if (billAmount.length() < 3 || !isValidAmount) {
+            if (billAmount.length() <= 3 || !isValidAmount) {
                 Toast.makeText(this, "Bill amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 //TODO:Check for invalid leading 0 in dollar side?
             }

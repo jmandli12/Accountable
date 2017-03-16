@@ -16,14 +16,14 @@ public class Income {
     private double hours;
 
     public Income() {
-        this.incomeId = 0;
-        this.userId = 0;
-        this.accountId = 0;
+        this.incomeId = -1;
+        this.userId = -1;
+        this.accountId = -1;
         this.incomeName = "";
-        this.amount = 0;
+        this.amount = -1.00;
         this.date = "";
         this.payPeriod = "";
-        this.hours = 0.00;
+        this.hours = -1.00;
     }
 
     public Income(int incomeId, int userId, int accountId, String incomeName, double amount, String date, String payPeriod,
