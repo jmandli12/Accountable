@@ -48,11 +48,15 @@ public class Setup_0_ActivityTest {
                 .check(matches(isDisplayed()));
         onView(withId(R.id.firstPin))
                 .check(matches(isDisplayed()));
+
     }
 
     @Test
     public void skipWorks() {
-
+        onView(withId(R.id.skipButton))
+                .perform(click());
+        onView(withId(R.id.content_setup_2_))
+                .check(matches(isDisplayed()));
     }
 
 //    @Test
