@@ -50,7 +50,10 @@ public class Setup_2_Activity extends AppCompatActivity {
             //Save Bank Info
             String[] accountArgs = {"1", "1", accountName, accountBalance};
             //accountID, userID, accountName, accountBalance
-            ds.create("account", accountArgs);
+            Account account = (Account) ds.create("account", accountArgs);
+            //Snackbar.make(view,account.getAccountName(), Snackbar.LENGTH_INDEFINITE)
+              //      .setAction("Action", null).show();
+
             // Move onto next Activity
             Intent intent = new Intent(this, Setup_3_Activity.class);
             intent.putExtra("accountID", "1");

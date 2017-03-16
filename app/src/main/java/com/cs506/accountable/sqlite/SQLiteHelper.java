@@ -60,14 +60,20 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     // Database creation sql statement
     private static final String DATABASE_CREATE_COMMENTS = "create table "
-            + TABLE_COMMENTS + "( " + COLUMN_ID
-            + " integer primary key autoincrement, " + COLUMN_COMMENT + " text not null)";
+            + TABLE_COMMENTS + "( "
+            + COLUMN_ID + " integer primary key autoincrement, "
+            + COLUMN_COMMENT + " text not null)";
 
-    private static final String DATABASE_CREATE_USERS =        " create table "
-            + TABLE_USERS + "( " + COLUMN_USERID + " integer"
-            + " primary key autoincrement, " + COLUMN_USERNAME + " text, "
-            + COLUMN_PINHASH + " integer, " + COLUMN_PIN + " integer, " + COLUMN_SALT +" integer, "
-            + COLUMN_FIRSTTIME + " boolean, " + COLUMN_BUDGET + " text, " + COLUMN_HASPIN + " boolean)";
+    private static final String DATABASE_CREATE_USERS = " create table "
+            + TABLE_USERS + "( "
+            + COLUMN_USERID + " integer" /*+ " primary key autoincrement, "*/
+            + COLUMN_USERNAME + " text, "
+            + COLUMN_PINHASH + " integer, "
+            + COLUMN_PIN + " integer, "
+            + COLUMN_SALT +" integer, "
+            + COLUMN_FIRSTTIME + " boolean, "
+            + COLUMN_BUDGET + " text, "
+            + COLUMN_HASPIN + " boolean)";
 
     private static final String DATABASE_CREATE_BILLS =  " create table "
            + TABLE_BILLS + "( "
@@ -80,22 +86,31 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_OCCURANCERTE + " integer" + ")";
 
     private static final String DATABASE_CREATE_ACCOUNTS =  " create table "
-            + TABLE_ACCOUNTS + "("+ COLUMN_ACCOUNTID
-            + "text, " + COLUMN_USERID + " integer references user_id,"
-            + COLUMN_ACCOUNTNAME + " text," + COLUMN_BALANCE + " double)";
+            + TABLE_ACCOUNTS + "("
+            + COLUMN_ACCOUNTID + "integer, "
+            + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_ACCOUNTNAME + " text,"
+            + COLUMN_BALANCE + " double)";
 
     private static final String DATABASE_CREATE_INCOMES =  " create table "
-            + TABLE_INCOMES + "("+ COLUMN_INCOMEID
-            + /*"integer primary key autoincrement, "*/"text ," + COLUMN_USERID + " integer references user_id,"
-            + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_INCOMENAME + " text, "
-            + COLUMN_PAYPERIOD + " text, " + COLUMN_HOURS + " double)";
+            + TABLE_INCOMES + "("
+            + COLUMN_INCOMEID + /*"integer primary key autoincrement, "*/"text ,"
+            + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_ACCOUNTID + " integer references account_id, "
+            + COLUMN_INCOMENAME + " text, "
+            + COLUMN_PAYPERIOD + " text, "
+            + COLUMN_HOURS + " double)";
 
     private static final String DATABASE_CREATE_PURCHASES =  " create table "
-            + TABLE_PURCHASES + "("+ COLUMN_PURCHASEID
-            + "text , " + COLUMN_USERID + " integer references user_id,"
-            + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_PRICE + " double, "
-            + COLUMN_DATETIME + " text, " + COLUMN_CATEGORY + " text, " + COLUMN_LOCATION
-            + " text, " + COLUMN_COMMENT + " text)";
+            + TABLE_PURCHASES + "("
+            + COLUMN_PURCHASEID + "text , "
+            + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_ACCOUNTID + " integer references account_id, "
+            + COLUMN_PRICE + " double, "
+            + COLUMN_DATETIME + " text, "
+            + COLUMN_CATEGORY + " text, "
+            + COLUMN_LOCATION + " text, "
+            + COLUMN_COMMENT + " text)";
 
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
