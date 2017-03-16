@@ -481,7 +481,8 @@ public class DataSource {
                 cursor.getString(3),
                 cursor.getDouble(4),
                 cursor.getString(5),
-                cursor.getDouble(6)
+                cursor.getString(6),
+                cursor.getDouble(7)
         );
         return income;
     }
@@ -495,7 +496,8 @@ public class DataSource {
                 cursor.getString(4),
                 cursor.getString(5),
                 cursor.getString(6),
-                cursor.getString(7)
+                cursor.getString(7),
+                cursor.getString(8)
         );
         return purchase;
     }
