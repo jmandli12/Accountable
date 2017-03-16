@@ -11,7 +11,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.Comment;
+import com.cs506.accountable.dto.Income;
+import com.cs506.accountable.dto.Purchase;
 import com.cs506.accountable.dto.User;
 import com.cs506.accountable.dto.Bill;
 
@@ -26,16 +29,11 @@ public class DataSource {
     private String[] allColumns = { SQLiteHelper.COLUMN_ID,
             SQLiteHelper.COLUMN_COMMENT };
 
-
-
     private String[] allColumnsAccount = {
+        SQLiteHelper.COLUMN_ACCOUNTID,
         SQLiteHelper.COLUMN_USERID,
-        SQLiteHelper.COLUMN_USERNAME,
-        SQLiteHelper.COLUMN_PINHASH,
-        SQLiteHelper.COLUMN_PIN,
-        SQLiteHelper.COLUMN_SALT,
-        SQLiteHelper.COLUMN_FIRSTTIME,
-        SQLiteHelper.COLUMN_BUDGET
+        SQLiteHelper.COLUMN_ACCOUNTNAME,
+        SQLiteHelper.COLUMN_BALANCE
     };
     private String[] allColumnsBill = {
             SQLiteHelper.COLUMN_BILLID,
@@ -72,7 +70,8 @@ public class DataSource {
             SQLiteHelper.COLUMN_PIN,
             SQLiteHelper.COLUMN_SALT,
             SQLiteHelper.COLUMN_FIRSTTIME,
-            SQLiteHelper.COLUMN_BUDGET
+            SQLiteHelper.COLUMN_BUDGET,
+            SQLiteHelper.COLUMN_HASPIN
     };
 
 
@@ -109,11 +108,12 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_PIN, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_SALT, args[3]);
                     values.put(SQLiteHelper.COLUMN_USERNAME, args[4]);
-                    //values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[5]));
-                    //values.put(SQLiteHelper.COLUMN_JOBID, Integer.parseInt(args[6]));
-                    values.put(SQLiteHelper.COLUMN_FIRSTTIME, Boolean.parseBoolean(args[5]));
+                    values.put(SQLiteHelper.COLUMN_FIRSTTIME, Integer.parseInt(args[5]));
+                    values.put(SQLiteHelper.COLUMN_BUDGET, args[6]);
+                    values.put(SQLiteHelper.COLUMN_HASPIN, Integer.parseInt(args[7]));
 
                     returnValue = database.insert(SQLiteHelper.TABLE_USERS, null, values);
+                    if(returnValue == -1){ throw new Exception(); }
 
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
                             allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
@@ -135,8 +135,8 @@ public class DataSource {
 
                     returnValue = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
 
-                    cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
+                    cursor = database.query(SQLiteHelper.TABLE_INCOMES,
+                            allColumnsIncome, SQLiteHelper.COLUMN_INCOMEID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
@@ -152,8 +152,8 @@ public class DataSource {
 
                     returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
 
-                    cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
+                    cursor = database.query(SQLiteHelper.TABLE_ACCOUNTS,
+                            allColumnsAccount, SQLiteHelper.COLUMN_ACCOUNTID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
@@ -174,10 +174,10 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[5]);
                     values.put(SQLiteHelper.COLUMN_OCCURANCERTE, Integer.parseInt(args[6]));
 
-                    returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
+                    returnValue = database.insert(SQLiteHelper.TABLE_BILLS, null, values);
 
-                    cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
+                    cursor = database.query(SQLiteHelper.TABLE_BILLS,
+                            allColumnsBill, SQLiteHelper.COLUMN_BILLID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
@@ -198,8 +198,8 @@ public class DataSource {
 
                     returnValue = database.insert(SQLiteHelper.TABLE_PURCHASES, null, values);
 
-                    cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
+                    cursor = database.query(SQLiteHelper.TABLE_PURCHASES,
+                            allColumnsPurchase, SQLiteHelper.COLUMN_PURCHASEID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
                     newUser = cursorToUser(cursor);
@@ -357,28 +357,66 @@ public class DataSource {
         return comment;
     }
 
-    private User cursorToUser(Cursor cursor) {
-        User user = new User();
-        user.setId(cursor.getLong(0));
-        user.setPin_hash(cursor.getInt(1));
-        user.setPin(cursor.getInt(2));
-        user.setSalt(cursor.getString(3));
-        user.setUsername(cursor.getString(4));
-       // user.setAccountID(cursor.getInt(5));
-        //user.setJobID(cursor.getInt(6));
-        user.setFirstTime(cursor.getInt(5));
-        return user;
+    private Account cursorToAccount(Cursor cursor){
+        Account account = new Account(
+                cursor.getInt(0),
+                cursor.getInt(1),
+                cursor.getString(2),
+                cursor.getDouble(3));
+        return account;
     }
 
     private Bill cursorToBill(Cursor cursor) {
-        Bill bill = new Bill();
-        bill.setBillId(cursor.getInt(0));
-        bill.setUserId(cursor.getInt(1));
-        bill.setAccountId(cursor.getInt(2));
-        bill.setBillName(cursor.getString(3));
-        bill.setBillAmount(cursor.getDouble(4));
-        bill.setDueDate(cursor.getString(5));
-        bill.setOccuranceRte(cursor.getInt(6));
+        Bill bill = new Bill(
+            cursor.getInt(0),
+            cursor.getString(1),
+            cursor.getInt(2),
+            cursor.getInt(3),
+            cursor.getDouble(4),
+            cursor.getString(5),
+            cursor.getInt(6)
+        );
         return bill;
+    }
+
+    private Income cursorToIncome(Cursor cursor){
+        Income income = new Income(
+                cursor.getInt(0),
+                cursor.getInt(1),
+                cursor.getInt(2),
+                cursor.getString(3),
+                cursor.getDouble(4),
+                cursor.getString(5),
+                cursor.getDouble(6)
+        );
+        return income;
+    }
+
+    private Purchase cursorToPurchase(Cursor cursor){
+        Purchase purchase = new Purchase(
+                cursor.getInt(0),
+                cursor.getInt(1),
+                cursor.getInt(2),
+                cursor.getDouble(3),
+                cursor.getString(4),
+                cursor.getString(5),
+                cursor.getString(6),
+                cursor.getString(7)
+        );
+        return purchase;
+    }
+
+    private User cursorToUser(Cursor cursor) {
+        User user = new User(
+            cursor.getLong(0),
+            cursor.getInt(1),
+            cursor.getInt(2),
+            cursor.getString(3),
+            cursor.getString(4),
+            cursor.getInt(5),
+            cursor.getString(6),
+            cursor.getInt(7)
+        );
+        return user;
     }
 }

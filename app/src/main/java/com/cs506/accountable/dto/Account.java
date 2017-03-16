@@ -12,10 +12,10 @@ public class Account {
     private double balance;
 
     public Account() {
-        this.accountId = 0;
-        this.userId = 0;
+        this.accountId = -1;
+        this.userId = -1;
         this.accountName = "";
-        this.balance = 0.00;
+        this.balance = -1.00;
     }
 
     public Account(int accountId, int userId, String accountName, Double balance) {

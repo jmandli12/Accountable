@@ -15,16 +15,16 @@ public class Income {
     private double hours;
 
     public Income() {
-        this.incomeId = 0;
-        this.userId = 0;
-        this.accountId = 0;
+        this.incomeId = -1;
+        this.userId = -1;
+        this.accountId = -1;
         this.incomeName = "";
-        this.amount = 0;
+        this.amount = -1.00;
         this.payPeriod = "";
-        this.hours = 0.00;
+        this.hours = -1.00;
     }
 
-    public Income(int incomeId, int userId, int accountId, String incomeName, String payPeriod,
+    public Income(int incomeId, int userId, int accountId, String incomeName, Double amount, String payPeriod,
                   double hours) {
         this.incomeId = incomeId;
         this.userId = userId;
@@ -50,6 +50,10 @@ public class Income {
     public String getIncomeName() {return incomeName;}
 
     public void setIncomeName(String incomeName) {this.incomeName = incomeName;}
+
+    public Double getAmount() {return this.amount;}
+
+    public void setAmount(Double amount) {this.amount = amount;}
 
     public String getPayPeriod() {return payPeriod;}
 
