@@ -93,6 +93,10 @@ public class DataSource {
             long returnValue = -1;
             Cursor cursor;
             User newUser;
+            Purchase newPurchase;
+            Income newIncome;
+            Bill newBill;
+            Account newAccount;
             switch (str.toLowerCase()) {
                 case "user":
                     /*User user = new User(
@@ -141,10 +145,10 @@ public class DataSource {
                             allColumnsIncome, SQLiteHelper.COLUMN_INCOMEID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
-                    newUser = cursorToUser(cursor);
+                    newIncome = cursorToIncome(cursor);
                     cursor.close();
 
-                    return newUser;
+                    return newIncome;
                     //break;
                 case "account":
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[0]));
@@ -158,10 +162,10 @@ public class DataSource {
                             allColumnsAccount, SQLiteHelper.COLUMN_ACCOUNTID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
-                    newUser = cursorToUser(cursor);
+                    newAccount = cursorToAccount(cursor);
                     cursor.close();
 
-                    return newUser;
+                    return newAccount;
                     //break;
                 case "bill":
                     /*Bill bill = new Bill(Long.parseLong(args[0]), Integer.parseInt(args[1]),
@@ -182,10 +186,10 @@ public class DataSource {
                             allColumnsBill, SQLiteHelper.COLUMN_BILLID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
-                    newUser = cursorToUser(cursor);
+                    newBill = cursorToBill(cursor);
                     cursor.close();
 
-                    return newUser;
+                    return newBill;
 
                     //break;
                 case "purchase":
@@ -204,10 +208,10 @@ public class DataSource {
                             allColumnsPurchase, SQLiteHelper.COLUMN_PURCHASEID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
-                    newUser = cursorToUser(cursor);
+                    newPurchase = cursorToPurchase(cursor);
                     cursor.close();
 
-                    return newUser;
+                    return newPurchase;
 
                 //break;
                 default:
