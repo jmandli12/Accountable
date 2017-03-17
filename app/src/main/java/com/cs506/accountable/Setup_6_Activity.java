@@ -59,15 +59,15 @@ public class Setup_6_Activity extends AppCompatActivity {
         timePeriod = spinner.getSelectedItem().toString();
         spinner = (Spinner) findViewById(R.id.unitSavingSpinner);
         unitSaving = spinner.getSelectedItem().toString();
-        //Save goal
 
-//        boolean isValidAmount = amountToSave.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
 
         if (!timePeriod.equals("(Press to Select)") && !unitSaving.equals("(Select One)")) {
 
         }
 
         Toast.makeText(this, "TimePeriod Selected: " + timePeriod + " UnitSaving Selected: " + unitSaving, Toast.LENGTH_LONG).show();
+
+
         //finally create user
         String hasPin;
         if (pin.equals("noPin")) {
@@ -75,8 +75,10 @@ public class Setup_6_Activity extends AppCompatActivity {
         } else {
             hasPin = "true";
         }
-        String[] userArgs = {"1", "null", pin, "null", "User", "false", budget, hasPin};
+
         //userID, pinHash, pin, salt, userName, firstTime(now it is false), budget, hasPin
+        String[] userArgs = {"1", "null", pin, "null", "User", "false", budget, hasPin};
+
         ds.create("user", userArgs);
         Intent intent = new Intent(this, Setup_7_Activity.class);
 

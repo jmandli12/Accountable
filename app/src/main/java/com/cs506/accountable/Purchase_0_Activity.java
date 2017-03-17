@@ -145,7 +145,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
     }
 
     /*
-    Move to the next Activity if no fields are filled
+    Move to Home View onClick of button
      */
     public void backToHome(View view) {
 

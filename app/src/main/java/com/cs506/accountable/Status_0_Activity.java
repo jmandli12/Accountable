@@ -1,16 +1,15 @@
 package com.cs506.accountable;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
 
 import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.Bill;
 import com.cs506.accountable.dto.Income;
-import com.cs506.accountable.dto.Purchase;
 import com.cs506.accountable.sqlite.DataSource;
 
 import java.util.ArrayList;
@@ -89,6 +88,15 @@ public class Status_0_Activity extends AppCompatActivity {
 
         String amount = currAmount.toString();
         dailyAllowance.setText("$"+amount);
+    }
+
+    /*
+    Move to Home View onClick of button
+     */
+    public void backToHome(View view) {
+
+        Intent intent = new Intent(this, Main_Activity.class);
+        startActivity(intent);
     }
 
 }
