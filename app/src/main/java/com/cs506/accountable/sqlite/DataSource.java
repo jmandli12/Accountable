@@ -87,18 +87,28 @@ public class DataSource {
         dbHelper.close();
     }
 
+
+    /**
+     * Creates an entry of a specific type in the database, return a java object
+     * of that entry.
+     *
+     * @param str a string of which type you want to store in the database
+     * @param args an array of arguments needed to fulfil the database entry & java object
+     * @return a respective object file of the entry just put into the database
+     */
     public Object create(String str, String[] args) {
         try {
+
+            //create new value to be put into database, and new cursor to pull values from for
+            //java object filw
             ContentValues values = new ContentValues();
             long returnValue = -1;
             Cursor cursor;
-            User newUser;
-            Purchase newPurchase;
-            Income newIncome;
-            Bill newBill;
-            Account newAccount;
+
+            //user case
             switch (str.toLowerCase()) {
                 case "user":
+                    User newUser;
                     /*User user = new User(
                             Long.parseLong(args[0]),
                             Integer.parseInt(args[1]),
@@ -109,6 +119,7 @@ public class DataSource {
                             Integer.parseInt(args[6]),
                             Integer.parseInt(args[7]));*/
 
+                    //pull arguments from args[] and put into values for database
                     values.put(SQLiteHelper.COLUMN_USERID, Long.parseLong(args[0]));
                     values.put(SQLiteHelper.COLUMN_PINHASH, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_PIN, Integer.parseInt(args[2]));
@@ -118,19 +129,26 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_BUDGET, args[6]);
                     values.put(SQLiteHelper.COLUMN_HASPIN, Integer.parseInt(args[7]));
 
+                    //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_USERS, null, values);
                     if(returnValue == -1){ throw new Exception(); }
 
+                    //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
                             allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
+
+                    //pull entry values into a user object
                     newUser = cursorToUser(cursor);
                     cursor.close();
 
                     return newUser;
 
+                //income case
                 case "income":
+                    //pull arguments from args[] and put into values for database
+                    Income newIncome;
                     values.put(SQLiteHelper.COLUMN_INCOMEID, Integer.parseInt(args[0]));
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
@@ -139,28 +157,40 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_PAYPERIOD, args[5]);
                     values.put(SQLiteHelper.COLUMN_HOURS, Double.parseDouble(args[6]));
 
+                    //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
 
+                    //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_INCOMES,
                             allColumnsIncome, SQLiteHelper.COLUMN_INCOMEID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
+
+                    //pull values from entry into java object
                     newIncome = cursorToIncome(cursor);
                     cursor.close();
 
                     return newIncome;
-                    //break;
+
+                //account case
                 case "account":
+                    Account newAccount;
+
+                    //pull arguments from args[] and put into values for database
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[0]));
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTNAME, args[2]);
                     values.put(SQLiteHelper.COLUMN_BALANCE, Double.parseDouble(args[3]));
 
+                    //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
 
+                    //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_ACCOUNTS,
                             allColumnsAccount, SQLiteHelper.COLUMN_ACCOUNTID + " = " + returnValue, null,
                             null, null, null);
+
+                    //pull values from entry into java object
                     cursor.moveToFirst();
                     newAccount = cursorToAccount(cursor);
                     cursor.close();
@@ -168,10 +198,12 @@ public class DataSource {
                     return newAccount;
                     //break;
                 case "bill":
+                    Bill newBill;
                     /*Bill bill = new Bill(Long.parseLong(args[0]), Integer.parseInt(args[1]),
                             Integer.parseInt(args[2]), args[3], args[4], Integer.parseInt(args[5]),
                             Integer.parseInt(args[6]), Boolean.parseBoolean(args[7]));*/
 
+                    //pull arguments from args[] and put into values for database
                     values.put(SQLiteHelper.COLUMN_BILLID, Integer.parseInt(args[0]));
                     values.put(SQLiteHelper.COLUMN_BILLNAME, args[1]);
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[2]));
@@ -180,12 +212,16 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[5]);
                     values.put(SQLiteHelper.COLUMN_OCCURANCERTE, Integer.parseInt(args[6]));
 
+                    //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_BILLS, null, values);
 
+                    //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_BILLS,
                             allColumnsBill, SQLiteHelper.COLUMN_BILLID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
+
+                    //pull values from entry into java object
                     newBill = cursorToBill(cursor);
                     cursor.close();
 
@@ -193,6 +229,9 @@ public class DataSource {
 
                     //break;
                 case "purchase":
+                    Purchase newPurchase;
+
+                    //pull arguments from args[] and put into values for database
                     values.put(SQLiteHelper.COLUMN_PURCHASEID, Integer.parseInt(args[0]));
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
@@ -202,12 +241,16 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_LOCATION, args[6]);
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[7]);
 
+                    //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_PURCHASES, null, values);
 
+                    //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_PURCHASES,
                             allColumnsPurchase, SQLiteHelper.COLUMN_PURCHASEID + " = " + returnValue, null,
                             null, null, null);
                     cursor.moveToFirst();
+
+                    //pull values from entry into java object
                     newPurchase = cursorToPurchase(cursor);
                     cursor.close();
 
@@ -224,27 +267,47 @@ public class DataSource {
         return null;
     }
 
+    /**
+     * Querys specific table in database for a specific entry by ID, then deletes it
+     *
+     * @param str the type of entry to delete
+     * @param id the ID of the entry to delete
+     * @return
+     */
     public Object deleteById(String str, Integer id) {
         Integer result = 0;
         try {
+            //create empty ContentValues
             ContentValues values;
             switch (str.toLowerCase()) {
+
+                //user case
                 case "user":
+
+                    //move cursor to to user table
                     String[] whereArgs = new String[id];
                     result = 0;
                     Cursor cursor = database.query(SQLiteHelper.TABLE_USERS, null, null, null, null, null, null);
                     if(cursor.moveToFirst()) {
+
+                        //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_USERS, //User Table
                                 "? = " + SQLiteHelper.COLUMN_USERID, whereArgs);
                     }
                     cursor.close();
                 break;
+
+                //bill case
                 case "bill":
                     whereArgs = new String[id];
                     result = 0;
+
+                    //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_BILLS, null, null, null, null, null, null);
                     if(cursor.moveToFirst()) {
+
+                        //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_BILLS, //Table
                                 "? = " + SQLiteHelper.COLUMN_BILLID, //Where clause
@@ -253,11 +316,17 @@ public class DataSource {
                     }
                     cursor.close();
                 break;
+
+                //account case
                 case "account":
                     whereArgs = new String[id];
                     result = 0;
+
+                    //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_ACCOUNTS, null, null, null, null, null, null);
                     if(cursor.moveToFirst()) {
+
+                        //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_ACCOUNTS, //Table
                                 "? = " + SQLiteHelper.COLUMN_ACCOUNTID, //Where clause
@@ -266,11 +335,17 @@ public class DataSource {
                     }
                     cursor.close();
                     break;
+
+                //comment case
                 case "comment":
                     whereArgs = new String[id];
                     result = 0;
+
+                    //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_COMMENTS, null, null, null, null, null, null);
                     if(cursor.moveToFirst()) {
+
+                        //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_COMMENTS, //Table
                                 "? = " + SQLiteHelper.COLUMN_ID, //Where clause
@@ -279,11 +354,17 @@ public class DataSource {
                     }
                     cursor.close();
                     break;
+
+                //purchase
                 case "purchase":
                     whereArgs = new String[id];
                     result = 0;
+
+                    //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_PURCHASES, null, null, null, null, null, null);
                     if(cursor.moveToFirst()) {
+
+                        //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_PURCHASES, //Table
                                 "? = " + SQLiteHelper.COLUMN_PURCHASEID, //Where clause
@@ -292,11 +373,17 @@ public class DataSource {
                     }
                     cursor.close();
                     break;
+
+                //income
                 case "income":
                     whereArgs = new String[id];
                     result = 0;
+
+                    //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_INCOMES, null, null, null, null, null, null);
                     if(cursor.moveToFirst()) {
+
+                        //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_INCOMES, //Table
                                 "? = " + SQLiteHelper.COLUMN_INCOMEID, //Where clause
@@ -315,6 +402,12 @@ public class DataSource {
         return result;
     }
 
+    /**
+     * Similar to deleteById, querys specific table in database for a specific entry by ID
+     * @param str
+     * @param id
+     * @return
+     */
     public Object retrieveById(String str, String id) {
         try {
             Cursor cursor;
