@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:gravity="center"
-        android:text="Add a New Purchase"
+        android:text="Add a Purchase"
         android:onClick="moveToPurchase"/>
 
     <Button
