@@ -21,15 +21,18 @@ import com.cs506.accountable.dto.User;
 
 
 /**
- * Created by tkobl on 3/8/2017.
+ * Created by Database Bros. on 3/8/2017.
+ *
+ * commented out code is from the tutorial used to learn sqlite databases, it will not be used but
+ * may be useful
  */
 
 public class DataSource {
     // Database fields
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
-    private String[] allColumns = { SQLiteHelper.COLUMN_ID,
-            SQLiteHelper.COLUMN_COMMENT };
+    /*private String[] allColumns = { SQLiteHelper.COLUMN_ID,
+            SQLiteHelper.COLUMN_COMMENT };*/
 
     private String[] allColumnsAccount = {
         SQLiteHelper.COLUMN_ACCOUNTID,
@@ -76,13 +79,15 @@ public class DataSource {
             SQLiteHelper.COLUMN_HASPIN
     };
 
-
+    // constructs dbHelper
     public DataSource(Context context) { dbHelper = new SQLiteHelper(context); }
 
+    // opens database
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
 
+    // closes connection to database
     public void close() {
         dbHelper.close();
     }
@@ -337,7 +342,7 @@ public class DataSource {
                     break;
 
                 //comment case
-                case "comment":
+                /*case "comment":
                     whereArgs = new String[id];
                     result = 0;
 
@@ -354,6 +359,8 @@ public class DataSource {
                     }
                     cursor.close();
                     break;
+
+                   */
 
                 //purchase
                 case "purchase":
@@ -402,12 +409,12 @@ public class DataSource {
         return result;
     }
 
-    /**
-     * Similar to deleteById, querys specific table in database for a specific entry by ID
-     * @param str
-     * @param id
-     * @return
-     */
+    /* params: String str, determines which case is hit in the switch
+     *         String id, id of object trying to retrieve
+     *
+     * @return returns and object that can be cast to it's appropriate type
+     **/
+
     public Object retrieveById(String str, String id) {
         try {
             Cursor cursor;
@@ -471,6 +478,12 @@ public class DataSource {
         return null;
     }
 
+    /*Param: String str, determines which case is hit in the switch, refers to class object trying
+     * to retrieve
+     *
+     * returns list of all objects from the database table pertaining to str, list can be traversed
+     * and each object appropriately cast
+     **/
     public List<Object> retrieveAll(String str) {
         try {
             Cursor cursor;
@@ -554,7 +567,7 @@ public class DataSource {
         return null;
     }
 
-    public Comment createComment(String comment) {
+    /*public Comment createComment(String comment) {
         ContentValues values = new ContentValues();
         values.put(SQLiteHelper.COLUMN_COMMENT, comment);
         long insertId = database.insert(SQLiteHelper.TABLE_COMMENTS, null,
@@ -573,10 +586,10 @@ public class DataSource {
         System.out.println("Comment deleted with id: " + id);
         database.delete(SQLiteHelper.TABLE_COMMENTS, SQLiteHelper.COLUMN_ID
                 + " = " + id, null);
-    }
+    }*/
 
 
-    public List<Comment> getAllComments() {
+    /*public List<Comment> getAllComments() {
         List<Comment> comments = new ArrayList<Comment>();
 
         Cursor cursor = database.query(SQLiteHelper.TABLE_COMMENTS,
@@ -598,8 +611,9 @@ public class DataSource {
         comment.setId(cursor.getLong(0));
         comment.setComment(cursor.getString(1));
         return comment;
-    }
+    }*/
 
+    // helper methods to convert cursor objects to class objects
     private Account cursorToAccount(Cursor cursor){
         Account account = new Account(
                 cursor.getInt(0),
@@ -665,6 +679,7 @@ public class DataSource {
         return user;
     }
 
+    // helper methods to return lists of class objects
     private List<Purchase> cursorToPurchaseList(Cursor cursor) {
         List<Purchase> purchaseList = new ArrayList<>();
         cursor.moveToFirst();

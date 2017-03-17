@@ -29,13 +29,13 @@ public class TestDatabaseActivity extends ListActivity {
         datasource = new DataSource(this);
         datasource.open();
 
-        List<Comment> values = datasource.getAllComments();
+        //List<Comment> values = datasource.getAllComments();
 
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
-        ArrayAdapter<Comment> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
+//        ArrayAdapter<Comment> adapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_list_item_1, values);
+//        setListAdapter(adapter);
     }
 
     // Will be called via the onClick attribute
@@ -49,7 +49,7 @@ public class TestDatabaseActivity extends ListActivity {
                 String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
                 int nextInt = new Random().nextInt(3);
                 // save the new comment to the database
-                comment = datasource.createComment(comments[nextInt]);
+                //comment = datasource.createComment(comments[nextInt]);
                 adapter.add(comment);
                 break;
             /**case R.id.delete:
