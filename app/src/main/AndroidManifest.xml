@@ -161,6 +161,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs506.accountable.Update_0_Activity" />
         </activity>
+        <activity
+            android:name=".Update_5_Activity"
+            android:label="@string/title_activity_update_5_"
+            android:parentActivityName=".Update_0_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Update_0_Activity" />
+        </activity>
     </application>
 
 </manifest>

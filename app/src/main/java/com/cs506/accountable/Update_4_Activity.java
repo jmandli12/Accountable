@@ -63,12 +63,12 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
             timePeriod.setSelection(0);
             unitSaving.setSelection(0);
             amountToSave.setText("");
-            button.setText("Add Income");
+            button.setText("Add Goal");
         } else{
             timePeriod.setSelection(1);
             unitSaving.setSelection(1);
             amountToSave.setText("Goal info here");
-            button.setText("Update Income");
+            button.setText("Update Goal");
         }
     }
 
