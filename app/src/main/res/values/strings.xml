@@ -60,7 +60,27 @@
         <item>Clothing</item>
         <item>Pet</item>
     </string-array>
+    <string-array name="billNames_array">
+        <item>New Bill</item>
+        <item>Bill_1</item>
+        <item>Bill_2</item>
+    </string-array>
+    <string-array name="incomeNames_array">
+        <item>New Income</item>
+        <item>Income_1</item>
+        <item>Income_2</item>
+    </string-array>
+    <string-array name="goalNames_array">
+        <item>New Goal</item>
+        <item>Goal_1</item>
+        <item>Goal_2</item>
+    </string-array>
     <string name="title_activity_lock__screen_">Lock_Screen_Activity</string>
     <string name="title_activity_status_0_">Status_0_Activity</string>
+    <string name="title_activity_update_0_">Update_0_Activity</string>
+    <string name="title_activity_update_1_">Update_1_Activity</string>
+    <string name="title_activity_update_2_">Update_2_Activity</string>
+    <string name="title_activity_update_3_">Update_3_Activity</string>
+    <string name="title_activity_update_4_">Update_4_Activity</string>
 
 </resources>

@@ -86,4 +86,22 @@ public class Setup_6_Activity extends AppCompatActivity {
         //create new user with pushed info, if fails, popup notification and go back to beginnning
         startActivity(intent);
     }
+
+    public void savingsHelp(View view) {
+
+        switch (view.getId()) {
+            case R.id.timePeriodHelp:
+                Snackbar.make(view, "Time period of this goal. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.unitOfSavingHelp:
+                Snackbar.make(view, "Unit in which you would like to save. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.amountToSaveHelp:
+                Snackbar.make(view, "Amount or Percentage you wish to save. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+        }
+    }
 }

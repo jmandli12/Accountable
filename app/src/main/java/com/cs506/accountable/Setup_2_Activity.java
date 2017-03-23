@@ -72,4 +72,17 @@ public class Setup_2_Activity extends AppCompatActivity {
             }
         }
     }
+
+    public void accountHelp(View view) {
+        switch (view.getId()) {
+            case R.id.accountNameHelp:
+                Snackbar.make(view, "Name of your account.(Savings,Checking etc.) \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.accountBalanceHelp:
+                Snackbar.make(view, "How much money is in your account \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+        }
+    }
 }

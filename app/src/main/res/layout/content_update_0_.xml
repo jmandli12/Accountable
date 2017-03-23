@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.cs506.accountable.Update_0_Activity"
+    tools:showIn="@layout/activity_update_0_">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:gravity="center_horizontal"
+        android:text="What Information do you want to Update?" />
+
+    <Button
+        android:id="@+id/updateBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:onClick="onClick"
+        android:text="Balance" />
+
+    <Button
+        android:id="@+id/updateBills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:onClick="onClick"
+        android:text="Bills" />
+
+    <Button
+        android:id="@+id/updateIncome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:onClick="onClick"
+        android:text="Income" />
+
+    <Button
+        android:id="@+id/updateGoals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:onClick="onClick"
+        android:text="Goals" />
+
+</LinearLayout>
