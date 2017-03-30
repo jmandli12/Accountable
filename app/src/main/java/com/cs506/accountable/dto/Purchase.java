@@ -20,7 +20,7 @@ public class Purchase {
         this.purchaseId = -1;
         this.userId = -1;
         this.accountId = -1;
-        this.price = -1;
+        this.price = -1.00;
         this.date = "";
         this.time = "";
         this.category = "";
