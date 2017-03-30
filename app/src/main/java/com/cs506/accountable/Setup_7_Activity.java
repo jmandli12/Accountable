@@ -8,7 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.cs506.accountable.sqlite.DataSource;
+
 public class Setup_7_Activity extends AppCompatActivity {
+
+    DataSource ds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +23,8 @@ public class Setup_7_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ds = new DataSource(this);
+        ds.open();
     }
 
     /*
