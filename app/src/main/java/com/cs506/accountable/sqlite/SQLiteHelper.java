@@ -69,9 +69,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_PINHASH + " integer, " + COLUMN_PIN + " integer, " + COLUMN_SALT +" integer, "
             + COLUMN_FIRSTTIME + " integer, " + COLUMN_BUDGET + " text, " + COLUMN_HASPIN + " integer)";
 
+    private static final String DATABASE_CREATE_ACCOUNTS =  " create table "
+            + TABLE_ACCOUNTS + "("
+            + COLUMN_ACCOUNTID + " integer primary key autoincrement, "
+            + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_ACCOUNTNAME + " text,"
+            + COLUMN_BALANCE + " double)";
+
     private static final String DATABASE_CREATE_BILLS =  " create table "
            + TABLE_BILLS + "( "
-            + COLUMN_BILLID + "integer, "
+            + COLUMN_BILLID + " integer primary key autoincrement, "
             + COLUMN_BILLNAME + " text, "
             + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id,"
@@ -79,20 +86,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_DUEDTE + " text, "
             + COLUMN_OCCURANCERTE + " integer" + ")";
 
-    private static final String DATABASE_CREATE_ACCOUNTS =  " create table "
-            + TABLE_ACCOUNTS + "("+ COLUMN_ACCOUNTID
-            + "integer, " + COLUMN_USERID + " integer references user_id,"
-            + COLUMN_ACCOUNTNAME + " text," + COLUMN_BALANCE + " double)";
-
     private static final String DATABASE_CREATE_INCOMES =  " create table "
             + TABLE_INCOMES + "("+ COLUMN_INCOMEID
-            + /*"integer primary key autoincrement, "*/"integer ," + COLUMN_USERID + " integer references user_id,"
+            + /*"integer primary key autoincrement, "*/" integer ," + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_INCOMENAME + " text, "
             + COLUMN_PAYPERIOD + " text, " + COLUMN_HOURS + " double)";
 
     private static final String DATABASE_CREATE_PURCHASES =  " create table "
             + TABLE_PURCHASES + "("+ COLUMN_PURCHASEID
-            + "integer , " + COLUMN_USERID + " integer references user_id,"
+            + " integer , " + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_PRICE + " double, "
             + COLUMN_DATETIME + " text, " + COLUMN_CATEGORY + " text, " + COLUMN_LOCATION
             + " text, " + COLUMN_COMMENT + " text)";
@@ -107,8 +109,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         //database.execSQL(DATABASE_CREATE_COMMENTS);
         database.execSQL(DATABASE_CREATE_USERS);
-        database.execSQL(DATABASE_CREATE_BILLS);
         database.execSQL(DATABASE_CREATE_ACCOUNTS);
+        database.execSQL(DATABASE_CREATE_BILLS);
         database.execSQL(DATABASE_CREATE_INCOMES);
         database.execSQL(DATABASE_CREATE_PURCHASES);
     }

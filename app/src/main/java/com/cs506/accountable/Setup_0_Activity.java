@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cs506.accountable.sqlite.DataSource;
+
 public class Setup_0_Activity extends AppCompatActivity {
+
+    DataSource ds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,9 @@ public class Setup_0_Activity extends AppCompatActivity {
         toolbar.setTitle("Accountable Setup");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(this);
+        ds.open();
     }
 
     public void buttonClickHandler(View view) {
