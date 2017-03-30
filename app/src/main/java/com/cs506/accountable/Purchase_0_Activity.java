@@ -12,8 +12,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.Date;
 
-public class Purchase_0_Activity extends AppCompatActivity {
+import com.cs506.accountable.dto.Account;
+import com.cs506.accountable.sqlite.DataSource;
 
+public class Purchase_0_Activity extends AppCompatActivity {
+    DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,8 @@ public class Purchase_0_Activity extends AppCompatActivity {
         String ptime = (String) DateFormat.format("hh:mm a", d.getTime());
         date.setText(pdate);
         time.setText(ptime);
+
+        ds = new DataSource(this);
 
 
     }
@@ -112,7 +117,14 @@ public class Purchase_0_Activity extends AppCompatActivity {
             date2.setText(pdate);
             time2.setText(ptime);
 
-
+            String[] purchaseArgs = {null, "1", "1", price, date, time,
+                    category, location, comments};
+            ds.create("purchase", purchaseArgs);
+            Account account = (Account) ds.retrieveById("account", "1");  //TODO
+            Double balance = account.getBalance();
+            account.setBalance(balance - Double.parseDouble(price));
+            String[] newAccountArgs = {"1", "1", account.getAccountName(), balance.toString()};
+            ds.create("account", newAccountArgs);
 
         } else {
             if (price.length() < 3 || !isValidAmount) {
@@ -133,7 +145,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
     }
 
     /*
-    Move to the next Activity if no fields are filled
+    Move to Home View onClick of button
      */
     public void backToHome(View view) {
 

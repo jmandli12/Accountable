@@ -14,7 +14,7 @@ import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_2_Activity extends AppCompatActivity {
-    DataSource ds = new DataSource(Setup_2_Activity.this);
+    DataSource ds;
     String pin = "noPin";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,9 @@ public class Setup_2_Activity extends AppCompatActivity {
         Bundle prev = getIntent().getExtras();
         if (prev != null) pin = prev.getString("pin");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Setup_2_Activity.this);
+        ds.open();
     }
 
     /*
@@ -45,12 +48,15 @@ public class Setup_2_Activity extends AppCompatActivity {
             Toast.makeText(this, "Account Name: " + accountName + " Account Balance: " + accountBalance, Toast.LENGTH_LONG).show();
 
             //Save Bank Info
-            String[] accountArgs = {"0", "0", accountName, accountBalance};
+            String[] accountArgs = {"1", "1", accountName, accountBalance};
             //accountID, userID, accountName, accountBalance
-            ds.create("account", accountArgs);
+            Account account = (Account) ds.create("account", accountArgs);
+            //Snackbar.make(view,account.getAccountName(), Snackbar.LENGTH_INDEFINITE)
+              //      .setAction("Action", null).show();
+
             // Move onto next Activity
             Intent intent = new Intent(this, Setup_3_Activity.class);
-            intent.putExtra("accountID", "0");
+            intent.putExtra("accountID", "1");
             intent.putExtra("pin", pin);
             startActivity(intent);
 
@@ -64,6 +70,19 @@ public class Setup_2_Activity extends AppCompatActivity {
                 Toast.makeText(this, "Account Balance must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 //TODO:Check for invalid leading 0 in dollar side?
             }
+        }
+    }
+
+    public void accountHelp(View view) {
+        switch (view.getId()) {
+            case R.id.accountNameHelp:
+                Snackbar.make(view, "Name of your account.(Savings,Checking etc.) \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.accountBalanceHelp:
+                Snackbar.make(view, "How much money is in your account \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
         }
     }
 }

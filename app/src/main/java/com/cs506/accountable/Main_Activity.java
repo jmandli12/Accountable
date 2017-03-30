@@ -44,6 +44,8 @@ public class Main_Activity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, Update_0_Activity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -63,14 +65,6 @@ public class Main_Activity extends AppCompatActivity {
      */
     public void moveToStatus(View view) {
         Intent intent = new Intent(this, Status_0_Activity.class);
-        startActivity(intent);
-    }
-
-    /*
-    TEMP will be removed before end of iteration 1
-     */
-    public void lockScreen(View view) {
-        Intent intent = new Intent(this, Lock_Screen_Activity.class);
         startActivity(intent);
     }
 

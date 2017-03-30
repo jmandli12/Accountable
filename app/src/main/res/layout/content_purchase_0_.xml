@@ -23,7 +23,7 @@
         android:textSize="30dp"
         android:paddingBottom="30dp"
         android:gravity="center"
-        android:text="Add a new Purchase" />
+        android:text="Add a Purchase" />
 
     <LinearLayout
         android:layout_width="match_parent"

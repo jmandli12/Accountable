@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_6_Activity extends AppCompatActivity {
-    DataSource ds = new DataSource(Setup_6_Activity.this);
+    DataSource ds;
     String pin;
     String accountID;
     String budget;
@@ -42,6 +42,9 @@ public class Setup_6_Activity extends AppCompatActivity {
         accountID = prev.getString("accountID");
         budget = prev.getString("budget");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Setup_6_Activity.this);
+        ds.open();
     }
 
     /*
@@ -56,15 +59,15 @@ public class Setup_6_Activity extends AppCompatActivity {
         timePeriod = spinner.getSelectedItem().toString();
         spinner = (Spinner) findViewById(R.id.unitSavingSpinner);
         unitSaving = spinner.getSelectedItem().toString();
-        //Save goal
 
-//        boolean isValidAmount = amountToSave.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
 
         if (!timePeriod.equals("(Press to Select)") && !unitSaving.equals("(Select One)")) {
 
         }
 
         Toast.makeText(this, "TimePeriod Selected: " + timePeriod + " UnitSaving Selected: " + unitSaving, Toast.LENGTH_LONG).show();
+
+
         //finally create user
         String hasPin;
         if (pin.equals("noPin")) {
@@ -72,13 +75,33 @@ public class Setup_6_Activity extends AppCompatActivity {
         } else {
             hasPin = "true";
         }
-        String[] userArgs = {"0", "null", pin, "null", "User", "false", budget, hasPin};
+
         //userID, pinHash, pin, salt, userName, firstTime(now it is false), budget, hasPin
+        String[] userArgs = {"1", "null", pin, "null", "User", "false", budget, hasPin};
+
         ds.create("user", userArgs);
         Intent intent = new Intent(this, Setup_7_Activity.class);
 
         // TODO:
         //create new user with pushed info, if fails, popup notification and go back to beginnning
         startActivity(intent);
+    }
+
+    public void savingsHelp(View view) {
+
+        switch (view.getId()) {
+            case R.id.timePeriodHelp:
+                Snackbar.make(view, "Time period of this goal. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.unitOfSavingHelp:
+                Snackbar.make(view, "Unit in which you would like to save. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.amountToSaveHelp:
+                Snackbar.make(view, "Amount or Percentage you wish to save. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
+        }
     }
 }

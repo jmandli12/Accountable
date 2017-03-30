@@ -60,4 +60,9 @@ public class Setup_5_Activity extends AppCompatActivity {
             Toast.makeText(this, "Must select a budget", Toast.LENGTH_LONG).show();
         }
     }
+
+    public void budgetHelp(View view) {
+        Snackbar.make(view, "NOT SURE WHAT GOES HERE YET \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
+    }
 }

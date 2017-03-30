@@ -11,8 +11,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Setup_0_Activity"
             android:label="@string/title_activity_setup_0_"
@@ -100,7 +99,7 @@
         </activity>
         <activity
             android:name=".Lock_Screen_Activity"
-            android:label="@string/title_activity_lock__screen_"
+            android:label="Accountable"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -116,6 +115,60 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs506.accountable.Main_Activity" />
+        </activity>
+        <activity
+            android:name=".Update_0_Activity"
+            android:label="@string/title_activity_update_0_"
+            android:parentActivityName=".Main_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Main_Activity" />
+        </activity>
+        <activity
+            android:name=".Update_1_Activity"
+            android:label="@string/title_activity_update_1_"
+            android:parentActivityName=".Update_0_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Update_0_Activity" />
+        </activity>
+        <activity
+            android:name=".Update_2_Activity"
+            android:label="@string/title_activity_update_2_"
+            android:parentActivityName=".Update_0_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Update_0_Activity" />
+        </activity>
+        <activity
+            android:name=".Update_3_Activity"
+            android:label="@string/title_activity_update_3_"
+            android:parentActivityName=".Update_0_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Update_0_Activity" />
+        </activity>
+        <activity
+            android:name=".Update_4_Activity"
+            android:label="@string/title_activity_update_4_"
+            android:parentActivityName=".Update_0_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Update_0_Activity" />
+        </activity>
+        <activity
+            android:name=".Update_5_Activity"
+            android:label="@string/title_activity_update_5_"
+            android:parentActivityName=".Update_0_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Update_0_Activity" />
         </activity>
     </application>
 
