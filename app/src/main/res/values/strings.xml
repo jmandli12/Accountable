@@ -75,6 +75,14 @@
         <item>Goal_1</item>
         <item>Goal_2</item>
     </string-array>
+    <string-array name="status_array">
+        <item>Today</item>
+        <item>This Week</item>
+        <item>This Month</item>
+        <item>This Year</item>
+        <item>Custom Date</item>
+        <item>Previous Purchases</item>
+    </string-array>
     <string name="title_activity_lock__screen_">Lock_Screen_Activity</string>
     <string name="title_activity_status_0_">Status_0_Activity</string>
     <string name="title_activity_update_0_">Update_0_Activity</string>

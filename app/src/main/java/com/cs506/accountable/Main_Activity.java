@@ -68,14 +68,6 @@ public class Main_Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*
-    TEMP will be removed before end of iteration 1
-     */
-    public void lockScreen(View view) {
-        Intent intent = new Intent(this, Lock_Screen_Activity.class);
-        startActivity(intent);
-    }
-
     @Override
     public void onBackPressed() {
         return;

@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cs506.accountable.dto.Account;
@@ -17,7 +23,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class Status_0_Activity extends AppCompatActivity {
+public class Status_0_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     DataSource ds;
     List<Bill> allBills;
     List<Income> allIncomes;
@@ -34,11 +40,31 @@ public class Status_0_Activity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Spinner spinner = (Spinner) findViewById(R.id.statusSpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.status_array, android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        TextView accountBalance = (TextView) findViewById(R.id.accountBalance);
+        TextView incomeEarned = (TextView) findViewById(R.id.incomeEarned);
+        TextView spendingAllowance = (TextView) findViewById(R.id.spendingAllowance);
+        TextView amountSpent = (TextView) findViewById(R.id.amountSpent);
+        TextView goalStatus = (TextView) findViewById(R.id.goalStatus);
+
+        accountBalance.setText("0.00");
+        incomeEarned.setText("0.00");
+        spendingAllowance.setText("0.00");
+        amountSpent.setText("0.00");
+        goalStatus.setText("0.00");
+
+
         //Set the Daily Allowance Value
-        TextView dailyAllowance = (TextView) findViewById(R.id.dailyAllowance);
+        //TextView dailyAllowance = (TextView) findViewById(R.id.dailyAllowance);
         //TODO: call method to get this value
         //Double amount = 100.45;
-        ds = new DataSource(this);
+/*        ds = new DataSource(this);
         Account account = (Account) ds.retrieveById("account", "1"); //TODO
         Double currAmount = account.getBalance();
         allBills = (List<Bill>)(List<?>) ds.retrieveAll("bill"); //TODO
@@ -86,8 +112,37 @@ public class Status_0_Activity extends AppCompatActivity {
 
         currAmount = currAmount/(7-d.getDay());
 
-        String amount = currAmount.toString();
-        dailyAllowance.setText("$"+amount);
+        String amount = currAmount.toString();*/
+        //dailyAllowance.setText("$"+amount);
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+
+        TextView accountBalance = (TextView) findViewById(R.id.accountBalance);
+        TextView incomeEarned = (TextView) findViewById(R.id.incomeEarned);
+        TextView spendingAllowance = (TextView) findViewById(R.id.spendingAllowance);
+        TextView amountSpent = (TextView) findViewById(R.id.amountSpent);
+        TextView goalStatus = (TextView) findViewById(R.id.goalStatus);
+        LinearLayout dates = (LinearLayout) findViewById(R.id.customDateLayout);
+
+        String statusRange = (String) parent.getItemAtPosition(pos);
+        if(statusRange.equals("Custom Date")){
+            dates.setVisibility(View.VISIBLE);
+        } else{
+            dates.setVisibility(View.INVISIBLE);
+        }
+        //TODO: Use current selection to get values from database
+
+        accountBalance.setText("0.00");
+        incomeEarned.setText("0.00");
+        spendingAllowance.setText("0.00");
+        amountSpent.setText("0.00");
+        goalStatus.setText("0.00");
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
     }
 
     /*

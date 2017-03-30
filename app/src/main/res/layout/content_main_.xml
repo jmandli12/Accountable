@@ -41,12 +41,4 @@
         android:text="View Financial Status"
         android:onClick="moveToStatus"/>
 
-    <Button
-        android:id="@+id/button15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="temp to lock screen for testing"
-        android:onClick="lockScreen"/>
-
-
 </LinearLayout>
