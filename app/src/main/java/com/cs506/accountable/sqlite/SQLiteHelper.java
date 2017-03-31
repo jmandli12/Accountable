@@ -90,7 +90,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id,"
             + COLUMN_BILLNAME + " text, "
-            + COLUMN_BILLAMT + " integer, "
+            + COLUMN_BILLAMT + " double, "
             + COLUMN_DUEDTE + " text, "
             + COLUMN_OCCURANCERTE + " integer" + ")";
 
