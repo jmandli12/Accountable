@@ -56,17 +56,20 @@ public class DataSource {
             SQLiteHelper.COLUMN_ACCOUNTID,
             SQLiteHelper.COLUMN_INCOMENAME,
             SQLiteHelper.COLUMN_AMOUNT,
+            SQLiteHelper.COLUMN_DATE,
             SQLiteHelper.COLUMN_PAYPERIOD,
             SQLiteHelper.COLUMN_HOURS
     };
     private String[] allColumnsPurchase = {
             SQLiteHelper.COLUMN_PURCHASEID,
+            SQLiteHelper.COLUMN_PRICE,
+            SQLiteHelper.COLUMN_DATE,
+            SQLiteHelper.COLUMN_TIME,
             SQLiteHelper.COLUMN_USERID,
             SQLiteHelper.COLUMN_ACCOUNTID,
-            SQLiteHelper.COLUMN_INCOMENAME,
-            SQLiteHelper.COLUMN_AMOUNT,
-            SQLiteHelper.COLUMN_PAYPERIOD,
-            SQLiteHelper.COLUMN_HOURS
+            SQLiteHelper.COLUMN_CATEGORY,
+            SQLiteHelper.COLUMN_LOCATION,
+            SQLiteHelper.COLUMN_COMMENT
     };
     private String[] allColumnsUser = {
             SQLiteHelper.COLUMN_USERID,
@@ -126,10 +129,10 @@ public class DataSource {
 
                     //pull arguments from args[] and put into values for database
                     values.put(SQLiteHelper.COLUMN_USERID, Long.parseLong(args[0]));
-                    values.put(SQLiteHelper.COLUMN_PINHASH, Integer.parseInt(args[1]));
-                    values.put(SQLiteHelper.COLUMN_PIN, Integer.parseInt(args[2]));
-                    values.put(SQLiteHelper.COLUMN_SALT, args[3]);
-                    values.put(SQLiteHelper.COLUMN_USERNAME, args[4]);
+                    values.put(SQLiteHelper.COLUMN_USERNAME, args[1]);
+                    values.put(SQLiteHelper.COLUMN_PINHASH, Integer.parseInt(args[2]));
+                    values.put(SQLiteHelper.COLUMN_PIN, Integer.parseInt(args[3]));
+                    values.put(SQLiteHelper.COLUMN_SALT, args[4]);
                     values.put(SQLiteHelper.COLUMN_FIRSTTIME, Integer.parseInt(args[5]));
                     values.put(SQLiteHelper.COLUMN_BUDGET, args[6]);
                     values.put(SQLiteHelper.COLUMN_HASPIN, Integer.parseInt(args[7]));
@@ -159,6 +162,7 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_INCOMENAME, args[3]);
                     values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[4]));
+                    values
                     values.put(SQLiteHelper.COLUMN_PAYPERIOD, args[5]);
                     values.put(SQLiteHelper.COLUMN_HOURS, Double.parseDouble(args[6]));
 
@@ -238,10 +242,12 @@ public class DataSource {
 
                     //pull arguments from args[] and put into values for database
                     values.put(SQLiteHelper.COLUMN_PURCHASEID, Integer.parseInt(args[0]));
+                    values.put(SQLiteHelper.COLUMN_PRICE, Double.parseDouble(args[3]));
+                    values.put(SQLiteHelper.COLUMN_DATETIME, args[4]);
+                    values.put(SQLiteHelper.COLUMN_
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_PRICE, Double.parseDouble(args[3]));
-                    values.put(SQLiteHelper.COLUMN_DATETIME, args[4]);
                     values.put(SQLiteHelper.COLUMN_CATEGORY, args[5]);
                     values.put(SQLiteHelper.COLUMN_LOCATION, args[6]);
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[7]);

@@ -44,13 +44,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ACCOUNTID = "account_id";
     public static final String COLUMN_INCOMENAME = "income_name";
     public static final String COLUMN_AMOUNT = "amount";
+    //public static final String COLUMN_DATE = "date";
     public static final String COLUMN_PAYPERIOD = "pay_period";
     public static final String COLUMN_HOURS = "hours";
 
     public static final String TABLE_PURCHASES = "purchases";
     public static final String COLUMN_PURCHASEID = "purchase_id";
     public static final String COLUMN_PRICE = "price";
-    public static final String COLUMN_DATETIME = "datetime";
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_TIME = "time";
+    //public static final String COLUMN_USERID = "user_id";
+    //public static final String COLUMN_ACCOUNTID = "account_id";
     public static final String COLUMN_CATEGORY = "category";
     public static final String COLUMN_LOCATION = "location";
     public static final String COLUMN_COMMENT = "comment";
