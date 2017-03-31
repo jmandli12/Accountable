@@ -93,7 +93,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_BILLNAME + " text, "
             + COLUMN_BILLAMT + " double, "
             + COLUMN_DUEDTE + " text, "
-            + COLUMN_OCCURANCERTE + " integer" + ")";
+            + COLUMN_OCCURANCERTE + " text)";
 
     private static final String DATABASE_CREATE_INCOMES =  " create table "
             + TABLE_INCOMES + "("

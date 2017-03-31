@@ -219,7 +219,7 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_BILLNAME, args[3]);
                     values.put(SQLiteHelper.COLUMN_BILLAMT, Double.parseDouble(args[4]));
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[5]);
-                    values.put(SQLiteHelper.COLUMN_OCCURANCERTE, Integer.parseInt(args[6]));
+                    values.put(SQLiteHelper.COLUMN_OCCURANCERTE, args[6]);
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_BILLS, null, values);
