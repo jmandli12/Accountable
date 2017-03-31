@@ -673,9 +673,9 @@ public class DataSource {
     private User cursorToUser(Cursor cursor) {
         User user = new User(
                 cursor.getInt(0),
-                cursor.getInt(1),
+                cursor.getString(1),
                 cursor.getInt(2),
-                cursor.getString(3),
+                cursor.getInt(3),
                 cursor.getString(4),
                 cursor.getInt(5),
                 cursor.getString(6),

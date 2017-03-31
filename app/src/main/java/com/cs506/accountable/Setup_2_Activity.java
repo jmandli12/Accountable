@@ -12,9 +12,11 @@ import android.widget.Toast;
 
 import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.sqlite.DataSource;
+import com.cs506.accountable.dto.User;
 
 public class Setup_2_Activity extends AppCompatActivity {
     DataSource ds;
+    User user;
     String pin = "noPin";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class Setup_2_Activity extends AppCompatActivity {
 
         ds = new DataSource(Setup_2_Activity.this);
         ds.open();
+
+        String[] userArgs = {"1", "user", "0", pin, "", "1", "", "1"};
+        user = (User) ds.create("user", userArgs);
     }
 
     /*
