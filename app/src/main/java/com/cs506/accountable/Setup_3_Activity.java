@@ -108,7 +108,7 @@ public class Setup_3_Activity extends AppCompatActivity {
 
         if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("Occurrence (Press to Select)")) {
 
-            String[] billArgs = {"1", billName, "1", "1", billAmount, dueDate, occurrence};
+            String[] billArgs = {"1", "1", "1", billName, billAmount, dueDate, occurrence};
             Bill rbill = (Bill) ds.create("bill", billArgs);
 
             Toast.makeText(this, "(Added Bill)" + "\nBillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + occurrence, Toast.LENGTH_LONG).show();

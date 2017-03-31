@@ -75,38 +75,38 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_SALT +" integer, "
             + COLUMN_FIRSTTIME + " integer, "
             + COLUMN_BUDGET + " text, "
-            + COLUMN_HASPIN + " integer)";
+            + COLUMN_HASPIN + " integer )";
 
     private static final String DATABASE_CREATE_ACCOUNTS =  " create table "
-            + TABLE_ACCOUNTS + "("
+            + TABLE_ACCOUNTS + "( "
             + COLUMN_ACCOUNTID + " integer primary key autoincrement, "
-            + COLUMN_USERID + " integer references user_id,"
-            + COLUMN_ACCOUNTNAME + " text,"
-            + COLUMN_BALANCE + " double)";
+            + COLUMN_USERID + " integer references user_id, "
+            + COLUMN_ACCOUNTNAME + " text, "
+            + COLUMN_BALANCE + " double )";
 
     private static final String DATABASE_CREATE_BILLS =  " create table "
            + TABLE_BILLS + "( "
             + COLUMN_BILLID + " integer primary key autoincrement, "
-            + COLUMN_USERID + " integer references user_id,"
-            + COLUMN_ACCOUNTID + " integer references account_id,"
+            + COLUMN_USERID + " integer references user_id, "
+            + COLUMN_ACCOUNTID + " integer references account_id, "
             + COLUMN_BILLNAME + " text, "
             + COLUMN_BILLAMT + " double, "
             + COLUMN_DUEDTE + " text, "
-            + COLUMN_OCCURANCERTE + " integer" + ")";
+            + COLUMN_OCCURANCERTE + " text)";
 
     private static final String DATABASE_CREATE_INCOMES =  " create table "
-            + TABLE_INCOMES + "("
-            + COLUMN_INCOMEID + "integer primary key autoincrement,"
-            + COLUMN_USERID + " integer references user_id,"
+            + TABLE_INCOMES + "( "
+            + COLUMN_INCOMEID + " integer primary key autoincrement, "
+            + COLUMN_USERID + " integer references user_id, "
             + COLUMN_ACCOUNTID + " integer references account_id, "
             + COLUMN_INCOMENAME + " text, "
             + COLUMN_AMOUNT + " double, "
             + COLUMN_DATE + " text, "
             + COLUMN_PAYPERIOD + " text, "
-            + COLUMN_HOURS + " double)";
+            + COLUMN_HOURS + " double )";
 
     private static final String DATABASE_CREATE_PURCHASES =  " create table "
-            + TABLE_PURCHASES + "("
+            + TABLE_PURCHASES + "( "
             + COLUMN_PURCHASEID + " integer , "
             + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id, "
@@ -115,7 +115,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_TIME + " text, "
             + COLUMN_CATEGORY + " text, "
             + COLUMN_LOCATION + " text, "
-            + COLUMN_COMMENT + " text)";
+            + COLUMN_COMMENT + " text )";
 
 
     public SQLiteHelper(Context context) {
