@@ -42,9 +42,9 @@ public class DataSource {
     };
     private String[] allColumnsBill = {
             SQLiteHelper.COLUMN_BILLID,
-            SQLiteHelper.COLUMN_BILLNAME,
             SQLiteHelper.COLUMN_USERID,
             SQLiteHelper.COLUMN_ACCOUNTID,
+            SQLiteHelper.COLUMN_BILLNAME,
             SQLiteHelper.COLUMN_BILLAMT,
             SQLiteHelper.COLUMN_DUEDTE,
             SQLiteHelper.COLUMN_OCCURANCERTE
@@ -62,11 +62,11 @@ public class DataSource {
     };
     private String[] allColumnsPurchase = {
             SQLiteHelper.COLUMN_PURCHASEID,
+            SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_ACCOUNTID,
             SQLiteHelper.COLUMN_PRICE,
             SQLiteHelper.COLUMN_DATE,
             SQLiteHelper.COLUMN_TIME,
-            SQLiteHelper.COLUMN_USERID,
-            SQLiteHelper.COLUMN_ACCOUNTID,
             SQLiteHelper.COLUMN_CATEGORY,
             SQLiteHelper.COLUMN_LOCATION,
             SQLiteHelper.COLUMN_COMMENT
@@ -214,9 +214,9 @@ public class DataSource {
 
                     //pull arguments from args[] and put into values for database
                     values.put(SQLiteHelper.COLUMN_BILLID, Integer.parseInt(args[0]));
-                    values.put(SQLiteHelper.COLUMN_BILLNAME, args[1]);
-                    values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[2]));
-                    values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[3]));
+                    values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
+                    values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
+                    values.put(SQLiteHelper.COLUMN_BILLNAME, args[3]);
                     values.put(SQLiteHelper.COLUMN_BILLAMT, Double.parseDouble(args[4]));
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[5]);
                     values.put(SQLiteHelper.COLUMN_OCCURANCERTE, Integer.parseInt(args[6]));

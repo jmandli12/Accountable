@@ -87,19 +87,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_BILLS =  " create table "
            + TABLE_BILLS + "( "
             + COLUMN_BILLID + " integer primary key autoincrement, "
-            + COLUMN_BILLNAME + " text, "
             + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id,"
+            + COLUMN_BILLNAME + " text, "
             + COLUMN_BILLAMT + " integer, "
             + COLUMN_DUEDTE + " text, "
             + COLUMN_OCCURANCERTE + " integer" + ")";
 
     private static final String DATABASE_CREATE_INCOMES =  " create table "
-            + TABLE_INCOMES + "("+ COLUMN_INCOMEID
-            + /*"integer primary key autoincrement, "*/" integer ,"
+            + TABLE_INCOMES + "("
+            + COLUMN_INCOMEID + "integer primary key autoincrement,"
             + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id, "
             + COLUMN_INCOMENAME + " text, "
+            + COLUMN_AMOUNT + " double, "
+            + COLUMN_DATE + " text, "
             + COLUMN_PAYPERIOD + " text, "
             + COLUMN_HOURS + " double)";
 
