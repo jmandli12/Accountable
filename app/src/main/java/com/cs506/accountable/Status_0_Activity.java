@@ -150,7 +150,7 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
      */
     public void backToHome(View view) {
 
-        Intent intent = new Intent(this, Main_Activity.class);
+        Intent intent = new Intent(this, Status_6_Activity.class);
         startActivity(intent);
     }
 
