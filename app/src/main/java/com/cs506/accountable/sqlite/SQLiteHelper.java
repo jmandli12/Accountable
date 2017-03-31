@@ -68,7 +68,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + " integer primary key autoincrement, " + COLUMN_COMMENT + " text not null)";*/
 
     private static final String DATABASE_CREATE_USERS =        " create table "
-            + TABLE_USERS + "( " + COLUMN_USERID + " integer primary key autoincrement, "
+            + TABLE_USERS + "("
+            + COLUMN_USERID + " integer primary key autoincrement, "
             + COLUMN_USERNAME + " text, "
             + COLUMN_PINHASH + " integer, "
             + COLUMN_PIN + " integer, "
@@ -80,15 +81,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_ACCOUNTS =  " create table "
             + TABLE_ACCOUNTS + "("
             + COLUMN_ACCOUNTID + " integer primary key autoincrement, "
-            + COLUMN_USERID + " integer references user_id,"
-            + COLUMN_ACCOUNTNAME + " text,"
+            + COLUMN_USERID + " integer references user_id, "
+            + COLUMN_ACCOUNTNAME + " text, "
             + COLUMN_BALANCE + " double)";
 
     private static final String DATABASE_CREATE_BILLS =  " create table "
-           + TABLE_BILLS + "( "
+           + TABLE_BILLS + "("
             + COLUMN_BILLID + " integer primary key autoincrement, "
-            + COLUMN_USERID + " integer references user_id,"
-            + COLUMN_ACCOUNTID + " integer references account_id,"
+            + COLUMN_USERID + " integer references user_id, "
+            + COLUMN_ACCOUNTID + " integer references account_id, "
             + COLUMN_BILLNAME + " text, "
             + COLUMN_BILLAMT + " double, "
             + COLUMN_DUEDTE + " text, "
@@ -96,8 +97,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_INCOMES =  " create table "
             + TABLE_INCOMES + "("
-            + COLUMN_INCOMEID + "integer primary key autoincrement,"
-            + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_INCOMEID + " integer primary key autoincrement, "
+            + COLUMN_USERID + " integer references user_id, "
             + COLUMN_ACCOUNTID + " integer references account_id, "
             + COLUMN_INCOMENAME + " text, "
             + COLUMN_AMOUNT + " double, "
@@ -107,8 +108,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_PURCHASES =  " create table "
             + TABLE_PURCHASES + "("
-            + COLUMN_PURCHASEID + " integer , "
-            + COLUMN_USERID + " integer references user_id,"
+            + COLUMN_PURCHASEID + " integer, "
+            + COLUMN_USERID + " integer references user_id, "
             + COLUMN_ACCOUNTID + " integer references account_id, "
             + COLUMN_PRICE + " double, "
             + COLUMN_DATE + " text, "
