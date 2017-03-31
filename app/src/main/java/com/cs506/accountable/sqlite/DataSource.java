@@ -162,9 +162,9 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_INCOMENAME, args[3]);
                     values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[4]));
-                    values
-                    values.put(SQLiteHelper.COLUMN_PAYPERIOD, args[5]);
-                    values.put(SQLiteHelper.COLUMN_HOURS, Double.parseDouble(args[6]));
+                    values.put(SQLiteHelper.COLUMN_DATE, Double.parseDouble(args[5]));
+                    values.put(SQLiteHelper.COLUMN_PAYPERIOD, args[6]);
+                    values.put(SQLiteHelper.COLUMN_HOURS, Double.parseDouble(args[7]));
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
@@ -242,15 +242,14 @@ public class DataSource {
 
                     //pull arguments from args[] and put into values for database
                     values.put(SQLiteHelper.COLUMN_PURCHASEID, Integer.parseInt(args[0]));
-                    values.put(SQLiteHelper.COLUMN_PRICE, Double.parseDouble(args[3]));
-                    values.put(SQLiteHelper.COLUMN_DATETIME, args[4]);
-                    values.put(SQLiteHelper.COLUMN_
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_PRICE, Double.parseDouble(args[3]));
-                    values.put(SQLiteHelper.COLUMN_CATEGORY, args[5]);
-                    values.put(SQLiteHelper.COLUMN_LOCATION, args[6]);
-                    values.put(SQLiteHelper.COLUMN_DUEDTE, args[7]);
+                    values.put(SQLiteHelper.COLUMN_DATE, args[4]);
+                    values.put(SQLiteHelper.COLUMN_TIME, args[5]);
+                    values.put(SQLiteHelper.COLUMN_CATEGORY, args[6]);
+                    values.put(SQLiteHelper.COLUMN_LOCATION, args[7]);
+                    values.put(SQLiteHelper.COLUMN_COMMENT, args[8]);
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_PURCHASES, null, values);
@@ -632,9 +631,9 @@ public class DataSource {
     private Bill cursorToBill(Cursor cursor) {
         Bill bill = new Bill(
             cursor.getInt(0),
-            cursor.getString(1),
+            cursor.getInt(1),
             cursor.getInt(2),
-            cursor.getInt(3),
+            cursor.getString(3),
             cursor.getDouble(4),
             cursor.getString(5),
             cursor.getInt(6)

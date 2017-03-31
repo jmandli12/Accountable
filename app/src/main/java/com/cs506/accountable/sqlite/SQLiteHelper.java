@@ -100,7 +100,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + TABLE_PURCHASES + "("+ COLUMN_PURCHASEID
             + " integer , " + COLUMN_USERID + " integer references user_id,"
             + COLUMN_ACCOUNTID + " integer references account_id, " + COLUMN_PRICE + " double, "
-            + COLUMN_DATETIME + " text, " + COLUMN_CATEGORY + " text, " + COLUMN_LOCATION
+            + COLUMN_DATE + " text, " + COLUMN_TIME + " text, " + COLUMN_CATEGORY + " text, " + COLUMN_LOCATION
             + " text, " + COLUMN_COMMENT + " text)";
 
 

@@ -8,28 +8,28 @@ import java.util.Date;
 
 public class Bill {
     private int billId;
-    private String billName;
     private int userId;
     private int accountId;
+    private String billName;
     private double billAmount;
     private String dueDate;
     private int occuranceRte;
 
     public Bill() {
         this.billId = -1;
-        this.billName = "";
         this.userId = -1;
         this.accountId = -1;
+        this.billName = "";
         this.billAmount = -1.00;
         this.dueDate = "";
         this.occuranceRte = 0;
     }
 
-    public Bill(int billId, String billName, int userId, int accountId, double billAmount, String dueDate, int occuranceRte) {
+    public Bill(int billId, int userId, int accountId, String billName, double billAmount, String dueDate, int occuranceRte) {
         this.billId = billId;
-        this.billName = billName;
         this.userId = userId;
         this.accountId = accountId;
+        this.billName = billName;
         this.billAmount = billAmount;
         this.dueDate = dueDate;
         this.occuranceRte = occuranceRte;
