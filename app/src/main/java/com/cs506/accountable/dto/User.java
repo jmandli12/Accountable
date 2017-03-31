@@ -6,11 +6,11 @@ package com.cs506.accountable.dto;
 
 public class User {
 
-    private long id;
+    private int id;
+    private String username;
     private int pin_hash;
     private int pin;
     private String salt;
-    private String username;
     private int firstTime;
     private String budget;
     private int hasPin;
@@ -26,7 +26,7 @@ public class User {
         hasPin = 0;
     }
 
-    public User(long ID, int PIN_HASH, int PIN, String SALT, String USERNAME, /*int ACCOUNTID, int JOBID,*/
+    public User(int ID, String USERNAME, int PIN_HASH, int PIN, String SALT,  /*int ACCOUNTID, int JOBID,*/
                 int FIRSTTIME, String budget, int hasPin) {
         id = ID;
         pin_hash = PIN_HASH;
@@ -38,11 +38,11 @@ public class User {
         this.hasPin = hasPin;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

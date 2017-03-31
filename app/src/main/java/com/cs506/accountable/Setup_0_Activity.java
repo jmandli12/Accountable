@@ -23,7 +23,7 @@ public class Setup_0_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ds = new DataSource(this);
+        ds = new DataSource(Setup_0_Activity.this);
         ds.open();
     }
 

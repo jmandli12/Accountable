@@ -162,7 +162,7 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_INCOMENAME, args[3]);
                     values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[4]));
-                    values.put(SQLiteHelper.COLUMN_DATE, Double.parseDouble(args[5]));
+                    values.put(SQLiteHelper.COLUMN_DATE, args[5]);
                     values.put(SQLiteHelper.COLUMN_PAYPERIOD, args[6]);
                     values.put(SQLiteHelper.COLUMN_HOURS, Double.parseDouble(args[7]));
 
@@ -672,10 +672,10 @@ public class DataSource {
 
     private User cursorToUser(Cursor cursor) {
         User user = new User(
-                cursor.getLong(0),
-                cursor.getInt(1),
+                cursor.getInt(0),
+                cursor.getString(1),
                 cursor.getInt(2),
-                cursor.getString(3),
+                cursor.getInt(3),
                 cursor.getString(4),
                 cursor.getInt(5),
                 cursor.getString(6),

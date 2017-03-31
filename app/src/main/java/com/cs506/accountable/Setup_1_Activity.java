@@ -14,7 +14,7 @@ import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_1_Activity extends AppCompatActivity {
     String unconfirmedPIN;
-    //DataSource ds;
+    DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +25,9 @@ public class Setup_1_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle prev = getIntent().getExtras();
         unconfirmedPIN = prev.getString("unconfirmedPIN");
+
+        ds = new DataSource(Setup_1_Activity.this);
+        ds.open();
     }
 
     /*
