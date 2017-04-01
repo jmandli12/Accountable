@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.cs506.accountable.dto.Bill;
 import com.cs506.accountable.sqlite.DataSource;
@@ -19,10 +20,13 @@ import com.cs506.accountable.sqlite.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Update_2_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class Update_2_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     DataSource ds;
-    List<Bill> billList = new ArrayList<>();
+    List<Bill> billList;
+    Bill bill;
+    Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,7 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
 
         spinner = (Spinner) findViewById(R.id.billSpinner);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item,list);
+                android.R.layout.simple_spinner_dropdown_item, list);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(this);
@@ -57,20 +61,22 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
     public List<String> getBillNames() {
         List<Object> obj = ds.retrieveAll("bill");
         List<String> billNames = new ArrayList<>();
+        billList = new ArrayList<>();
         Bill bill = new Bill();
         bill.setBillName("New Bill");
         billList.add(bill);
 
-        for(Object object : obj){
+        for (Object object : obj) {
             bill = (Bill) object;
             billList.add(bill);
         }
 
-        for(Bill b : billList){
+        for (Bill b : billList) {
             billNames.add(b.getBillName());
         }
         return billNames;
     }
+
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
@@ -79,22 +85,22 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
         EditText billAmount = (EditText) findViewById(R.id.billAmount2);
         EditText dueDate = (EditText) findViewById(R.id.dueDate2);
         Spinner occurrence = (Spinner) findViewById(R.id.occurrenceSpinner2);
-        Button button = (Button) findViewById(R.id.addUpdateButton);
+        button = (Button) findViewById(R.id.addUpdateButton);
 
         //String bill = (String) parent.getItemAtPosition(pos);
 
-        Bill bill = billList.get(pos);
+        bill = billList.get(pos);
 
         //Get all information about bill
-        if(pos==0){
+        if (pos == 0) {
             billName.setText("");
             billAmount.setText("");
             dueDate.setText("");
             occurrence.setSelection(0);
             button.setText("Add Bill");
-        } else{
+        } else {
             billName.setText(bill.getBillName());
-            billAmount.setText("$"+bill.getBillAmount());
+            billAmount.setText(String.valueOf(bill.getBillAmount()));
             dueDate.setText(bill.getDueDate());
             occurrence.setSelection(bill.getOccurrenceRte());
             button.setText("Update Bill");
@@ -105,6 +111,63 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
         // Another interface callback
     }
 
+    public void addUpdateBill(View view) {
+
+        String billName;
+        String billAmount;
+        String dueDate;
+        String occurrence;
+
+
+        EditText bill1 = (EditText) findViewById(R.id.billName2);
+        billName = bill1.getText().toString();
+        EditText amount = (EditText) findViewById(R.id.billAmount2);
+        billAmount = amount.getText().toString();
+        EditText date = (EditText) findViewById(R.id.dueDate2);
+        dueDate = date.getText().toString();
+        Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner2);
+        occurrence = spinner.getSelectedItemPosition() + "";
+
+        boolean isValidAmount = billAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
+
+        if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("0")) {
+
+
+            if (button.getText().equals("Add Bill")) {
+                String[] billArgs = {null, "1", "1", billName, billAmount, dueDate, "" + occurrence + ""};
+                Bill rbill = (Bill) ds.create("bill", billArgs);
+            } else {
+                String[] billArgs = {String.valueOf(bill.getBillId()), "1", "1", billName, billAmount, dueDate, "" + occurrence + ""};
+                Bill rbill = (Bill) ds.create("bill", billArgs);
+            }
+
+            //Get Names of Bills
+            List<String> list = getBillNames();
+
+            spinner = (Spinner) findViewById(R.id.billSpinner);
+            ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_dropdown_item, list);
+            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter1);
+            spinner.setOnItemSelectedListener(this);
+
+        } else {
+            if (billName.length() == 0) {
+                Toast.makeText(this, "Bill name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            if (billAmount.length() <= 3 || !isValidAmount) {
+                Toast.makeText(this, "Bill amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                //TODO:Check for invalid leading 0 in dollar side?
+            }
+            if (!isValidDate) {
+                Toast.makeText(this, "Due date must be in the format mm/dd/year from this current date or onwards", Toast.LENGTH_LONG).show();
+            }
+            if (occurrence.equals("0")) {
+                Toast.makeText(this, "Occurrence must be selected", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     public void billAmountHelp(View view) {
         Snackbar.make(view, "Amount the bill is worth \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
@@ -129,9 +192,6 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
     public void backToHome(View view) {
         Intent intent = new Intent(this, Update_0_Activity.class);
         startActivity(intent);
-    }
-
-    public void addUpdateBill(View view) {
     }
 
 

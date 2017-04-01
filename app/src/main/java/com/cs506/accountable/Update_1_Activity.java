@@ -21,6 +21,7 @@ public class Update_1_Activity extends AppCompatActivity {
 
     DataSource ds;
     Account account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +52,13 @@ public class Update_1_Activity extends AppCompatActivity {
         accountName = et.getText().toString();
         et = (EditText) findViewById(R.id.accountBalance1);
         accountBalance = et.getText().toString();
+
+
+
+
         boolean isValidAmount = accountBalance.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         if (isValidAmount && accountName.length() > 0 && accountBalance.length() > 2) {
-        //if(isValidAmount && accountBalance.length() > 2){
+            //if(isValidAmount && accountBalance.length() > 2){
             //Toast.makeText(this, "Account Name: " + accountName + " Account Balance: " + accountBalance, Toast.LENGTH_LONG).show();
 
             //Save Bank Info
@@ -65,6 +70,15 @@ public class Update_1_Activity extends AppCompatActivity {
             Intent intent = new Intent(this, Update_0_Activity.class);
             startActivity(intent);
 
+        } else {
+            if (accountName.length() == 0) {
+                Toast.makeText(this, "Account Name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            //TODO: ALLOW USER TO START WITH NEGATIVE BALANCE
+            if (accountBalance.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Account Balance must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                //TODO:Check for invalid leading 0 in dollar side?
+            }
         }
     }
 }
