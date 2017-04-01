@@ -77,7 +77,7 @@ public class Setup_6_Activity extends AppCompatActivity {
         }
 
         //userID, userName, pinHash, pin, salt, firstTime(now it is false), budget, hasPin
-        String[] userArgs = {"1", "User", "null", pin, "null", "0", budget, hasPin};
+        String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin};
 
         ds.create("user", userArgs);
         Intent intent = new Intent(this, Setup_7_Activity.class);
