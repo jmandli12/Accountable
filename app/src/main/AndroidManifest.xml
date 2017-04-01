@@ -170,6 +170,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs506.accountable.Update_0_Activity" />
         </activity>
+        <activity
+            android:name=".Status_6_Activity"
+            android:label="@string/title_activity_status_6_"
+            android:parentActivityName=".Status_0_Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs506.accountable.Status_0_Activity" />
+        </activity>
     </application>
 
 </manifest>

@@ -199,7 +199,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="backToHome"
-        android:text="Back to Home"
+        android:text="Previous Purchases"
         android:textSize="24dp" />
 
 </LinearLayout>
