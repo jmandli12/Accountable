@@ -164,7 +164,12 @@ public class DataSource {
                 case "income":
                     //pull arguments from args[] and put into values for database
                     Income newIncome;
-                    values.put(SQLiteHelper.COLUMN_INCOMEID, Integer.parseInt(args[0]));
+                    if (args[0] != null) {
+                        values.put(SQLiteHelper.COLUMN_INCOMEID, Integer.parseInt(args[0]));
+                    }
+                    else {
+                        values.put(SQLiteHelper.COLUMN_INCOMEID, args[0]);
+                    }
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_INCOMENAME, args[3]);
@@ -201,7 +206,12 @@ public class DataSource {
                     Account newAccount;
 
                     //pull arguments from args[] and put into values for database
-                    values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[0]));
+                    if (args[0] != null) {
+                        values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[0]));
+                    }
+                    else {
+                        values.put(SQLiteHelper.COLUMN_ACCOUNTID, args[0]);
+                    }
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTNAME, args[2]);
                     values.put(SQLiteHelper.COLUMN_BALANCE, Double.parseDouble(args[3]));
@@ -236,7 +246,12 @@ public class DataSource {
                             Integer.parseInt(args[6]), Boolean.parseBoolean(args[7]));*/
 
                     //pull arguments from args[] and put into values for database
-                    values.put(SQLiteHelper.COLUMN_BILLID, Integer.parseInt(args[0]));
+                    if (args[0] != null) {
+                        values.put(SQLiteHelper.COLUMN_BILLID, Integer.parseInt(args[0]));
+                    }
+                    else {
+                        values.put(SQLiteHelper.COLUMN_BILLID, args[0]);
+                    }
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_BILLNAME, args[3]);
@@ -272,7 +287,12 @@ public class DataSource {
                     Purchase newPurchase;
 
                     //pull arguments from args[] and put into values for database
-                    values.put(SQLiteHelper.COLUMN_PURCHASEID, Integer.parseInt(args[0]));
+                    if (args[0] != null) {
+                        values.put(SQLiteHelper.COLUMN_PURCHASEID, Integer.parseInt(args[0]));
+                    }
+                    else {
+                        values.put(SQLiteHelper.COLUMN_PURCHASEID, args[0]);
+                    }
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_PRICE, Double.parseDouble(args[3]));
