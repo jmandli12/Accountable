@@ -1,29 +1,58 @@
 package com.cs506.accountable;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.cs506.accountable.dto.User;
+import com.cs506.accountable.sqlite.DataSource;
+
+import java.io.File;
+import java.util.List;
+
 public class Lock_Screen_Activity extends AppCompatActivity {
+
+    DataSource ds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //Check to see if it is users first time running application
-        boolean firstTime = true; //TODO: get this value from the database
-        boolean noPin = false; //TODO: get this value from the database
+        boolean firstTime = false; //TODO: get this value from the database
+        boolean hasPin = true; //TODO: get this value from the database
+
+        try{
+            SQLiteDatabase checkDB = SQLiteDatabase.openDatabase("/data/data/com.cs506.accountable/databases/accountable.db",null,SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        }catch (Exception e){
+            firstTime=true;
+        }
+
         if(firstTime){
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
         }
-        else if(noPin){
-            Intent intent = new Intent(this, Main_Activity.class);
-            startActivity(intent);
+        else{
+            //ds = new DataSource(Lock_Screen_Activity.this);
+            //ds.open();
+
+            //List<Object> obj = ds.retrieveAll("user");
+            //User user = (User) obj.get(0);
+            //if(user.getHasPin() == 0){
+               // hasPin=false;
+           // }
+
+            if(!hasPin){
+                Intent intent = new Intent(this, Main_Activity.class);
+                startActivity(intent);
+            }
         }
 
         super.onCreate(savedInstanceState);

@@ -32,8 +32,8 @@ public class Setup_2_Activity extends AppCompatActivity {
         ds = new DataSource(Setup_2_Activity.this);
         ds.open();
 
-        String[] userArgs = {"1", "user", "0", pin, "", "1", "", "1"};
-        user = (User) ds.create("user", userArgs);
+        //String[] userArgs = {"1", "user", "0", pin, "", "1", "", "1"};
+        //user = (User) ds.create("user", userArgs);
     }
 
     /*
