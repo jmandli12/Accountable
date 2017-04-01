@@ -97,7 +97,7 @@ public class DataSource {
 
 
     /**
-     * Creates an entry of a specific type in the database, return a java object
+     * Creates or updates an entry of a specific type in the database, returns a java object
      * of that entry.
      *
      * @param str a string of which type you want to store in the database
@@ -128,7 +128,7 @@ public class DataSource {
                             Integer.parseInt(args[7]));*/
 
                     //pull arguments from args[] and put into values for database
-                    values.put(SQLiteHelper.COLUMN_USERID, Long.parseLong(args[0]));
+                    values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[0]));
                     values.put(SQLiteHelper.COLUMN_USERNAME, args[1]);
                     values.put(SQLiteHelper.COLUMN_PINHASH, Integer.parseInt(args[2]));
                     values.put(SQLiteHelper.COLUMN_PIN, Integer.parseInt(args[3]));
@@ -139,7 +139,14 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_USERS, null, values);
-                    if(returnValue == -1){ throw new Exception(); }
+                    if(returnValue == -1){
+                        int affectedRows = database.update(SQLiteHelper.TABLE_USERS, values,
+                                SQLiteHelper.COLUMN_USERID + " = " + args[0], null);
+                        if(affectedRows == 0) {
+                            System.out.print("\n Error!! No rows affected!");
+                            throw new Exception();
+                        }
+                    }
 
                     //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
@@ -168,6 +175,14 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
+                    if(returnValue == -1){
+                        int affectedRows = database.update(SQLiteHelper.TABLE_INCOMES, values,
+                                SQLiteHelper.COLUMN_INCOMEID + " = " + args[0], null);
+                        if(affectedRows == 0) {
+                            System.out.print("\n Error!! No rows affected!");
+                            throw new Exception();
+                        }
+                    }
 
                     //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_INCOMES,
@@ -193,6 +208,14 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
+                    if(returnValue == -1){
+                        int affectedRows = database.update(SQLiteHelper.TABLE_ACCOUNTS, values,
+                                SQLiteHelper.COLUMN_ACCOUNTID + " = " + args[0], null);
+                        if(affectedRows == 0) {
+                            System.out.print("\n Error!! No rows affected!");
+                            throw new Exception();
+                        }
+                    }
 
                     //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_ACCOUNTS,
@@ -223,6 +246,14 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_BILLS, null, values);
+                    if(returnValue == -1){
+                        int affectedRows = database.update(SQLiteHelper.TABLE_BILLS, values,
+                                SQLiteHelper.COLUMN_BILLID + " = " + args[0], null);
+                        if(affectedRows == 0) {
+                            System.out.print("\n Error!! No rows affected!");
+                            throw new Exception();
+                        }
+                    }
 
                     //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_BILLS,
@@ -253,6 +284,14 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_PURCHASES, null, values);
+                    if(returnValue == -1){
+                        int affectedRows = database.update(SQLiteHelper.TABLE_PURCHASES, values,
+                                SQLiteHelper.COLUMN_PURCHASEID + " = " + args[0], null);
+                        if(affectedRows == 0) {
+                            System.out.print("\n Error!! No rows affected!");
+                            throw new Exception();
+                        }
+                    }
 
                     //move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_PURCHASES,
