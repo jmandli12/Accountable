@@ -106,7 +106,7 @@ public class Setup_3_Activity extends AppCompatActivity {
         boolean isValidAmount = billAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
 
-        if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && occurrence.equals("0")) {
+        if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("0")) {
 
             String[] billArgs = {"1", "1", "1", billName, billAmount, dueDate, "" + occurrence + ""};
             Bill rbill = (Bill) ds.create("bill", billArgs);
