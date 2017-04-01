@@ -23,8 +23,9 @@ public class WelcomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DataSource ds = new DataSource(this);
-
+        //Create Database
+       DataSource ds = new DataSource(this);
+/*
         boolean firstTime = true;
         //firstTime = ds.isFirstTime();
 
@@ -43,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
         else if(noPin){
             Intent intent = new Intent(this, Main_Activity.class);
             startActivity(intent);
-        }
+        }*/
     }
 
     /*

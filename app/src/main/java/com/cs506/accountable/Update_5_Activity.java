@@ -10,7 +10,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.cs506.accountable.dto.User;
+import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.List;
+
 public class Update_5_Activity extends AppCompatActivity {
+
+    DataSource ds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +26,10 @@ public class Update_5_Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Update_5_Activity.this);
+        ds.open();
 
         Spinner spinner = (Spinner) findViewById(R.id.budgetSpinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -28,8 +37,11 @@ public class Update_5_Activity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        //List<Object> obj = ds.retrieveAll("user");
+        //User user = (User) obj.get(0);
+
         //Set spinner to current budget selection
-        spinner.setSelection(1);
+        //spinner.setSelection(user.getBudget());
     }
 
     public void updateBudget(View view) {

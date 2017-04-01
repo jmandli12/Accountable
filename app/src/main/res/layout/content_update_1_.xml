@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.cs506.accountable.Update_1_Activity"
     tools:showIn="@layout/activity_update_1_">
@@ -15,31 +15,60 @@
         android:id="@+id/textView14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
         android:gravity="center_horizontal"
         android:paddingBottom="50dp"
-        android:text="Update your Account Balance Below" />
+        android:text="Update your Account Balance Below"
+        android:textSize="30dp" />
 
     <TextView
-        android:id="@+id/account1Name"
+        android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="Account 1: " />
+        android:textSize="24sp"
+        android:text="Account Name:" />
 
     <EditText
-        android:id="@+id/account1"
-        android:layout_width="wrap_content"
+        android:id="@+id/accountName1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        android:text="Account 1"
+        android:textSize="24dp" />
+
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:textSize="24sp"
+        android:text="Account Balance:" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/accountBalance1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/button13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
         android:onClick="updateAccount"
-        android:text="Update" />
+        android:text="Update"
+        android:textSize="24dp" />
 
 </LinearLayout>

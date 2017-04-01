@@ -23,6 +23,8 @@ public class Setup_3_Activity extends AppCompatActivity {
     DataSource ds;
     String pin;
     String accountID;
+    int billNumber = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +96,7 @@ public class Setup_3_Activity extends AppCompatActivity {
         String dueDate;
         String occurrence;
 
+
         EditText bill = (EditText) findViewById(R.id.billName);
         billName = bill.getText().toString();
         EditText amount = (EditText) findViewById(R.id.billAmount);
@@ -108,7 +111,8 @@ public class Setup_3_Activity extends AppCompatActivity {
 
         if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("0")) {
 
-            String[] billArgs = {"1", "1", "1", billName, billAmount, dueDate, "" + occurrence + ""};
+            billNumber++;
+            String[] billArgs = {String.valueOf(billNumber), "1", "1", billName, billAmount, dueDate, "" + occurrence + ""};
             Bill rbill = (Bill) ds.create("bill", billArgs);
 
             Toast.makeText(this, "(Added Bill)" + "\nBillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();

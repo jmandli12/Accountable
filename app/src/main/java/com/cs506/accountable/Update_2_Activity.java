@@ -13,8 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.cs506.accountable.dto.Bill;
+import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Update_2_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
+    DataSource ds;
+    List<Bill> billList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,22 +33,44 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        ds = new DataSource(Update_2_Activity.this);
+        ds.open();
 
         Spinner spinner = (Spinner) findViewById(R.id.occurrenceSpinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.bill_occurrence_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        //Get Names of Bills
+        List<String> list = getBillNames();
+
         spinner = (Spinner) findViewById(R.id.billSpinner);
-        adapter = ArrayAdapter.createFromResource(this,
-                R.array.billNames_array, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item,list);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(this);
 
     }
 
+    public List<String> getBillNames() {
+        List<Object> obj = ds.retrieveAll("bill");
+        List<String> billNames = new ArrayList<>();
+        Bill bill = new Bill();
+        bill.setBillName("New Bill");
+        billList.add(bill);
+
+        for(Object object : obj){
+            bill = (Bill) object;
+            billList.add(bill);
+        }
+
+        for(Bill b : billList){
+            billNames.add(b.getBillName());
+        }
+        return billNames;
+    }
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
@@ -51,20 +81,22 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
         Spinner occurrence = (Spinner) findViewById(R.id.occurrenceSpinner2);
         Button button = (Button) findViewById(R.id.addUpdateButton);
 
-        String bill = (String) parent.getItemAtPosition(pos);
+        //String bill = (String) parent.getItemAtPosition(pos);
+
+        Bill bill = billList.get(pos);
 
         //Get all information about bill
-        if(bill.equals("New Bill")){
+        if(pos==0){
             billName.setText("");
             billAmount.setText("");
             dueDate.setText("");
             occurrence.setSelection(0);
             button.setText("Add Bill");
         } else{
-            billName.setText("billName");
-            billAmount.setText("billAmount");
-            dueDate.setText("dueDate");
-            occurrence.setSelection(1);
+            billName.setText(bill.getBillName());
+            billAmount.setText("$"+bill.getBillAmount());
+            dueDate.setText(bill.getDueDate());
+            occurrence.setSelection(bill.getOccurrenceRte());
             button.setText("Update Bill");
         }
     }
@@ -101,4 +133,6 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
 
     public void addUpdateBill(View view) {
     }
+
+
 }

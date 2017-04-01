@@ -13,7 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.cs506.accountable.dto.Bill;
+import com.cs506.accountable.dto.Income;
+import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Update_3_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
+    DataSource ds;
+    List<Income> incomeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +32,10 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Update_3_Activity.this);
+        ds.open();
 
         Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -36,15 +48,38 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
                 R.array.pay_period_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+
+        //Get Names of Incomes
+        List<String> list = getIncomeNames();
+
         spinner = (Spinner) findViewById(R.id.incomeSpinner);
-        adapter = ArrayAdapter.createFromResource(this,
-                R.array.incomeNames_array, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item,list);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(this);
 
     }
 
+    public List<String> getIncomeNames() {
+
+        List<Object> obj = ds.retrieveAll("income");
+        List<String> incomeNames = new ArrayList<>();
+        Income income = new Income();
+        income.setIncomeName("New Bill");
+        incomeList.add(income);
+
+        for(Object object : obj){
+            income = (Income) object;
+            incomeList.add(income);
+        }
+
+        for(Income i : incomeList){
+            incomeNames.add(i.getIncomeName());
+        }
+        return incomeNames;
+    }
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
@@ -57,10 +92,11 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         Spinner hours = (Spinner) findViewById(R.id.hoursSpinner2);
         Button button = (Button) findViewById(R.id.addUpdateIncome);
 
-        String income = (String) parent.getItemAtPosition(pos);
+        //String income = (String) parent.getItemAtPosition(pos);
+        Income income = incomeList.get(pos);
 
         //Get all information about bill
-        if(income.equals("New Income")){
+        if(pos==0){
             incomeName.setText("");
             incomeAmount.setText("");
             receivingDate.setText("");
@@ -68,11 +104,12 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
             hours.setSelection(0);
             button.setText("Add Income");
         } else{
-            incomeName.setText("IncomeName");
-            incomeAmount.setText("IncomeAmount");
-            receivingDate.setText("Date");
-            payPeriod.setSelection(1);
-            hours.setSelection(1);
+            incomeName.setText(income.getIncomeName());
+            incomeAmount.setText("$"+income.getAmount());
+            receivingDate.setText(income.getDate());
+            //TODO: Change payPeriod to int
+            //payPeriod.setSelection(income.getPayPeriod());
+            hours.setSelection(income.getHours());
             button.setText("Update Income");
         }
     }
@@ -113,5 +150,6 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         Snackbar.make(view, "Do you work Hourly or Salary\n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
+
 
 }
