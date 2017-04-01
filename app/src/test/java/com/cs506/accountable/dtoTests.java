@@ -97,7 +97,7 @@ public class dtoTests {
         assertEquals(-1, bill.getAccountId());
         assertEquals(-1.00, bill.getBillAmount(), 0);
         assertEquals("", bill.getDueDate());
-        assertEquals(0, bill.getOccuranceRte());
+        assertEquals(0, bill.getOccurrenceRte());
     }
 
     /*
@@ -112,10 +112,10 @@ public class dtoTests {
         int accountId = 202;
         double billAmount = 300.25;
         String dueDate = "02/02/2018";
-        int occuranceRte = 1;
+        int occurrenceRte = 1;
 
         //Create empty bill
-        Bill bill = new Bill(billId,billName,userId,accountId,billAmount,dueDate,occuranceRte);
+        Bill bill = new Bill(billId,userId,accountId,billName,billAmount,dueDate,occurrenceRte);
 
         // Verify Values
         assertEquals(billId, bill.getBillId());
@@ -124,7 +124,7 @@ public class dtoTests {
         assertEquals(accountId, bill.getAccountId());
         assertEquals(billAmount, bill.getBillAmount(), 0);
         assertEquals(dueDate, bill.getDueDate());
-        assertEquals(occuranceRte, bill.getOccuranceRte());
+        assertEquals(occurrenceRte, bill.getOccurrenceRte());
     }
 
     /*
@@ -139,7 +139,7 @@ public class dtoTests {
         int accountId = 202;
         double billAmount = 300.25;
         String dueDate = "02/02/2018";
-        int occuranceRte = 1;
+        int occurrenceRte = 1;
 
         //Create empty bill
         Bill bill = new Bill();
@@ -151,7 +151,7 @@ public class dtoTests {
         bill.setAccountId(accountId);
         bill.setBillAmount(billAmount);
         bill.setDueDate(dueDate);
-        bill.setOccuranceRte(occuranceRte);
+        bill.setOccurrenceRte(occurrenceRte);
 
         // Verify Values
         assertEquals(billId, bill.getBillId());
@@ -160,7 +160,7 @@ public class dtoTests {
         assertEquals(accountId, bill.getAccountId());
         assertEquals(billAmount, bill.getBillAmount(), 0);
         assertEquals(dueDate, bill.getDueDate());
-        assertEquals(occuranceRte, bill.getOccuranceRte());
+        assertEquals(occurrenceRte, bill.getOccurrenceRte());
     }
 
     /*
@@ -196,7 +196,7 @@ Test the getters and setters for an empty income constructor
         double amount = 520.35;
         String date = "02/02/2091";
         String payPeriod = "Monthly";
-        double hours = 40.45;
+        int hours = 1;
 
         //Create empty Income
         Income income = new Income(incomeId,userId,accountId,incomeName,amount,date,payPeriod,hours);
@@ -225,7 +225,7 @@ Test the getters and setters for an empty income constructor
         double amount = 520.35;
         String date = "02/02/2091";
         String payPeriod = "Monthly";
-        double hours = 40.45;
+        int hours = 1;
 
         //Create empty Income
         Income income = new Income();
@@ -371,7 +371,7 @@ Test the getters and setters for an empty user constructor
     @Test
     public void userCustomConstructor_isCorrect() throws Exception {
 
-        long id = 123456;
+        int id = 123456;
         int pin_hash = 98745;
         int pin = 9876;
         String salt = "test salt";
@@ -381,7 +381,7 @@ Test the getters and setters for an empty user constructor
         int hasPin = 1;
 
         //Create empty user
-        User user = new User(id, pin_hash, pin, salt, username, firstTime, budget, hasPin);
+        User user = new User(id, username, pin_hash, pin, salt, firstTime, budget, hasPin);
 
         // Verify Values
         assertEquals(id, user.getId());
@@ -400,7 +400,7 @@ Test the getters and setters for an empty user constructor
     @Test
     public void userEmptyConstructorCustomSetters_isCorrect() throws Exception {
 
-        long id = 123456;
+        int id = 123456;
         int pin_hash = 98745;
         int pin = 9876;
         String salt = "test salt";

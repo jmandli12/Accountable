@@ -13,7 +13,7 @@ public class Income {
     private double amount;
     private String date;
     private String payPeriod;
-    private double hours;
+    private int hours;
 
     public Income() {
         this.incomeId = -1;
@@ -23,11 +23,11 @@ public class Income {
         this.amount = -1.00;
         this.date = "";
         this.payPeriod = "";
-        this.hours = -1.00;
+        this.hours = -1;
     }
 
     public Income(int incomeId, int userId, int accountId, String incomeName, double amount, String date, String payPeriod,
-                  double hours) {
+                  int hours) {
         this.incomeId = incomeId;
         this.userId = userId;
         this.accountId = accountId;
@@ -58,9 +58,9 @@ public class Income {
 
     public void setPayPeriod(String payPeriod) {this.payPeriod = payPeriod;}
 
-    public double getHours() {return hours;}
+    public int getHours() {return hours;}
 
-    public void setHours(double hours) {this.hours = hours;}
+    public void setHours(int hours) {this.hours = hours;}
 
     public double getAmount() {
         return amount;

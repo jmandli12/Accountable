@@ -30,7 +30,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     //public static final String COLUMN_ACCOUNTID = "account_id";
     public static final String COLUMN_BILLAMT = "bill_amt";
     public static final String COLUMN_DUEDTE = "due_dte";
-    public static final String COLUMN_OCCURANCERTE = "occurance_rte";
+    public static final String COLUMN_OCCURRENCERTE = "occurrence_rte";
 
     public static final String TABLE_ACCOUNTS = "accounts";
     //public static final String COLUMN_ACCOUNTID = "account_id";
@@ -93,7 +93,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_BILLNAME + " text, "
             + COLUMN_BILLAMT + " double, "
             + COLUMN_DUEDTE + " text, "
-            + COLUMN_OCCURANCERTE + " text)";
+            + COLUMN_OCCURRENCERTE + " integer)";
 
     private static final String DATABASE_CREATE_INCOMES =  " create table "
             + TABLE_INCOMES + "("
@@ -104,7 +104,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_AMOUNT + " double, "
             + COLUMN_DATE + " text, "
             + COLUMN_PAYPERIOD + " text, "
-            + COLUMN_HOURS + " double)";
+            + COLUMN_HOURS + " integer)";
 
     private static final String DATABASE_CREATE_PURCHASES =  " create table "
             + TABLE_PURCHASES + "("

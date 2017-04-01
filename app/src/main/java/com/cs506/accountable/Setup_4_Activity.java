@@ -69,19 +69,19 @@ public class Setup_4_Activity extends AppCompatActivity {
         dueDate = date.getText().toString();
 
         Spinner hOrS = (Spinner) findViewById(R.id.hoursSpinner);
-        hoursOrSalary = hOrS.getSelectedItem().toString();
+        hoursOrSalary = hOrS.getSelectedItemPosition() + "";
         Spinner payPer = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = payPer.getSelectedItem().toString();
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
 
-        if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("Hourly or Salary? (Select One)") && !payPeriod.equals("Pay Period (Select One)")) {
+        if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("0") && !payPeriod.equals("Pay Period (Select One)")) {
 
             String[] incomeArgs = {null, "1", accountID, incomeName, incomeAmount, dueDate, payPeriod, hoursOrSalary};
             ds.create("income", incomeArgs);
 
-            Toast.makeText(this, "(Added Income Type)" + "\nIncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nRecievingDate: " + dueDate + "\nHours: " + hoursOrSalary + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "(Added Income Type)" + "\nIncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nRecievingDate: " + dueDate + "\nHours: " + hOrS.getSelectedItem().toString() + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
 
             name.setText("");
             amount.setText("");
@@ -132,12 +132,12 @@ public class Setup_4_Activity extends AppCompatActivity {
         dueDate = et.getText().toString();
 
         Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
-        hoursOrSalary = spinner.getSelectedItem().toString();
+        hoursOrSalary = spinner.getSelectedItemPosition() + "";
 
         spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = spinner.getSelectedItem().toString();
 
-        if (incomeName.equals("") && incomeAmount.equals("") && dueDate.equals("") && hoursOrSalary.equals("Hourly or Salary? (Select One)") && payPeriod.equals("Pay Period (Select One)")) {
+        if (incomeName.equals("") && incomeAmount.equals("") && dueDate.equals("") && hoursOrSalary.equals("0") && payPeriod.equals("Pay Period (Select One)")) {
             Intent intent = new Intent(this, Setup_5_Activity.class);
             intent.putExtra("accountID", accountID);
             intent.putExtra("pin", pin);

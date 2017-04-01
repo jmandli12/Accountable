@@ -47,7 +47,7 @@ public class DataSource {
             SQLiteHelper.COLUMN_BILLNAME,
             SQLiteHelper.COLUMN_BILLAMT,
             SQLiteHelper.COLUMN_DUEDTE,
-            SQLiteHelper.COLUMN_OCCURANCERTE
+            SQLiteHelper.COLUMN_OCCURRENCERTE
     };
 
     private String[] allColumnsIncome = {
@@ -164,7 +164,7 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[4]));
                     values.put(SQLiteHelper.COLUMN_DATE, args[5]);
                     values.put(SQLiteHelper.COLUMN_PAYPERIOD, args[6]);
-                    values.put(SQLiteHelper.COLUMN_HOURS, Double.parseDouble(args[7]));
+                    values.put(SQLiteHelper.COLUMN_HOURS, Integer.parseInt(args[7]));
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
@@ -219,7 +219,7 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_BILLNAME, args[3]);
                     values.put(SQLiteHelper.COLUMN_BILLAMT, Double.parseDouble(args[4]));
                     values.put(SQLiteHelper.COLUMN_DUEDTE, args[5]);
-                    values.put(SQLiteHelper.COLUMN_OCCURANCERTE, args[6]);
+                    values.put(SQLiteHelper.COLUMN_OCCURRENCERTE, Integer.parseInt(args[6]));
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_BILLS, null, values);
@@ -650,7 +650,7 @@ public class DataSource {
                 cursor.getDouble(4),
                 cursor.getString(5),
                 cursor.getString(6),
-                cursor.getDouble(7)
+                cursor.getInt(7)
         );
         return income;
     }

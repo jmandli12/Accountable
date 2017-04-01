@@ -1,7 +1,5 @@
 package com.cs506.accountable.dto;
 
-import java.util.Date;
-
 /**
  * Created by tkobl on 3/13/2017.
  */
@@ -13,7 +11,7 @@ public class Bill {
     private String billName;
     private double billAmount;
     private String dueDate;
-    private int occuranceRte;
+    private int occurrenceRte;
 
     public Bill() {
         this.billId = -1;
@@ -22,17 +20,17 @@ public class Bill {
         this.billName = "";
         this.billAmount = -1.00;
         this.dueDate = "";
-        this.occuranceRte = 0;
+        this.occurrenceRte = -1;
     }
 
-    public Bill(int billId, int userId, int accountId, String billName, double billAmount, String dueDate, int occuranceRte) {
+    public Bill(int billId, int userId, int accountId, String billName, double billAmount, String dueDate, int occurrenceRte) {
         this.billId = billId;
         this.userId = userId;
         this.accountId = accountId;
         this.billName = billName;
         this.billAmount = billAmount;
         this.dueDate = dueDate;
-        this.occuranceRte = occuranceRte;
+        this.occurrenceRte = occurrenceRte;
     }
     public int getBillId() {return billId;}
 
@@ -66,9 +64,9 @@ public class Bill {
         return this.dueDate;
     }
 
-    public void setOccuranceRte(int occuranceRte) {this.occuranceRte = occuranceRte;}
+    public void setOccurrenceRte(int occurrenceRte) { this.occurrenceRte = occurrenceRte; }
 
-    public int getOccuranceRte() {
-        return this.occuranceRte;
+    public int getOccurrenceRte() {
+        return this.occurrenceRte;
     }
 }
