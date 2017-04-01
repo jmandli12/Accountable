@@ -108,7 +108,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_PURCHASES =  " create table "
             + TABLE_PURCHASES + "("
-            + COLUMN_PURCHASEID + " integer, "
+            + COLUMN_PURCHASEID + " integer primary key autoincrement, "
             + COLUMN_USERID + " integer references user_id, "
             + COLUMN_ACCOUNTID + " integer references account_id, "
             + COLUMN_PRICE + " double, "
