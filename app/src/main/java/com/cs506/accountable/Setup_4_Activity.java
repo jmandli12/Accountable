@@ -74,7 +74,7 @@ public class Setup_4_Activity extends AppCompatActivity {
         payPeriod = payPer.getSelectedItem().toString();
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
-        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
+        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])"); //TODO:
 
         if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("0") && !payPeriod.equals("Pay Period (Select One)")) {
 

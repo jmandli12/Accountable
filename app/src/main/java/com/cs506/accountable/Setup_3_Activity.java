@@ -111,8 +111,7 @@ public class Setup_3_Activity extends AppCompatActivity {
 
         if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("0")) {
 
-            billNumber++;
-            String[] billArgs = {String.valueOf(billNumber), "1", "1", billName, billAmount, dueDate, "" + occurrence + ""};
+            String[] billArgs = {null, "1", "1", billName, billAmount, dueDate, "" + occurrence + ""};
             Bill rbill = (Bill) ds.create("bill", billArgs);
 
             Toast.makeText(this, "(Added Bill)" + "\nBillName: " + billName + "\nBillAmount: " + billAmount + "\nDueDate: " + dueDate + "\nOccurrence: " + spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
