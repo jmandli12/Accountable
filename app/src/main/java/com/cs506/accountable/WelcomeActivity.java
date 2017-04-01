@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+import com.cs506.accountable.dto.User;
+import com.cs506.accountable.sqlite.DataSource;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override
@@ -18,7 +22,28 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //TODO: Check for FirstTime in database; if FirstTime, wipe database.
+
+        DataSource ds = new DataSource(this);
+
+        boolean firstTime = true;
+        //firstTime = ds.isFirstTime();
+
+
+        //Check to see if it is users first time running application
+
+
+
+
+        boolean noPin = false;
+        //noPin = !(ds.hasPin("0"));
+        if(firstTime){
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+        }
+        else if(noPin){
+            Intent intent = new Intent(this, Main_Activity.class);
+            startActivity(intent);
+        }
     }
 
     /*

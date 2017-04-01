@@ -750,4 +750,43 @@ public class DataSource {
         return billList;
     }
 
+    public boolean isFirstTime(){
+        String str = "SELECT count(*) FROM TABLE_USERS";
+        Cursor cur = database.rawQuery(str, null);
+        cur.moveToFirst();
+        int count = cur.getInt(0);
+
+        if(count <= 0){
+            //User Table Empty
+            return true;
+        }
+        else{
+            //User Table has at least one entry
+            //int i = count;
+
+            List<Object> userList =  retrieveAll("user");
+            User user = (User) userList.get(0);
+
+            if(user.getFirstTime() == 1){
+                //TODO: Wipe everything in the database with that userId
+                removeAllWithUserId(user.getId());
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+    private int removeAllWithUserId(int id){
+        //TODO: Not sure if theres a command for this?
+        return(0);
+    }
+
+    public boolean hasPin(String id){
+        if(((User)retrieveById("user", id)).getHasPin() == 1){
+            return true;
+        }
+        return false;
+    }
+
 }
