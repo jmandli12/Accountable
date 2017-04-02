@@ -72,6 +72,7 @@ public class Setup_6_Activity extends AppCompatActivity {
         String hasPin;
         if (pin.equals("noPin")) {
             hasPin = "0";
+            pin = "0";
         } else {
             hasPin = "1";
         }
