@@ -50,6 +50,13 @@ public class DataSource {
             SQLiteHelper.COLUMN_OCCURRENCERTE
     };
 
+    private String[] allColumnsGoal = {
+            SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_TIMEPERIOD,
+            SQLiteHelper.COLUMN_UNIT,
+            SQLiteHelper.COLUMN_AMOUNT
+    };
+
     private String[] allColumnsIncome = {
             SQLiteHelper.COLUMN_INCOMEID,
             SQLiteHelper.COLUMN_USERID,

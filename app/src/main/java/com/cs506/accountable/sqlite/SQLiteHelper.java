@@ -59,6 +59,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_LOCATION = "location";
     public static final String COLUMN_COMMENT = "comment";
 
+    public static final String TABLE_GOALS = "goals";
+    //public static final String COLUMN_USERID = "user_id";
+    public static final String COLUMN_TIMEPERIOD = "time_period";
+    public static final String COLUMN_UNIT = "unit";
+    //public static final String COLUMN_AMOUNT = "amount";
+
+
     private static final String DATABASE_NAME = "accountable.db";
     private static final int DATABASE_VERSION = 1;
 
