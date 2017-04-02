@@ -74,7 +74,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + TABLE_COMMENTS + "( " + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_COMMENT + " text not null)";*/
 
-    private static final String DATABASE_CREATE_USERS =        " create table "
+    private static final String DATABASE_CREATE_USERS =  " create table "
             + TABLE_USERS + "("
             + COLUMN_USERID + " integer primary key autoincrement, "
             + COLUMN_USERNAME + " text, "
@@ -125,6 +125,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_LOCATION + " text, "
             + COLUMN_COMMENT + " text)";
 
+    private static final String DATABASE_CREATE_GOALS = " create table "
+            + TABLE_GOALS + "("
+            + COLUMN_USERID + " integer references user_id, "
+            + COLUMN_TIMEPERIOD + " integer, "
+            + COLUMN_UNIT + " integer, "
+            + COLUMN_AMOUNT + " double)";
+
 
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -139,20 +146,24 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.execSQL(DATABASE_CREATE_BILLS);
         database.execSQL(DATABASE_CREATE_INCOMES);
         database.execSQL(DATABASE_CREATE_PURCHASES);
+        database.execSQL(DATABASE_CREATE_GOALS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(SQLiteHelper.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
         //db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PURCHASES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BILLS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INCOMES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GOALS);
         onCreate(db);
     }
+
+    /*public void clearDatabase(String TABLE_NAME) {
+        String clearDBQuery = "DELETE FROM "+TABLE_NAME;
+        db.execSQL(clearDBQuery);
+    }*/
 
 }
