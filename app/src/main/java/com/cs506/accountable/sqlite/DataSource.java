@@ -855,4 +855,9 @@ public class DataSource {
         return false;
     }
 
+    // Deletes the database tables
+    public void wipe() {
+        dbHelper.onUpgrade(database, 0, 0);
+    }
+
 }

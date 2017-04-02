@@ -38,12 +38,13 @@ public class Lock_Screen_Activity extends AppCompatActivity {
         }
         ds = new DataSource(Lock_Screen_Activity.this);
         ds.open();
-        if(ds.retrieveAll("user").size()==0){
+        if(!firstTime && ds.retrieveAll("user").size()==0){
             firstTime=true;
         }
 
         if (firstTime) {
             Intent intent = new Intent(this, WelcomeActivity.class);
+            ds.wipe();
             startActivity(intent);
         } else {
             List<Object> obj = ds.retrieveAll("user");
