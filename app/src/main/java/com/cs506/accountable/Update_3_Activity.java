@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.cs506.accountable.dto.Bill;
 import com.cs506.accountable.dto.Income;
@@ -23,7 +24,9 @@ import java.util.List;
 public class Update_3_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     DataSource ds;
-    List<Income> incomeList = new ArrayList<>();
+    List<Income> incomeList;
+    Income income;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,6 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-
         //Get Names of Incomes
         List<String> list = getIncomeNames();
 
@@ -66,8 +68,9 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
 
         List<Object> obj = ds.retrieveAll("income");
         List<String> incomeNames = new ArrayList<>();
-        Income income = new Income();
-        income.setIncomeName("New Bill");
+        incomeList = new ArrayList<>();
+        income = new Income();
+        income.setIncomeName("New Income");
         incomeList.add(income);
 
         for(Object object : obj){
@@ -81,6 +84,73 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         return incomeNames;
     }
 
+    public void addUpdateIncome(View view) {
+
+       String incomeName;
+        String incomeAmount;
+        String dueDate;
+        String hoursOrSalary;
+        String payPeriod;
+
+
+        EditText name = (EditText) findViewById(R.id.incomeName2);
+        incomeName = name.getText().toString();
+        EditText amount = (EditText) findViewById(R.id.incomeAmount2);
+        incomeAmount = amount.getText().toString();
+        EditText date = (EditText) findViewById(R.id.receivingDate2);
+        dueDate = date.getText().toString();
+
+        Spinner hOrS = (Spinner) findViewById(R.id.hoursSpinner2);
+        hoursOrSalary = hOrS.getSelectedItemPosition() + "";
+        Spinner payPer = (Spinner) findViewById(R.id.payPeriodSpinner2);
+        payPeriod = payPer.getSelectedItem().toString();
+
+
+        boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])"); //TODO:
+
+        if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("0") && !payPeriod.equals("Pay Period (Select One)")) {
+
+            if(button.getText().equals("Add Income")){
+                String[] incomeArgs = {null, "1", String.valueOf(income.getAccountId()), incomeName, incomeAmount, dueDate, payPeriod, hoursOrSalary};
+                ds.create("income", incomeArgs);
+            } else {
+                String[] incomeArgs = {String.valueOf(income.getIncomeId()), "1", String.valueOf(income.getAccountId()), incomeName, incomeAmount, dueDate, payPeriod, hoursOrSalary};
+                ds.create("income", incomeArgs);
+            }
+
+            //Get Names of Incomes
+            List<String> list = getIncomeNames();
+
+            Spinner spinner = (Spinner) findViewById(R.id.incomeSpinner);
+            ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_dropdown_item,list);
+            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter1);
+            spinner.setOnItemSelectedListener(this);
+
+        }
+        else {
+            if (incomeName.length() == 0) {
+                Toast.makeText(this, "Income Name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            //TODO: ALLOW USER TO START WITH NEGATIVE BALANCE
+            if (incomeAmount.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Income Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                //TODO:Check for invalid leading 0 in dollar side?
+            }
+            if (!isValidDate) {
+                Toast.makeText(this, "Receiving Date must be in the format mm/dd/year from this current date or onwards", Toast.LENGTH_LONG).show();
+            }
+            if (payPeriod.equals("Pay Period (Select One)")) {
+                Toast.makeText(this, "Pay Period must be selected", Toast.LENGTH_LONG).show();
+            }
+            if (hoursOrSalary.equals("Hourly or Salary? (Select One)")) {
+                Toast.makeText(this, "Method of pay must be selected", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
@@ -90,10 +160,12 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         EditText receivingDate = (EditText) findViewById(R.id.receivingDate2);
         Spinner payPeriod = (Spinner) findViewById(R.id.payPeriodSpinner2);
         Spinner hours = (Spinner) findViewById(R.id.hoursSpinner2);
-        Button button = (Button) findViewById(R.id.addUpdateIncome);
+        button = (Button) findViewById(R.id.addUpdateIncome);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.pay_period_array, android.R.layout.simple_spinner_dropdown_item);
 
         //String income = (String) parent.getItemAtPosition(pos);
-        Income income = incomeList.get(pos);
+        income = incomeList.get(pos);
 
         //Get all information about bill
         if(pos==0){
@@ -105,10 +177,10 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
             button.setText("Add Income");
         } else{
             incomeName.setText(income.getIncomeName());
-            incomeAmount.setText("$"+income.getAmount());
+            incomeAmount.setText(String.valueOf(income.getAmount()));
             receivingDate.setText(income.getDate());
-            //TODO: Change payPeriod to int
-            //payPeriod.setSelection(income.getPayPeriod());
+            int spinnerPosition = adapter.getPosition(income.getPayPeriod());
+            payPeriod.setSelection(spinnerPosition);
             hours.setSelection(income.getHours());
             button.setText("Update Income");
         }
@@ -118,8 +190,7 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         // Another interface callback
     }
 
-    public void addUpdateIncome(View view) {
-    }
+
 
     public void backToHome(View view) {
         Intent intent = new Intent(this, Update_0_Activity.class);

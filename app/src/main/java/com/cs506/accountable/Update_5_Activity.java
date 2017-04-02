@@ -18,6 +18,7 @@ import java.util.List;
 public class Update_5_Activity extends AppCompatActivity {
 
     DataSource ds;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +38,20 @@ public class Update_5_Activity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        //List<Object> obj = ds.retrieveAll("user");
-        //User user = (User) obj.get(0);
+        List<Object> obj = ds.retrieveAll("user");
+        user = (User) obj.get(0);
 
-        //Set spinner to current budget selection
-        //spinner.setSelection(user.getBudget());
+        int spinnerPosition = adapter.getPosition(user.getBudget());
+        spinner.setSelection(spinnerPosition);
     }
 
     public void updateBudget(View view) {
+        Spinner spinner = (Spinner) findViewById(R.id.budgetSpinner2);
+        String budget = spinner.getSelectedItem().toString();
+
+        String[] userArgs = {"1", "User", "0", String.valueOf(user.getPin()), "0", "0", budget, String.valueOf(user.getHasPin())};
+        ds.create("user", userArgs);
+
         Intent intent = new Intent(this, Update_0_Activity.class);
         startActivity(intent);
     }

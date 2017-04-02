@@ -67,14 +67,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:text="$" />
+
         <EditText
             android:id="@+id/accountBalance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight=".99"
             android:ems="10"
-            android:inputType="numberDecimal"
-            android:paddingBottom="30dp" />
+            android:inputType="numberDecimal" />
 
         <ImageButton
             android:id="@+id/accountBalanceHelp"
@@ -85,6 +90,10 @@
             android:onClick="accountHelp"
             android:src="@drawable/ic_action_name" />
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 
     <Button
         android:id="@+id/button3"
