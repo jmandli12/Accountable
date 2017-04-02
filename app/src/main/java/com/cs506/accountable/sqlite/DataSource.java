@@ -507,8 +507,8 @@ public class DataSource {
 
                     return newPurchase;
                 case "income":
-                    cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
+                    cursor = database.query(SQLiteHelper.TABLE_INCOMES,
+                            allColumnsIncome, SQLiteHelper.COLUMN_INCOMEID + " = " + id,
                             null, null, null, null);
                     cursor.moveToFirst();
                     newIncome = cursorToIncome(cursor);
@@ -516,8 +516,8 @@ public class DataSource {
 
                     return newIncome;
                 case "bill":
-                    cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
+                    cursor = database.query(SQLiteHelper.TABLE_BILLS,
+                            allColumnsBill, SQLiteHelper.COLUMN_BILLID + " = " + id,
                             null, null, null, null);
                     cursor.moveToFirst();
                     newBill = cursorToBill(cursor);
@@ -525,8 +525,8 @@ public class DataSource {
 
                     return newBill;
                 case "account":
-                    cursor = database.query(SQLiteHelper.TABLE_USERS,
-                            allColumnsUser, SQLiteHelper.COLUMN_USERID + " = " + id,
+                    cursor = database.query(SQLiteHelper.TABLE_ACCOUNTS,
+                            allColumnsAccount, SQLiteHelper.COLUMN_ACCOUNTID + " = " + id,
                             null, null, null, null);
                     cursor.moveToFirst();
                     newAccount = cursorToAccount(cursor);

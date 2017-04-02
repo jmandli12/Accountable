@@ -42,7 +42,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
         time.setText(ptime);
 
         ds = new DataSource(this);
-
+        ds.open();
 
     }
 
@@ -53,7 +53,6 @@ public class Purchase_0_Activity extends AppCompatActivity {
 
         String category;
         String price;
-        double doubleAmount;
         String date;
         String time;
         String location;
@@ -120,10 +119,11 @@ public class Purchase_0_Activity extends AppCompatActivity {
             String[] purchaseArgs = {null, "1", "1", price, date, time,
                     category, location, comments};
             ds.create("purchase", purchaseArgs);
-            Account account = (Account) ds.retrieveById("account", "1");  //TODO
+
+            Account account = (Account) ds.retrieveById("account", "1");
             Double balance = account.getBalance();
             account.setBalance(balance - Double.parseDouble(price));
-            String[] newAccountArgs = {"1", "1", account.getAccountName(), balance.toString()};
+            String[] newAccountArgs = {"1", "1", account.getAccountName(), String.valueOf(account.getBalance())};
             ds.create("account", newAccountArgs);
 
         } else {
