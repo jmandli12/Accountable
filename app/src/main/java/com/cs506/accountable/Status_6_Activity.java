@@ -44,25 +44,26 @@ public class Status_6_Activity extends AppCompatActivity {
         String purchaseString;
         List<String> list = new ArrayList<>();
 
-        //Sample data that should be removed when database is up and running
-        list.add("Subway, $6.00\n03/02/2018 09:22 PM\nFood: Footlong");
-        list.add("Grocery Store, $60.00\n03/02/2018 09:22 PM\nGroceries: Lots of stuff including beer and stuff so this makes it a very long comment for the sake of testing to make sure the list works the way it is supposed to");
-        list.add("Subway, $10.00\n03/02/2018 09:22 PM\nFood: Footlong and Drink");
-        list.add("State Street, $6000.00\n03/02/2018 09:22 PM\nSocial: Fun Night");
-        list.add("Union South, $6.00\n03/02/2018 09:22 PM\nFood: lunch");
-        list.add("Memorial Union Terrace, $60.00\n03/02/2018 09:22 PM\nSocial: A few pitchers of beer");
-
         List<Object> purchases = ds.retrieveAll("purchase");
 
         for(Object tmp : purchases){
             Purchase purchase = (Purchase) tmp;
-            purchaseString = "";
-            purchaseString = purchase.getLocation()+", $"+purchase.getPrice()+"\n"+purchase.getDate()+", "+purchase.getTime()+"\n"+purchase.getCategory()+", "+purchase.getComment();
+            String price = String.valueOf(purchase.getPrice());
+            if(price.charAt(price.length()-2) == '.') price = price.concat("0");
+            if (!purchase.getLocation().isEmpty()) {
+                purchaseString = purchase.getLocation()+", $"+ price +"\n"+purchase.getDate()+", "+purchase.getTime()+"\n"+purchase.getCategory();
+            }
+            else {
+                purchaseString = "(Unknown Location), $"+ price +"\n"+purchase.getDate()+", "+purchase.getTime()+"\n"+purchase.getCategory();
+            }
+            if (!purchase.getComment().isEmpty()){
+                purchaseString += ", "+purchase.getComment();;
+            }
             list.add(purchaseString);
         }
 
         String[] tmp = new String[list.size()];
-        items = list.toArray(tmp);//getResources().getStringArray(R.array.category_array);
+        items = list.toArray(tmp);
         return items;
     }
 }
