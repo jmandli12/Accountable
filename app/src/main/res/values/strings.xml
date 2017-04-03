@@ -81,7 +81,6 @@
         <item>This Month</item>
         <item>This Year</item>
         <item>Custom Date</item>
-        <item>Previous Purchases</item>
     </string-array>
     <string name="title_activity_lock__screen_">Lock_Screen_Activity</string>
     <string name="title_activity_status_0_">Status_0_Activity</string>

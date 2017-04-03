@@ -20,8 +20,10 @@ import com.cs506.accountable.sqlite.DataSource;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+
 
 public class Status_0_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     DataSource ds;
@@ -53,7 +55,10 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         TextView amountSpent = (TextView) findViewById(R.id.amountSpent);
         TextView goalStatus = (TextView) findViewById(R.id.goalStatus);
 
-        accountBalance.setText("0.00");
+        Account account = (Account) ds.retrieveById("account", "1");
+        String balance = String.valueOf(account.getBalance());
+        if(balance.charAt(balance.length()-2) == '.') balance = balance.concat("0");
+        accountBalance.setText(balance);
         incomeEarned.setText("0.00");
         spendingAllowance.setText("0.00");
         amountSpent.setText("0.00");
@@ -64,9 +69,9 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         //TextView dailyAllowance = (TextView) findViewById(R.id.dailyAllowance);
         //TODO: call method to get this value
         //Double amount = 100.45;
-/*        ds = new DataSource(this);
-        Account account = (Account) ds.retrieveById("account", "1"); //TODO
-        Double currAmount = account.getBalance();
+        //ds = new DataSource(this);
+        //Account account = (Account) ds.retrieveById("account", "1"); //TODO
+        /*Double currAmount = account.getBalance();
         allBills = (List<Bill>)(List<?>) ds.retrieveAll("bill"); //TODO
         allIncomes = (List<Income>)(List<?>) ds.retrieveAll("income"); //TODO
         Iterator<Bill> iterateBills = allBills.iterator();
@@ -74,14 +79,16 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         validBills = new ArrayList<Bill>();
         validIncomes = new ArrayList<Income>();
 
-        String date;
-        Date billDate;
-        Date d = new Date();
+        String[] date;
+        GregorianCalendar billDate;
+        GregorianCalendar d = new GregorianCalendar();
         Bill currBill;
         while(iterateBills.hasNext()) {
             currBill = iterateBills.next();
-            date = currBill.getDueDate();
-            billDate = new Date(date);
+            date = currBill.getDueDate().split("/");
+            billDate = new GregorianCalendar(Integer.parseInt(date[2]),
+                    Integer.parseInt(date[0]), Integer.parseInt(date[1]));
+            billDate.add(GregorianCalendar.WEEK_OF_MONTH, 1);
             if(d.getDay() < billDate.getDay()) {
                 validBills.add(currBill);
             }
@@ -133,8 +140,10 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
             dates.setVisibility(View.INVISIBLE);
         }
         //TODO: Use current selection to get values from database
-
-        accountBalance.setText("0.00");
+        Account account = (Account) ds.retrieveById("account", "1");
+        String balance = String.valueOf(account.getBalance());
+        if(balance.charAt(balance.length()-2) == '.') balance = balance.concat("0");
+        accountBalance.setText(balance);
         incomeEarned.setText("0.00");
         spendingAllowance.setText("0.00");
         amountSpent.setText("0.00");
