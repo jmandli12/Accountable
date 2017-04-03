@@ -23,7 +23,7 @@
         android:layout_height="20dp" />
 
     <Spinner
-        android:id="@+id/goalsSpinner"
+        android:id="@+id/goalSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -31,12 +31,29 @@
         android:layout_width="match_parent"
         android:layout_height="20dp" />
 
-    <TextView
-        android:id="@+id/textView20"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="Time Period:" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/goalName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.47"
+            android:ems="10"
+            android:hint="Goal Name"
+            android:inputType="textPersonName" />
+
+        <ImageButton
+            android:id="@+id/imageButton100"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="savingsHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,13 +76,6 @@
             android:src="@drawable/ic_action_name" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="Unit of Saving:" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,13 +97,6 @@
             android:src="@drawable/ic_action_name" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="Amount to Save:" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,6 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="Amount to Save"
             android:inputType="numberDecimal" />
 
         <ImageButton

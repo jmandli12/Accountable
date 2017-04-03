@@ -17,14 +17,14 @@
         <item>Monthly</item>
     </string-array>
     <string-array name="time_period_array">
-        <item>(Press to Select)</item>
+        <item>Time Period (Select One)</item>
         <item>Daily</item>
         <item>Weekly</item>
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
     <string-array name="unit_of_saving_array">
-        <item>(Select One)</item>
+        <item>Unit of Saving (Select One)</item>
         <item>$</item>
         <item>% of Income</item>
         <item>% of Savings</item>

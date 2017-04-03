@@ -13,10 +13,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.cs506.accountable.dto.Goal;
+import com.cs506.accountable.dto.Income;
+import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.cs506.accountable.R.id.incomeAmount;
 import static com.cs506.accountable.R.id.incomeName;
 
 public class Update_4_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
+    DataSource ds;
+    List<Goal> goalList;
+    Goal goal;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +37,10 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds = new DataSource(Update_4_Activity.this);
+        ds.open();
 
         Spinner spinner = (Spinner) findViewById(R.id.timePeriodSpinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -39,12 +53,36 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
                 R.array.unit_of_saving_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner = (Spinner) findViewById(R.id.goalsSpinner);
-        adapter = ArrayAdapter.createFromResource(this,
-                R.array.goalNames_array, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+
+        //Get Names of Incomes
+        List<String> list = getGoalNames();
+
+        spinner = (Spinner) findViewById(R.id.goalSpinner);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item,list);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(this);
+    }
+
+    public List<String> getGoalNames() {
+
+        List<Object> obj = ds.retrieveAll("goal");
+        List<String> goalNames = new ArrayList<>();
+        goalList = new ArrayList<>();
+        goal = new Goal();
+        goal.setGoalName("New Goal");
+        goalList.add(goal);
+
+        for(Object object : obj){
+            goal = (Goal) object;
+            goalList.add(goal);
+        }
+
+        for(Goal g : goalList){
+            goalNames.add(g.getGoalName());
+        }
+        return goalNames;
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -76,9 +114,16 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         // Another interface callback
     }
 
+    public void addUpdateGoal(View view) {
+
+    }
     public void savingsHelp(View view) {
 
         switch (view.getId()) {
+            case R.id.goalNameHelp:
+                Snackbar.make(view, "Name of your personal goal. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
             case R.id.timePeriodHelp:
                 Snackbar.make(view, "Time period of this goal. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Action", null).show();
@@ -94,8 +139,7 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         }
     }
 
-    public void addUpdateGoal(View view) {
-    }
+
 
     public void backToHome(View view) {
         Intent intent = new Intent(this, Update_0_Activity.class);

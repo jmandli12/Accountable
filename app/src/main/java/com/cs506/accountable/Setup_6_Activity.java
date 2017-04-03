@@ -91,6 +91,10 @@ public class Setup_6_Activity extends AppCompatActivity {
     public void savingsHelp(View view) {
 
         switch (view.getId()) {
+            case R.id.goalNameHelp:
+                Snackbar.make(view, "Name of your personal goal. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
+                break;
             case R.id.timePeriodHelp:
                 Snackbar.make(view, "Time period of this goal. \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Action", null).show();

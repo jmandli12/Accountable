@@ -9,21 +9,27 @@ public class Goal {
     // 0 = $, 1 = % of Income, 2 = % of Savings
     private int unit;
     private double amount;
+    private String name;
 
     public Goal() {
         this.userId = -1;
         this.timePeriod = -1;
         this.unit = -1;
         this.amount = -1.00;
+        this.name = "";
     }
 
-    public Goal(int userId, int timePeriod, int unit, double amount) {
+    public Goal(int userId, String name, int timePeriod, int unit, double amount) {
             this.userId = userId;
             this.timePeriod = timePeriod;
             this.unit = unit;
             this.amount = amount;
+            this.name = name;
     }
 
+    public String getGoalName() {return this.name;}
+
+    public void setGoalName(String name){this.name = name;}
 
     public int getUserId() {return this.userId;}
 

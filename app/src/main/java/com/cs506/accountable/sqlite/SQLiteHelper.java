@@ -61,6 +61,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_GOALS = "goals";
     //public static final String COLUMN_USERID = "user_id";
+    public static final String COLUMN_GOALNAME = "goal_name";
     public static final String COLUMN_TIMEPERIOD = "time_period";
     public static final String COLUMN_UNIT = "unit";
     //public static final String COLUMN_AMOUNT = "amount";
@@ -128,6 +129,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_GOALS = " create table "
             + TABLE_GOALS + "("
             + COLUMN_USERID + " integer references user_id, "
+            + COLUMN_GOALNAME + " text "
             + COLUMN_TIMEPERIOD + " integer, "
             + COLUMN_UNIT + " integer, "
             + COLUMN_AMOUNT + " double)";

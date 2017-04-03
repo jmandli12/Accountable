@@ -827,9 +827,10 @@ public class DataSource {
     private Goal cursorToGoal(Cursor cursor){
         Goal goal = new Goal(
                 cursor.getInt(0),
-                cursor.getInt(1),
+                cursor.getString(1),
                 cursor.getInt(2),
-                cursor.getDouble(3));
+                cursor.getInt(3),
+                cursor.getDouble(4));
         return goal;
     }
 
