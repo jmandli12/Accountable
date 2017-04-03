@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.Bill;
 import com.cs506.accountable.dto.Comment;
+import com.cs506.accountable.dto.Goal;
 import com.cs506.accountable.dto.Income;
 import com.cs506.accountable.dto.Purchase;
 import com.cs506.accountable.dto.User;
@@ -48,6 +49,13 @@ public class DataSource {
             SQLiteHelper.COLUMN_BILLAMT,
             SQLiteHelper.COLUMN_DUEDTE,
             SQLiteHelper.COLUMN_OCCURRENCERTE
+    };
+
+    private String[] allColumnsGoal = {
+            SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_TIMEPERIOD,
+            SQLiteHelper.COLUMN_UNIT,
+            SQLiteHelper.COLUMN_AMOUNT
     };
 
     private String[] allColumnsIncome = {
@@ -326,6 +334,37 @@ public class DataSource {
                     return newPurchase;
 
                 //break;
+                case "goal":
+                Goal newGoal;
+
+//                pull arguments from args[] and put into values for database
+                values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[0]));
+                values.put(SQLiteHelper.COLUMN_TIMEPERIOD, Integer.parseInt(args[1]));
+                values.put(SQLiteHelper.COLUMN_UNIT, Integer.parseInt(args[2]));
+                values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[3]));
+
+                //insert values as entry into database
+                returnValue = database.insert(SQLiteHelper.TABLE_GOALS, null, values);
+                if(returnValue == -1){
+                    int affectedRows = database.update(SQLiteHelper.TABLE_GOALS, values,
+                            SQLiteHelper.COLUMN_USERID + " = " + args[0], null);
+                    if(affectedRows == 0) {
+                        System.out.print("\n Error!! No rows affected!");
+                        throw new Exception();
+                    }
+                }
+
+                // move cursor to our new entry
+                cursor = database.query(SQLiteHelper.TABLE_GOALS,
+                        allColumnsGoal, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
+                        null, null, null);
+
+                //pull values from entry into java object
+                cursor.moveToFirst();
+                newGoal = cursorToGoal(cursor);
+                cursor.close();
+
+                return newGoal;
                 default:
                     break;
             }
@@ -463,6 +502,24 @@ public class DataSource {
                     }
                     cursor.close();
                     break;
+                case "goal":
+                    whereArgs = new String[id];
+                    result = 0;
+
+                    //move cursor to to user table
+                    cursor = database.query(SQLiteHelper.TABLE_GOALS, null, null, null, null, null, null);
+                    if(cursor.moveToFirst()) {
+
+                        //delete query based on id
+                        result = database.delete(
+                                SQLiteHelper.TABLE_GOALS, //Table
+                                "? = " + SQLiteHelper.COLUMN_USERID, //Where clause
+                                whereArgs //Replaces ? with where args incrementally
+                        );
+                    }
+                    cursor.close();
+                    break;
+
                 default:
                     break;
             }
@@ -487,6 +544,7 @@ public class DataSource {
             Income newIncome;
             Bill newBill;
             Account newAccount;
+            Goal newGoal;
             switch (str.toLowerCase()) {
                 case "user":
                     cursor = database.query(SQLiteHelper.TABLE_USERS,
@@ -533,6 +591,15 @@ public class DataSource {
                     cursor.close();
 
                     return newAccount;
+                case "goal":
+                    cursor = database.query(SQLiteHelper.TABLE_GOALS,
+                            allColumnsGoal, SQLiteHelper.COLUMN_USERID + " = " + id,
+                            null, null, null, null);
+                    cursor.moveToFirst();
+                    newGoal = cursorToGoal(cursor);
+                    cursor.close();
+
+                    return newGoal;
                 default:
                     break;
             }
@@ -561,6 +628,8 @@ public class DataSource {
             List<Object> billObjects = new ArrayList<>();
             List<Account> accountList;
             List<Object> accountObjects = new ArrayList<>();
+            List<Goal> goalList;
+            List<Object> goalObjects = new ArrayList<>();
             switch (str.toLowerCase()) {
                 case "purchase":
                     cursor = database.query(SQLiteHelper.TABLE_PURCHASES,
@@ -622,6 +691,18 @@ public class DataSource {
                     }
 
                     return incomeObjects;
+                case "goal":
+                    cursor = database.query(SQLiteHelper.TABLE_GOALS,
+                            allColumnsGoal, null, null, null, null, null);
+                    cursor.moveToFirst();
+                    goalList = cursorToGoalList(cursor);
+                    cursor.close();
+
+                    for (int i = 0; i < goalList.size(); i++) {
+                        goalObjects.add((Object) goalList.get(i));
+                    }
+
+                    return goalObjects;
                 default:
                     break;
             }
@@ -743,6 +824,15 @@ public class DataSource {
         return user;
     }
 
+    private Goal cursorToGoal(Cursor cursor){
+        Goal goal = new Goal(
+                cursor.getInt(0),
+                cursor.getInt(1),
+                cursor.getInt(2),
+                cursor.getDouble(3));
+        return goal;
+    }
+
     // helper methods to return lists of class objects
     private List<Purchase> cursorToPurchaseList(Cursor cursor) {
         List<Purchase> purchaseList = new ArrayList<>();
@@ -807,6 +897,19 @@ public class DataSource {
         // make sure to close the cursor
         cursor.close();
         return billList;
+    }
+
+    private List<Goal> cursorToGoalList(Cursor cursor) {
+        List<Goal> goalList = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Goal goal = cursorToGoal(cursor);
+            goalList.add(goal);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return goalList;
     }
 
     public boolean isFirstTime(){
