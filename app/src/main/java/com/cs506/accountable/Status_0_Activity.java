@@ -35,6 +35,10 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ds = new DataSource(this);
+        ds.open();
+
         setContentView(R.layout.activity_status_0_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Accountable");
@@ -121,10 +125,14 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
 
         String amount = currAmount.toString();*/
         //dailyAllowance.setText("$"+amount);
+
+        ds.close();
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+        ds = new DataSource(this);
+        ds.open();
 
         TextView accountBalance = (TextView) findViewById(R.id.accountBalance);
         TextView incomeEarned = (TextView) findViewById(R.id.incomeEarned);
@@ -148,6 +156,8 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         spendingAllowance.setText("0.00");
         amountSpent.setText("0.00");
         goalStatus.setText("0.00");
+
+        ds.close();
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
