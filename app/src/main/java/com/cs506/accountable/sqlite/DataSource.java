@@ -13,7 +13,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.Bill;
-import com.cs506.accountable.dto.Comment;
 import com.cs506.accountable.dto.Goal;
 import com.cs506.accountable.dto.Income;
 import com.cs506.accountable.dto.Purchase;
@@ -442,27 +441,6 @@ public class DataSource {
                     cursor.close();
                     break;
 
-                //comment case
-                /*case "comment":
-                    whereArgs = new String[id];
-                    result = 0;
-
-                    //move cursor to to user table
-                    cursor = database.query(SQLiteHelper.TABLE_COMMENTS, null, null, null, null, null, null);
-                    if(cursor.moveToFirst()) {
-
-                        //delete query based on id
-                        result = database.delete(
-                                SQLiteHelper.TABLE_COMMENTS, //Table
-                                "? = " + SQLiteHelper.COLUMN_ID, //Where clause
-                                whereArgs //Replaces ? with where args incrementally
-                        );
-                    }
-                    cursor.close();
-                    break;
-
-                   */
-
                 //purchase
                 case "purchase":
                     whereArgs = new String[id];
@@ -708,52 +686,6 @@ public class DataSource {
         }
         return null;
     }
-
-    /*public Comment createComment(String comment) {
-        ContentValues values = new ContentValues();
-        values.put(SQLiteHelper.COLUMN_COMMENT, comment);
-        long insertId = database.insert(SQLiteHelper.TABLE_COMMENTS, null,
-                values);
-        Cursor cursor = database.query(SQLiteHelper.TABLE_COMMENTS,
-                allColumns, SQLiteHelper.COLUMN_USERID + " = " + insertId, null,
-                null, null, null);
-        cursor.moveToFirst();
-        Comment newComment = cursorToComment(cursor);
-        cursor.close();
-        return newComment;
-    }
-
-    public void deleteComment(Comment comment) {
-        long id = comment.getId();
-        System.out.println("Comment deleted with id: " + id);
-        database.delete(SQLiteHelper.TABLE_COMMENTS, SQLiteHelper.COLUMN_ID
-                + " = " + id, null);
-    }*/
-
-
-    /*public List<Comment> getAllComments() {
-        List<Comment> comments = new ArrayList<Comment>();
-
-        Cursor cursor = database.query(SQLiteHelper.TABLE_COMMENTS,
-                allColumns, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Comment comment = cursorToComment(cursor);
-            comments.add(comment);
-            cursor.moveToNext();
-        }
-        // make sure to close the cursor
-        cursor.close();
-        return comments;
-    }
-
-    private Comment cursorToComment(Cursor cursor) {
-        Comment comment = new Comment();
-        comment.setId(cursor.getLong(0));
-        comment.setComment(cursor.getString(1));
-        return comment;
-    }*/
 
     // helper methods to convert cursor objects to class objects
     private Account cursorToAccount(Cursor cursor) {

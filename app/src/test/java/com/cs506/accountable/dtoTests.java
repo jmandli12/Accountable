@@ -2,6 +2,7 @@ package com.cs506.accountable;
 
 import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.Bill;
+import com.cs506.accountable.dto.Goal;
 import com.cs506.accountable.dto.Income;
 import com.cs506.accountable.dto.Purchase;
 import com.cs506.accountable.dto.User;
@@ -97,7 +98,7 @@ public class dtoTests {
         assertEquals(-1, bill.getAccountId());
         assertEquals(-1.00, bill.getBillAmount(), 0);
         assertEquals("", bill.getDueDate());
-        assertEquals(0, bill.getOccurrenceRte());
+        assertEquals(-1, bill.getOccurrenceRte());
     }
 
     /*
@@ -431,6 +432,76 @@ Test the getters and setters for an empty user constructor
         assertEquals(firstTime, user.getFirstTime());
         assertEquals(budget, user.getBudget());
         assertEquals(hasPin, user.getHasPin());
+    }
+
+    /*
+Test the getters and setters for an empty goal constructor
+*/
+    @Test
+    public void goalEmptyConstructor_isCorrect() throws Exception {
+
+        //Create empty goal
+        Goal goal = new Goal();
+
+        // Verify Values
+        assertEquals(-1, goal.getUserId());
+        assertEquals("", goal.getGoalName());
+        assertEquals(-1, goal.getTimePeriod());
+        assertEquals(-1, goal.getUnit());
+        assertEquals(-1.00, goal.getAmount(),0);
+    }
+
+    /*
+    Test the getters and setters for an empty goal constructor
+    */
+    @Test
+    public void goalCustomConstructor_isCorrect() throws Exception {
+
+        int userId = 1152;
+        String name = "Test Name";
+        int timePeriod = 1;
+        int unit = 2;
+        double amount = 1000.52;
+
+
+        //Create goal
+        Goal goal = new Goal(userId, name, timePeriod, unit, amount);
+
+        // Verify Values
+        assertEquals(userId, goal.getUserId());
+        assertEquals(name, goal.getGoalName());
+        assertEquals(timePeriod, goal.getTimePeriod());
+        assertEquals(unit, goal.getUnit());
+        assertEquals(amount, goal.getAmount(),0);
+    }
+
+    /*
+    Test the getters and setters for an empty goal constructor
+    */
+    @Test
+    public void goalEmptyConstructorCustomSetters_isCorrect() throws Exception {
+
+        int userId = 1152;
+        String name = "Test Name";
+        int timePeriod = 1;
+        int unit = 2;
+        double amount = 1000.52;
+
+        //Create goal
+        Goal goal = new Goal();
+
+        goal.setUserId(userId);
+        goal.setGoalName(name);
+        goal.setTimePeriod(timePeriod);
+        goal.setUnit(unit);
+        goal.setAmount(amount);
+
+        // Verify Values
+        assertEquals(userId, goal.getUserId());
+        assertEquals(name, goal.getGoalName());
+        assertEquals(timePeriod, goal.getTimePeriod());
+        assertEquals(unit, goal.getUnit());
+        assertEquals(amount, goal.getAmount(),0);
     }
 
 }

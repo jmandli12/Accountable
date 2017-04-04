@@ -4,12 +4,11 @@ package com.cs506.accountable.dto;
 public class Goal {
 
     private int userId;
-    // 0 = Daily, 1 = Weekly, 2 = Monthly, 3 = Yearly
+    private String name;
     private int timePeriod;
-    // 0 = $, 1 = % of Income, 2 = % of Savings
     private int unit;
     private double amount;
-    private String name;
+
 
     public Goal() {
         this.userId = -1;
