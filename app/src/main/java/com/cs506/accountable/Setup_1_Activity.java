@@ -17,6 +17,9 @@ public class Setup_1_Activity extends AppCompatActivity {
     DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_1_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -25,9 +28,6 @@ public class Setup_1_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle prev = getIntent().getExtras();
         unconfirmedPIN = prev.getString("unconfirmedPIN");
-
-        ds = new DataSource(Setup_1_Activity.this);
-        ds.open();
     }
 
     /*

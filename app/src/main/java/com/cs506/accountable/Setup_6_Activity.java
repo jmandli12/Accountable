@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +21,9 @@ public class Setup_6_Activity extends AppCompatActivity {
     String budget;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_6_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -42,31 +46,70 @@ public class Setup_6_Activity extends AppCompatActivity {
         accountID = prev.getString("accountID");
         budget = prev.getString("budget");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        ds = new DataSource(Setup_6_Activity.this);
-        ds.open();
+    public void addGoal(View view) {
+
+        //  0=daily, 1=weekly, 2=monthly, 3=yearly
+        String timePeriod;
+        String originalTimePeriod;
+        // 0=$, 1=% of income, 2=% of savings
+        String unitSaving;
+        String originalUnitSaving;
+        String amount;
+
+        Spinner spinner = (Spinner) findViewById(R.id.timePeriodSpinner);
+        originalTimePeriod = spinner.getSelectedItem().toString();
+        timePeriod = originalTimePeriod;
+        if (timePeriod.equals("Daily")) {
+            timePeriod = "0";
+        }
+        else if (timePeriod.equals("Weekly")) {
+            timePeriod = "1";
+        }
+        else if (timePeriod.equals("Monthly")) {
+            timePeriod = "2";
+        }
+        else if (timePeriod.equals("Yearly")) {
+            timePeriod = "3";
+        }
+        else {
+            timePeriod = "";
+        }
+        spinner = (Spinner) findViewById(R.id.unitSavingSpinner);
+        originalUnitSaving = spinner.getSelectedItem().toString();
+        unitSaving = originalUnitSaving;
+        if (unitSaving.equals("$")) {
+            unitSaving = "0";
+        }
+        else if (unitSaving.equals("% of Income")) {
+            unitSaving = "1";
+        }
+        else if (unitSaving.equals("% of Savings")) {
+            unitSaving = "2";
+        }
+        else {
+            unitSaving = "";
+        }
+        EditText text = (EditText) findViewById(R.id.amountToSave);
+        amount = text.getText().toString();
+
+
+        if (!timePeriod.equals("(Press to Select)") && !unitSaving.equals("(Select One)")) {
+            String[] goalArgs = {"1", timePeriod, unitSaving, amount};
+            ds.create("goal", goalArgs);
+        }
+
+        Toast.makeText(this, "TimePeriod Selected: " + originalTimePeriod + " UnitSaving Selected: "
+                + originalUnitSaving + " Amount to Save: " + amount, Toast.LENGTH_LONG).show();
+
+
     }
 
     /*
     Save goal and move to next Activity
      */
     public void moveNext(View view) {
-
-        String timePeriod;
-        String unitSaving;
-
-        Spinner spinner = (Spinner) findViewById(R.id.timePeriodSpinner);
-        timePeriod = spinner.getSelectedItem().toString();
-        spinner = (Spinner) findViewById(R.id.unitSavingSpinner);
-        unitSaving = spinner.getSelectedItem().toString();
-
-
-        if (!timePeriod.equals("(Press to Select)") && !unitSaving.equals("(Select One)")) {
-
-        }
-
-        Toast.makeText(this, "TimePeriod Selected: " + timePeriod + " UnitSaving Selected: " + unitSaving, Toast.LENGTH_LONG).show();
-
 
         //finally create user
         String hasPin;

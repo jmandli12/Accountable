@@ -27,6 +27,9 @@ public class Setup_3_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_3_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -42,10 +45,6 @@ public class Setup_3_Activity extends AppCompatActivity {
         pin = prev.getString("pin");
         accountID = prev.getString("accountID");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ds = new DataSource(Setup_3_Activity.this);
-        ds.open();
-
 
  /*       String[] bills;
 

@@ -1,5 +1,6 @@
 package com.cs506.accountable;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,14 +9,29 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cs506.accountable.dto.Account;
+import com.cs506.accountable.dto.Bill;
+import com.cs506.accountable.dto.Goal;
+import com.cs506.accountable.dto.Income;
+import com.cs506.accountable.dto.Purchase;
+import com.cs506.accountable.dto.User;
 import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_0_Activity extends AppCompatActivity {
 
     DataSource ds;
+    User user;
+    Account account;
+    Bill bill;
+    Income income;
+    Purchase purchase;
+    Goal goal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_0_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -23,8 +39,19 @@ public class Setup_0_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ds = new DataSource(Setup_0_Activity.this);
-        ds.open();
+        /*String[] userArgs = {"1","user","1234","1234","1234","1","","0"};
+        user = (User) ds.create("user", userArgs);
+        String[] goalArgs = {"1","12","15","1.11"};
+        goal = (Goal) ds.create("goal", goalArgs);*/
+        //ds.wipe();
+        /*String[] accountArgs = {"1","1","account","500000"};
+        account = (Account) ds.create("account", accountArgs);
+        String[] billArgs = {"1","1","1","billsbitch","696969.00","07/25/2017","1"};
+        bill = (Bill) ds.create("bill", billArgs);
+        String[] incomeArgs = {"1","1","1","income","5000.00","07/25/2017","week","1"};
+        income = (Income) ds.create("income", incomeArgs);
+        String[] purchaseArgs = {"1","1","1","10.00","07/07/2017","8:15am","Food","",""};
+        purchase = (Purchase) ds.create("purchase", purchaseArgs);*/
     }
 
     public void buttonClickHandler(View view) {

@@ -16,6 +16,9 @@ public class Setup_7_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_7_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -23,8 +26,6 @@ public class Setup_7_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ds = new DataSource(this);
-        ds.open();
     }
 
     /*

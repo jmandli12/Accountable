@@ -20,6 +20,9 @@ public class Setup_2_Activity extends AppCompatActivity {
     String pin = "noPin";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_2_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -28,9 +31,6 @@ public class Setup_2_Activity extends AppCompatActivity {
         Bundle prev = getIntent().getExtras();
         if (prev != null) pin = prev.getString("pin");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ds = new DataSource(Setup_2_Activity.this);
-        ds.open();
 
         //String[] userArgs = {"1", "user", "0", pin, "", "1", "", "1"};
         //user = (User) ds.create("user", userArgs);

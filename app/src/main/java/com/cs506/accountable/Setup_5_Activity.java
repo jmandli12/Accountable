@@ -17,8 +17,12 @@ import com.cs506.accountable.sqlite.DataSource;
 public class Setup_5_Activity extends AppCompatActivity {
     String pin;
     String accountID;
+    DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_5_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
