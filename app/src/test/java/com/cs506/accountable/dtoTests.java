@@ -371,7 +371,7 @@ Test the getters and setters for an empty user constructor
     @Test
     public void userCustomConstructor_isCorrect() throws Exception {
 
-        long id = 123456;
+        int id = 123456;
         int pin_hash = 98745;
         int pin = 9876;
         String salt = "test salt";
@@ -400,7 +400,7 @@ Test the getters and setters for an empty user constructor
     @Test
     public void userEmptyConstructorCustomSetters_isCorrect() throws Exception {
 
-        long id = 123456;
+        int id = 123456;
         int pin_hash = 98745;
         int pin = 9876;
         String salt = "test salt";
