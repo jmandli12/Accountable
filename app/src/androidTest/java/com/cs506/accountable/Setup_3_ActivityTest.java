@@ -61,10 +61,16 @@ public class Setup_3_ActivityTest {
     @Test
     public void addBill() throws Exception {
         String[] nameTestValues = {""};
-        String[] billTestValues = {};
+        String[] billTestValues = {"1234", "0", "9.23123", "1234.1", "0.1"};
+        String[] dateTestValues = {"2/2/2014", "4135423543", "19/1/2018", "1234.1", "../12/2045"}; //TODO: Add more
         initializeTestValues("name");
         testField(billNameID, nameTestValues);
-        //TODO: Create other test value arrays
+        initializeTestValues("amount");
+        testField(billAmountID, billTestValues);
+        initializeTestValues("date");
+        testField(dueDateID, dateTestValues);
+        //TODO: Occurences?
+
 
     }
 
@@ -98,10 +104,10 @@ public class Setup_3_ActivityTest {
     public void testField(int id, String[] testValues){
         for (int i = 0; i < testValues.length; i++) {
             onView(withId(id))
-                    .perform(clearText(), typeText("04/20/2018"));
+                    .perform(clearText(), typeText(testValues[i]));
             closeSoftKeyboard();
             onView(withId(addBillButton))
-                    .perform(clearText(), typeText(testValues[i]));
+                    .perform(click());
         }
         Activity expectedActivity = CurrentActivityUtil.getCurrentActivity();
         assertEquals(currentActivity, expectedActivity);
