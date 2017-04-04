@@ -24,15 +24,15 @@ public class Update_1_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(Update_1_Activity.this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_1_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ds = new DataSource(Update_1_Activity.this);
-        ds.open();
 
         List<Object> obj = ds.retrieveAll("account");
         account = (Account) obj.get(0);

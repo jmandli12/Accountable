@@ -50,60 +50,35 @@ public class Setup_6_Activity extends AppCompatActivity {
 
     public void addGoal(View view) {
 
-        //  0=daily, 1=weekly, 2=monthly, 3=yearly
-        String timePeriod;
-        String originalTimePeriod;
-        // 0=$, 1=% of income, 2=% of savings
-        String unitSaving;
-        String originalUnitSaving;
+        int timePeriod;
+        int unitSaving;
         String amount;
+        String goalName;
 
-        Spinner spinner = (Spinner) findViewById(R.id.timePeriodSpinner);
-        originalTimePeriod = spinner.getSelectedItem().toString();
-        timePeriod = originalTimePeriod;
-        if (timePeriod.equals("Daily")) {
-            timePeriod = "0";
-        }
-        else if (timePeriod.equals("Weekly")) {
-            timePeriod = "1";
-        }
-        else if (timePeriod.equals("Monthly")) {
-            timePeriod = "2";
-        }
-        else if (timePeriod.equals("Yearly")) {
-            timePeriod = "3";
-        }
-        else {
-            timePeriod = "";
-        }
-        spinner = (Spinner) findViewById(R.id.unitSavingSpinner);
-        originalUnitSaving = spinner.getSelectedItem().toString();
-        unitSaving = originalUnitSaving;
-        if (unitSaving.equals("$")) {
-            unitSaving = "0";
-        }
-        else if (unitSaving.equals("% of Income")) {
-            unitSaving = "1";
-        }
-        else if (unitSaving.equals("% of Savings")) {
-            unitSaving = "2";
-        }
-        else {
-            unitSaving = "";
-        }
+        Spinner spinner1 = (Spinner) findViewById(R.id.timePeriodSpinner);
+        timePeriod = spinner1.getSelectedItemPosition();
+        Spinner spinner2 = (Spinner) findViewById(R.id.unitSavingSpinner);
+        unitSaving = spinner2.getSelectedItemPosition();
+
         EditText text = (EditText) findViewById(R.id.amountToSave);
         amount = text.getText().toString();
+        EditText name = (EditText) findViewById(R.id.goalName);
+        goalName = name.getText().toString();
 
-
-        if (!timePeriod.equals("(Press to Select)") && !unitSaving.equals("(Select One)")) {
-            String[] goalArgs = {"1", timePeriod, unitSaving, amount};
+        if (timePeriod != 0 && unitSaving != 0) {
+            String[] goalArgs = {"1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
             ds.create("goal", goalArgs);
+
+            name.setText("");
+            text.setText("");
+            spinner1.setSelection(0);
+            spinner2.setSelection(0);
+
         }
 
-        Toast.makeText(this, "TimePeriod Selected: " + originalTimePeriod + " UnitSaving Selected: "
-                + originalUnitSaving + " Amount to Save: " + amount, Toast.LENGTH_LONG).show();
-
-
+        Toast.makeText(this, "Goal Name: " + goalName + "TimePeriod Selected: " + timePeriod
+                + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
+                + amount, Toast.LENGTH_LONG).show();
     }
 
     /*

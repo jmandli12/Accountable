@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.cs506.accountable.dto.Goal;
 import com.cs506.accountable.dto.Income;
@@ -20,6 +21,7 @@ import com.cs506.accountable.sqlite.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.name;
 import static com.cs506.accountable.R.id.incomeAmount;
 import static com.cs506.accountable.R.id.incomeName;
 
@@ -32,15 +34,15 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(Update_4_Activity.this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_4_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ds = new DataSource(Update_4_Activity.this);
-        ds.open();
 
         Spinner spinner = (Spinner) findViewById(R.id.timePeriodSpinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -92,20 +94,23 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         Spinner timePeriod = (Spinner) findViewById(R.id.timePeriodSpinner2);
         Spinner unitSaving = (Spinner) findViewById(R.id.unitSavingSpinner2);
         EditText amountToSave = (EditText) findViewById(R.id.amountToSave2);
-        Button button = (Button) findViewById(R.id.addUpdateGoal);
+        EditText goalName = (EditText) findViewById(R.id.goalName2);
+        button = (Button) findViewById(R.id.addUpdateGoal);
 
-        String goal = (String) parent.getItemAtPosition(pos);
+        goal = goalList.get(pos);
 
         //Get all information about bill
-        if(goal.equals("New Goal")){
+        if(pos==0){
+            goalName.setText("");
             timePeriod.setSelection(0);
             unitSaving.setSelection(0);
             amountToSave.setText("");
             button.setText("Add Goal");
         } else{
-            timePeriod.setSelection(1);
-            unitSaving.setSelection(1);
-            amountToSave.setText("Goal info here");
+            goalName.setText(goal.getGoalName());
+            timePeriod.setSelection(goal.getTimePeriod());
+            unitSaving.setSelection(goal.getUnit());
+            amountToSave.setText(String.valueOf(goal.getAmount()));
             button.setText("Update Goal");
         }
     }
@@ -115,6 +120,47 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
     }
 
     public void addUpdateGoal(View view) {
+
+        int timePeriod;
+        int unitSaving;
+        String amount;
+        String goalName;
+
+        Spinner spinner1 = (Spinner) findViewById(R.id.timePeriodSpinner2);
+        timePeriod = spinner1.getSelectedItemPosition();
+        Spinner spinner2 = (Spinner) findViewById(R.id.unitSavingSpinner2);
+        unitSaving = spinner2.getSelectedItemPosition();
+
+        EditText text = (EditText) findViewById(R.id.amountToSave2);
+        amount = text.getText().toString();
+        EditText name = (EditText) findViewById(R.id.goalName2);
+        goalName = name.getText().toString();
+
+        if (timePeriod != 0 && unitSaving != 0) {
+
+            if(button.getText().equals("Add Goal")){
+                String[] goalArgs = {"1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
+                ds.create("goal", goalArgs);
+            } else {
+                String[] goalArgs = {"1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
+                ds.create("goal", goalArgs);
+            }
+
+            //Get Names of Incomes
+            List<String> list = getGoalNames();
+
+            Spinner spinner = (Spinner) findViewById(R.id.goalSpinner);
+            ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_dropdown_item,list);
+            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter1);
+            spinner.setOnItemSelectedListener(this);
+
+        }
+
+        Toast.makeText(this, "Goal Name: " + goalName + "TimePeriod Selected: " + timePeriod
+                + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
+                + amount, Toast.LENGTH_LONG).show();
 
     }
     public void savingsHelp(View view) {
@@ -138,8 +184,6 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
                 break;
         }
     }
-
-
 
     public void backToHome(View view) {
         Intent intent = new Intent(this, Update_0_Activity.class);
