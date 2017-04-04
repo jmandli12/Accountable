@@ -20,10 +20,9 @@ import com.cs506.accountable.dto.Purchase;
 import com.cs506.accountable.dto.User;
 
 
-
 /**
  * Created by Database Bros. on 3/8/2017.
- *
+ * <p>
  * commented out code is from the tutorial used to learn sqlite databases, it will not be used but
  * may be useful
  */
@@ -36,10 +35,10 @@ public class DataSource {
             SQLiteHelper.COLUMN_COMMENT };*/
 
     private String[] allColumnsAccount = {
-        SQLiteHelper.COLUMN_ACCOUNTID,
-        SQLiteHelper.COLUMN_USERID,
-        SQLiteHelper.COLUMN_ACCOUNTNAME,
-        SQLiteHelper.COLUMN_BALANCE
+            SQLiteHelper.COLUMN_ACCOUNTID,
+            SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_ACCOUNTNAME,
+            SQLiteHelper.COLUMN_BALANCE
     };
     private String[] allColumnsBill = {
             SQLiteHelper.COLUMN_BILLID,
@@ -53,6 +52,7 @@ public class DataSource {
 
     private String[] allColumnsGoal = {
             SQLiteHelper.COLUMN_USERID,
+            SQLiteHelper.COLUMN_GOALNAME,
             SQLiteHelper.COLUMN_TIMEPERIOD,
             SQLiteHelper.COLUMN_UNIT,
             SQLiteHelper.COLUMN_AMOUNT
@@ -91,7 +91,9 @@ public class DataSource {
     };
 
     // constructs dbHelper
-    public DataSource(Context context) { dbHelper = new SQLiteHelper(context); }
+    public DataSource(Context context) {
+        dbHelper = new SQLiteHelper(context);
+    }
 
     // opens database
     public void open() throws SQLException {
@@ -108,7 +110,7 @@ public class DataSource {
      * Creates or updates an entry of a specific type in the database, returns a java object
      * of that entry.
      *
-     * @param str a string of which type you want to store in the database
+     * @param str  a string of which type you want to store in the database
      * @param args an array of arguments needed to fulfil the database entry & java object
      * @return a respective object file of the entry just put into the database
      */
@@ -147,10 +149,10 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_USERS, null, values);
-                    if(returnValue == -1){
+                    if (returnValue == -1) {
                         int affectedRows = database.update(SQLiteHelper.TABLE_USERS, values,
                                 SQLiteHelper.COLUMN_USERID + " = " + args[0], null);
-                        if(affectedRows == 0) {
+                        if (affectedRows == 0) {
                             System.out.print("\n Error!! No rows affected!");
                             throw new Exception();
                         }
@@ -174,8 +176,7 @@ public class DataSource {
                     Income newIncome;
                     if (args[0] != null) {
                         values.put(SQLiteHelper.COLUMN_INCOMEID, Integer.parseInt(args[0]));
-                    }
-                    else {
+                    } else {
                         values.put(SQLiteHelper.COLUMN_INCOMEID, args[0]);
                     }
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
@@ -188,10 +189,10 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
-                    if(returnValue == -1){
+                    if (returnValue == -1) {
                         int affectedRows = database.update(SQLiteHelper.TABLE_INCOMES, values,
                                 SQLiteHelper.COLUMN_INCOMEID + " = " + args[0], null);
-                        if(affectedRows == 0) {
+                        if (affectedRows == 0) {
                             System.out.print("\n Error!! No rows affected!");
                             throw new Exception();
                         }
@@ -216,8 +217,7 @@ public class DataSource {
                     //pull arguments from args[] and put into values for database
                     if (args[0] != null) {
                         values.put(SQLiteHelper.COLUMN_ACCOUNTID, Integer.parseInt(args[0]));
-                    }
-                    else {
+                    } else {
                         values.put(SQLiteHelper.COLUMN_ACCOUNTID, args[0]);
                     }
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
@@ -226,10 +226,10 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
-                    if(returnValue == -1){
+                    if (returnValue == -1) {
                         int affectedRows = database.update(SQLiteHelper.TABLE_ACCOUNTS, values,
                                 SQLiteHelper.COLUMN_ACCOUNTID + " = " + args[0], null);
-                        if(affectedRows == 0) {
+                        if (affectedRows == 0) {
                             System.out.print("\n Error!! No rows affected!");
                             throw new Exception();
                         }
@@ -246,7 +246,7 @@ public class DataSource {
                     cursor.close();
 
                     return newAccount;
-                    //break;
+                //break;
                 case "bill":
                     Bill newBill;
                     /*Bill bill = new Bill(Long.parseLong(args[0]), Integer.parseInt(args[1]),
@@ -256,8 +256,7 @@ public class DataSource {
                     //pull arguments from args[] and put into values for database
                     if (args[0] != null) {
                         values.put(SQLiteHelper.COLUMN_BILLID, Integer.parseInt(args[0]));
-                    }
-                    else {
+                    } else {
                         values.put(SQLiteHelper.COLUMN_BILLID, args[0]);
                     }
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
@@ -269,10 +268,10 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_BILLS, null, values);
-                    if(returnValue == -1){
+                    if (returnValue == -1) {
                         int affectedRows = database.update(SQLiteHelper.TABLE_BILLS, values,
                                 SQLiteHelper.COLUMN_BILLID + " = " + args[0], null);
-                        if(affectedRows == 0) {
+                        if (affectedRows == 0) {
                             System.out.print("\n Error!! No rows affected!");
                             throw new Exception();
                         }
@@ -290,15 +289,14 @@ public class DataSource {
 
                     return newBill;
 
-                    //break;
+                //break;
                 case "purchase":
                     Purchase newPurchase;
 
                     //pull arguments from args[] and put into values for database
                     if (args[0] != null) {
                         values.put(SQLiteHelper.COLUMN_PURCHASEID, Integer.parseInt(args[0]));
-                    }
-                    else {
+                    } else {
                         values.put(SQLiteHelper.COLUMN_PURCHASEID, args[0]);
                     }
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
@@ -312,10 +310,10 @@ public class DataSource {
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_PURCHASES, null, values);
-                    if(returnValue == -1){
+                    if (returnValue == -1) {
                         int affectedRows = database.update(SQLiteHelper.TABLE_PURCHASES, values,
                                 SQLiteHelper.COLUMN_PURCHASEID + " = " + args[0], null);
-                        if(affectedRows == 0) {
+                        if (affectedRows == 0) {
                             System.out.print("\n Error!! No rows affected!");
                             throw new Exception();
                         }
@@ -335,41 +333,41 @@ public class DataSource {
 
                 //break;
                 case "goal":
-                Goal newGoal;
+                    Goal newGoal;
 
 //                pull arguments from args[] and put into values for database
-                values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[0]));
-                values.put(SQLiteHelper.COLUMN_TIMEPERIOD, Integer.parseInt(args[1]));
-                values.put(SQLiteHelper.COLUMN_UNIT, Integer.parseInt(args[2]));
-                values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[3]));
+                    values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[0]));
+                    values.put(SQLiteHelper.COLUMN_GOALNAME, args[1]);
+                    values.put(SQLiteHelper.COLUMN_TIMEPERIOD, Integer.parseInt(args[2]));
+                    values.put(SQLiteHelper.COLUMN_UNIT, Integer.parseInt(args[3]));
+                    values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[4]));
 
-                //insert values as entry into database
-                returnValue = database.insert(SQLiteHelper.TABLE_GOALS, null, values);
-                if(returnValue == -1){
-                    int affectedRows = database.update(SQLiteHelper.TABLE_GOALS, values,
-                            SQLiteHelper.COLUMN_USERID + " = " + args[0], null);
-                    if(affectedRows == 0) {
-                        System.out.print("\n Error!! No rows affected!");
-                        throw new Exception();
+                    //insert values as entry into database
+                    returnValue = database.insert(SQLiteHelper.TABLE_GOALS, null, values);
+                    if (returnValue == -1) {
+                        int affectedRows = database.update(SQLiteHelper.TABLE_GOALS, values,
+                                SQLiteHelper.COLUMN_USERID + " = " + args[0], null);
+                        if (affectedRows == 0) {
+                            System.out.print("\n Error!! No rows affected!");
+                            throw new Exception();
+                        }
                     }
-                }
 
-                // move cursor to our new entry
-                cursor = database.query(SQLiteHelper.TABLE_GOALS,
-                        allColumnsGoal, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
-                        null, null, null);
+                    // move cursor to our new entry
+                    cursor = database.query(SQLiteHelper.TABLE_GOALS,
+                            allColumnsGoal, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
+                            null, null, null);
 
-                //pull values from entry into java object
-                cursor.moveToFirst();
-                newGoal = cursorToGoal(cursor);
-                cursor.close();
+                    //pull values from entry into java object
+                    cursor.moveToFirst();
+                    newGoal = cursorToGoal(cursor);
+                    cursor.close();
 
-                return newGoal;
+                    return newGoal;
                 default:
                     break;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
@@ -379,7 +377,7 @@ public class DataSource {
      * Querys specific table in database for a specific entry by ID, then deletes it
      *
      * @param str the type of entry to delete
-     * @param id the ID of the entry to delete
+     * @param id  the ID of the entry to delete
      * @return
      */
     public Object deleteById(String str, Integer id) {
@@ -396,7 +394,7 @@ public class DataSource {
                     String[] whereArgs = new String[id];
                     result = 0;
                     Cursor cursor = database.query(SQLiteHelper.TABLE_USERS, null, null, null, null, null, null);
-                    if(cursor.moveToFirst()) {
+                    if (cursor.moveToFirst()) {
 
                         //delete query based on id
                         result = database.delete(
@@ -404,7 +402,7 @@ public class DataSource {
                                 "? = " + SQLiteHelper.COLUMN_USERID, whereArgs);
                     }
                     cursor.close();
-                break;
+                    break;
 
                 //bill case
                 case "bill":
@@ -413,7 +411,7 @@ public class DataSource {
 
                     //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_BILLS, null, null, null, null, null, null);
-                    if(cursor.moveToFirst()) {
+                    if (cursor.moveToFirst()) {
 
                         //delete query based on id
                         result = database.delete(
@@ -423,7 +421,7 @@ public class DataSource {
                         );
                     }
                     cursor.close();
-                break;
+                    break;
 
                 //account case
                 case "account":
@@ -432,7 +430,7 @@ public class DataSource {
 
                     //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_ACCOUNTS, null, null, null, null, null, null);
-                    if(cursor.moveToFirst()) {
+                    if (cursor.moveToFirst()) {
 
                         //delete query based on id
                         result = database.delete(
@@ -472,7 +470,7 @@ public class DataSource {
 
                     //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_PURCHASES, null, null, null, null, null, null);
-                    if(cursor.moveToFirst()) {
+                    if (cursor.moveToFirst()) {
 
                         //delete query based on id
                         result = database.delete(
@@ -491,7 +489,7 @@ public class DataSource {
 
                     //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_INCOMES, null, null, null, null, null, null);
-                    if(cursor.moveToFirst()) {
+                    if (cursor.moveToFirst()) {
 
                         //delete query based on id
                         result = database.delete(
@@ -508,7 +506,7 @@ public class DataSource {
 
                     //move cursor to to user table
                     cursor = database.query(SQLiteHelper.TABLE_GOALS, null, null, null, null, null, null);
-                    if(cursor.moveToFirst()) {
+                    if (cursor.moveToFirst()) {
 
                         //delete query based on id
                         result = database.delete(
@@ -523,8 +521,7 @@ public class DataSource {
                 default:
                     break;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         return result;
@@ -759,7 +756,7 @@ public class DataSource {
     }*/
 
     // helper methods to convert cursor objects to class objects
-    private Account cursorToAccount(Cursor cursor){
+    private Account cursorToAccount(Cursor cursor) {
         Account account = new Account(
                 cursor.getInt(0),
                 cursor.getInt(1),
@@ -770,18 +767,18 @@ public class DataSource {
 
     private Bill cursorToBill(Cursor cursor) {
         Bill bill = new Bill(
-            cursor.getInt(0),
-            cursor.getInt(1),
-            cursor.getInt(2),
-            cursor.getString(3),
-            cursor.getDouble(4),
-            cursor.getString(5),
-            cursor.getInt(6)
+                cursor.getInt(0),
+                cursor.getInt(1),
+                cursor.getInt(2),
+                cursor.getString(3),
+                cursor.getDouble(4),
+                cursor.getString(5),
+                cursor.getInt(6)
         );
         return bill;
     }
 
-    private Income cursorToIncome(Cursor cursor){
+    private Income cursorToIncome(Cursor cursor) {
         Income income = new Income(
                 cursor.getInt(0),
                 cursor.getInt(1),
@@ -795,7 +792,7 @@ public class DataSource {
         return income;
     }
 
-    private Purchase cursorToPurchase(Cursor cursor){
+    private Purchase cursorToPurchase(Cursor cursor) {
         Purchase purchase = new Purchase(
                 cursor.getInt(0),
                 cursor.getInt(1),
@@ -824,7 +821,7 @@ public class DataSource {
         return user;
     }
 
-    private Goal cursorToGoal(Cursor cursor){
+    private Goal cursorToGoal(Cursor cursor) {
         Goal goal = new Goal(
                 cursor.getInt(0),
                 cursor.getString(1),
@@ -913,40 +910,39 @@ public class DataSource {
         return goalList;
     }
 
-    public boolean isFirstTime(){
+    public boolean isFirstTime() {
         String str = "SELECT count(*) FROM TABLE_USERS";
         Cursor cur = database.rawQuery(str, null);
         cur.moveToFirst();
         int count = cur.getInt(0);
 
-        if(count <= 0){
+        if (count <= 0) {
             //User Table Empty
             return true;
-        }
-        else{
+        } else {
             //User Table has at least one entry
             //int i = count;
 
-            List<Object> userList =  retrieveAll("user");
+            List<Object> userList = retrieveAll("user");
             User user = (User) userList.get(0);
 
-            if(user.getFirstTime() == 1){
+            if (user.getFirstTime() == 1) {
                 //TODO: Wipe everything in the database with that userId
                 removeAllWithUserId(user.getId());
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
     }
-    private int removeAllWithUserId(int id){
+
+    private int removeAllWithUserId(int id) {
         //TODO: Not sure if theres a command for this?
-        return(0);
+        return (0);
     }
 
-    public boolean hasPin(String id){
-        if(((User)retrieveById("user", id)).getHasPin() == 1){
+    public boolean hasPin(String id) {
+        if (((User) retrieveById("user", id)).getHasPin() == 1) {
             return true;
         }
         return false;

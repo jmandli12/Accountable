@@ -22,15 +22,15 @@ public class Update_5_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(Update_5_Activity.this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_5_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ds = new DataSource(Update_5_Activity.this);
-        ds.open();
 
         Spinner spinner = (Spinner) findViewById(R.id.budgetSpinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

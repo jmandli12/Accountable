@@ -30,15 +30,15 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(Update_3_Activity.this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_3_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ds = new DataSource(Update_3_Activity.this);
-        ds.open();
 
         Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

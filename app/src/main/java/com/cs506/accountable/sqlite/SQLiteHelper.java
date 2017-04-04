@@ -129,7 +129,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_GOALS = " create table "
             + TABLE_GOALS + "("
             + COLUMN_USERID + " integer references user_id, "
-            + COLUMN_GOALNAME + " text "
+            + COLUMN_GOALNAME + " text, "
             + COLUMN_TIMEPERIOD + " integer, "
             + COLUMN_UNIT + " integer, "
             + COLUMN_AMOUNT + " double)";
