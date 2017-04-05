@@ -50,35 +50,52 @@ public class Setup_6_Activity extends AppCompatActivity {
 
     public void addGoal(View view) {
 
-        int timePeriod;
-        int unitSaving;
+        String timePeriod;
+        String unitSaving;
         String amount;
         String goalName;
 
         Spinner spinner1 = (Spinner) findViewById(R.id.timePeriodSpinner);
-        timePeriod = spinner1.getSelectedItemPosition();
+        timePeriod = spinner1.getSelectedItemPosition() + "";
         Spinner spinner2 = (Spinner) findViewById(R.id.unitSavingSpinner);
-        unitSaving = spinner2.getSelectedItemPosition();
+        unitSaving = spinner2.getSelectedItemPosition() + "";
 
         EditText text = (EditText) findViewById(R.id.amountToSave);
         amount = text.getText().toString();
         EditText name = (EditText) findViewById(R.id.goalName);
         goalName = name.getText().toString();
 
-        if (timePeriod != 0 && unitSaving != 0) {
-            String[] goalArgs = {"1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
+        boolean isValidAmount = amount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+
+        if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0")) {
+
+            String[] goalArgs = {"1", goalName, timePeriod, unitSaving, amount};
             ds.create("goal", goalArgs);
+
+            Toast.makeText(this, "Goal Name: " + goalName + "TimePeriod Selected: " + timePeriod
+                    + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
+                    + amount, Toast.LENGTH_LONG).show();
 
             name.setText("");
             text.setText("");
             spinner1.setSelection(0);
             spinner2.setSelection(0);
 
-        }
 
-        Toast.makeText(this, "Goal Name: " + goalName + "TimePeriod Selected: " + timePeriod
-                + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
-                + amount, Toast.LENGTH_LONG).show();
+        } else {
+            if (goalName.length() == 0) {
+                Toast.makeText(this, "Goal Name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            if (timePeriod.equals(timePeriod.equals("0"))) {
+                Toast.makeText(this, "Time Period must be selected", Toast.LENGTH_LONG).show();
+            }
+            if (timePeriod.equals(unitSaving.equals("0"))) {
+                Toast.makeText(this, "Unit of Saving must be selected", Toast.LENGTH_LONG).show();
+            }
+            if (amount.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     /*
@@ -86,24 +103,45 @@ public class Setup_6_Activity extends AppCompatActivity {
      */
     public void moveNext(View view) {
 
-        //finally create user
-        String hasPin;
-        if (pin.equals("noPin")) {
-            hasPin = "0";
-            pin = "0";
+        String timePeriod;
+        String unitSaving;
+        String amount;
+        String goalName;
+
+        Spinner spinner1 = (Spinner) findViewById(R.id.timePeriodSpinner);
+        timePeriod = spinner1.getSelectedItemPosition() + "";
+        Spinner spinner2 = (Spinner) findViewById(R.id.unitSavingSpinner);
+        unitSaving = spinner2.getSelectedItemPosition() + "";
+
+        EditText text = (EditText) findViewById(R.id.amountToSave);
+        amount = text.getText().toString();
+        EditText name = (EditText) findViewById(R.id.goalName);
+        goalName = name.getText().toString();
+
+        if (goalName.equals("") && timePeriod.equals("0") && unitSaving.equals("0") && amount.equals("")) {
+
+            //finally create user
+            String hasPin;
+            if (pin.equals("noPin")) {
+                hasPin = "0";
+                pin = "0";
+            } else {
+                hasPin = "1";
+            }
+
+            //userID, userName, pinHash, pin, salt, firstTime(now it is false), budget, hasPin
+            String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin};
+
+            ds.create("user", userArgs);
+            Intent intent = new Intent(this, Setup_7_Activity.class);
+
+            // TODO:
+            //create new user with pushed info, if fails, popup notification and go back to beginnning
+            startActivity(intent);
+
         } else {
-            hasPin = "1";
+            Toast.makeText(this, "Must complete adding goal information", Toast.LENGTH_LONG).show();
         }
-
-        //userID, userName, pinHash, pin, salt, firstTime(now it is false), budget, hasPin
-        String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin};
-
-        ds.create("user", userArgs);
-        Intent intent = new Intent(this, Setup_7_Activity.class);
-
-        // TODO:
-        //create new user with pushed info, if fails, popup notification and go back to beginnning
-        startActivity(intent);
     }
 
     public void savingsHelp(View view) {

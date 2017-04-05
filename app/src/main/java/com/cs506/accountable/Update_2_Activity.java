@@ -99,9 +99,15 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
             button.setText("Add Bill");
         } else {
             billName.setText(bill.getBillName());
-            billAmount.setText(String.valueOf(bill.getBillAmount()));
+
+            String amount = String.valueOf(bill.getBillAmount());
+            if(amount.charAt(amount.length()-2) == '.') amount = amount.concat("0");
+            billAmount.setText(String.valueOf(amount));
+
             dueDate.setText(bill.getDueDate());
+
             occurrence.setSelection(bill.getOccurrenceRte());
+
             button.setText("Update Bill");
         }
     }
@@ -128,7 +134,7 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
         occurrence = spinner.getSelectedItemPosition() + "";
 
         boolean isValidAmount = billAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
-        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
+        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][0-9][0-9])");
 
         if (isValidDate && isValidAmount && billName.length() > 0 && billAmount.length() > 2 && !occurrence.equals("0")) {
 

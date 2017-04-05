@@ -107,7 +107,7 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
 
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
-        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])"); //TODO:
+        boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][0-9][0-9])"); //TODO:
 
         if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("0") && !payPeriod.equals("Pay Period (Select One)")) {
 
@@ -177,7 +177,11 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
             button.setText("Add Income");
         } else{
             incomeName.setText(income.getIncomeName());
-            incomeAmount.setText(String.valueOf(income.getAmount()));
+
+            String amount = String.valueOf(income.getAmount());
+            if(amount.charAt(amount.length()-2) == '.') amount = amount.concat("0");
+            incomeAmount.setText(String.valueOf(amount));
+
             receivingDate.setText(income.getDate());
             int spinnerPosition = adapter.getPosition(income.getPayPeriod());
             payPeriod.setSelection(spinnerPosition);

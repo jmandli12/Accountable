@@ -41,7 +41,10 @@ public class Update_1_Activity extends AppCompatActivity {
 
         account1Name.setText(account.getAccountName());
         EditText account1 = (EditText) findViewById(R.id.accountBalance1);
-        account1.setText(String.valueOf(account.getBalance()));
+
+        String balance = String.valueOf(account.getBalance());
+        if(balance.charAt(balance.length()-2) == '.') balance = balance.concat("0");
+        account1.setText(String.valueOf(balance));
     }
 
     public void updateAccount(View view) {

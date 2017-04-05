@@ -110,7 +110,11 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
             goalName.setText(goal.getGoalName());
             timePeriod.setSelection(goal.getTimePeriod());
             unitSaving.setSelection(goal.getUnit());
-            amountToSave.setText(String.valueOf(goal.getAmount()));
+
+            String amount = String.valueOf(goal.getAmount());
+            if(amount.charAt(amount.length()-2) == '.') amount = amount.concat("0");
+            amountToSave.setText(String.valueOf(amount));
+
             button.setText("Update Goal");
         }
     }
