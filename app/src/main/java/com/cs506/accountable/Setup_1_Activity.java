@@ -1,17 +1,20 @@
 package com.cs506.accountable;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.view.View;
-        import android.widget.EditText;
-        import android.widget.Toast;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.cs506.accountable.sqlite.DataSource;
 
 public class Setup_1_Activity extends AppCompatActivity {
-
+    String unconfirmedPIN;
+    //DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,17 +22,13 @@ public class Setup_1_Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Accountable Setup");
         setSupportActionBar(toolbar);
-
-/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Bundle prev = getIntent().getExtras();
+        if(prev != null){
+            unconfirmedPIN = prev.getString("unconfirmedPIN");
+        }else{
+            unconfirmedPIN = "1234";
+        }
     }
 
     /*
@@ -38,15 +37,25 @@ public class Setup_1_Activity extends AppCompatActivity {
     public void confirmPin(View view) {
 
         EditText et = (EditText) findViewById(R.id.secondPin);
-
-        //TODO: change pin to int and confirm PIN
         String pinString = et.getText().toString();
-        // Save the Entered PIN
 
-        Toast.makeText(this, "PIN = " + pinString, Toast.LENGTH_LONG).show();
+        if(pinString.equals(unconfirmedPIN) && pinString.length() == 4) {
+            // TODO: Save the Entered PIN
 
-        //Move onto next screen
-        Intent intent = new Intent(this, Setup_2_Activity.class);
-        startActivity(intent);
+            Toast.makeText(this, "PIN confirmed", Toast.LENGTH_LONG).show();
+
+            //Move onto next screen
+            Intent intent = new Intent(this, Setup_2_Activity.class);
+            //intent.putExtra("userID", "0");
+            intent.putExtra("pin", pinString);
+            startActivity(intent);
+            finish();
+        }
+        else if(pinString.length() != 4) {
+            Toast.makeText(this, "PIN must be 4 digits long", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this, "Entered PIN does not equal previous PIN", Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -31,10 +31,26 @@
         android:textSize="24dp"
         android:text="Time Period:" />
 
-    <Spinner
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/timePeriodSpinner" />
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/timePeriodSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/timePeriodHelp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="savingsHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView21"
@@ -43,10 +59,26 @@
         android:textSize="24dp"
         android:text="Unit of Saving:" />
 
-    <Spinner
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/unitSavingSpinner" />
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/unitSavingSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/unitOfSavingHelp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="savingsHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView22"
@@ -55,12 +87,35 @@
         android:textSize="24dp"
         android:text="Amount to Save:" />
 
-    <EditText
-        android:id="@+id/editText11"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editText11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <ImageButton
+            android:id="@+id/amountToSaveHelp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="savingsHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:text="Add Goal" />
 
     <Button
         android:id="@+id/button10"

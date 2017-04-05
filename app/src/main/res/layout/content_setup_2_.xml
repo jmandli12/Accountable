@@ -31,12 +31,28 @@
         android:textSize="24dp"
         android:text="Account Name:" />
 
-    <EditText
-        android:id="@+id/accountName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/accountName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <ImageButton
+            android:id="@+id/accountNameHelp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="accountHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView5"
@@ -46,13 +62,29 @@
         android:paddingTop="25dp"
         android:text="Account Balance:" />
 
-    <EditText
-        android:id="@+id/accountValue"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:paddingBottom="30dp"
-        android:inputType="numberDecimal" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/accountBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:paddingBottom="30dp" />
+
+        <ImageButton
+            android:id="@+id/accountBalanceHelp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="accountHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/button3"

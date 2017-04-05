@@ -22,7 +22,7 @@
         android:textSize="30dp"
         android:gravity="center"
         android:paddingBottom="100dp"
-        android:text="Congratulations on Setting up your Accountable App!!" />
+        android:text="Congratulations on setting up your Accountable App!!" />
 
     <TextView
         android:id="@+id/textView20"
@@ -31,7 +31,7 @@
         android:textSize="30dp"
         android:gravity="center"
         android:paddingBottom="50dp"
-        android:text="Tap Continue to get Started Budgeting your Money! " />
+        android:text="Tap Continue to get started budgeting your money! " />
 
     <Button
         android:id="@+id/button10"

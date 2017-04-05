@@ -10,13 +10,14 @@
     <string name="title_activity_setup_6_">Setup_6_Activity</string>
     <string name="title_activity_setup_7_">Setup_7_Activity</string>
     <string name="title_activity_main_">Main_Activity</string>
+    <string name="title_activity_purchase_0_">Purchase_0_Activity</string>
     <string-array name="budget_array">
         <item>(Select One)</item>
         <item>Weekly</item>
         <item>Monthly</item>
     </string-array>
     <string-array name="time_period_array">
-        <item>(Select One)</item>
+        <item>(Press to Select)</item>
         <item>Daily</item>
         <item>Weekly</item>
         <item>Monthly</item>
@@ -29,23 +30,66 @@
         <item>% of Savings</item>
     </string-array>
     <string-array name="bill_occurrence_array">
-        <item>Select One)</item>
+        <item>Occurrence (Press to Select)</item>
         <item>Weekly</item>
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
     <string-array name="pay_period_array">
-        <item>Pay Period (Pick One)</item>
+        <item>Pay Period (Select One)</item>
         <item>Weekly</item>
         <item>BiWeekly</item>
         <item>Monthly</item>
         <item>Other</item>
     </string-array>
     <string-array name="income_hours_array">
-        <item>Hourly or Salary? (Pick One)</item>
+        <item>Hourly or Salary? (Select One)</item>
         <item>Hourly</item>
         <item>Salary</item>
     </string-array>
-    <string name="title_activity_jhgfhh">jhgfhh</string>
-    <string name="title_activity_asdf">asdf</string>
+    <string-array name="category_array">
+        <item>Category (Select One)</item>
+        <item>Groceries</item>
+        <item>General</item>
+        <item>Household</item>
+        <item>Transportation</item>
+        <item>Drinks</item>
+        <item>Restaurant</item>
+        <item>Entertainment</item>
+        <item>Education</item>
+        <item>Clothing</item>
+        <item>Pet</item>
+    </string-array>
+    <string-array name="billNames_array">
+        <item>New Bill</item>
+        <item>Bill_1</item>
+        <item>Bill_2</item>
+    </string-array>
+    <string-array name="incomeNames_array">
+        <item>New Income</item>
+        <item>Income_1</item>
+        <item>Income_2</item>
+    </string-array>
+    <string-array name="goalNames_array">
+        <item>New Goal</item>
+        <item>Goal_1</item>
+        <item>Goal_2</item>
+    </string-array>
+    <string-array name="status_array">
+        <item>Today</item>
+        <item>This Week</item>
+        <item>This Month</item>
+        <item>This Year</item>
+        <item>Custom Date</item>
+        <item>Previous Purchases</item>
+    </string-array>
+    <string name="title_activity_lock__screen_">Lock_Screen_Activity</string>
+    <string name="title_activity_status_0_">Status_0_Activity</string>
+    <string name="title_activity_update_0_">Update_0_Activity</string>
+    <string name="title_activity_update_1_">Update_1_Activity</string>
+    <string name="title_activity_update_2_">Update_2_Activity</string>
+    <string name="title_activity_update_3_">Update_3_Activity</string>
+    <string name="title_activity_update_4_">Update_4_Activity</string>
+    <string name="title_activity_update_5_">Update_5_Activity</string>
+
 </resources>

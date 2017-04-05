@@ -1,22 +1,29 @@
 package com.cs506.accountable;
 
-        import android.os.Bundle;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
 
 public class Main_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Accountable");
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.gear);
+        toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
 
     }
@@ -24,7 +31,7 @@ public class Main_Activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
@@ -36,9 +43,11 @@ public class Main_Activity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-       // if (id == R.id.action_settings) {
-       //     return true;
-       // }
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, Update_0_Activity.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -47,5 +56,21 @@ public class Main_Activity extends AppCompatActivity {
     Moves to Purchase Activity
      */
     public void moveToPurchase(View view) {
+        Intent intent = new Intent(this, Purchase_0_Activity.class);
+        startActivity(intent);
     }
+
+    /*
+    Moves to Purchase Activity
+     */
+    public void moveToStatus(View view) {
+        Intent intent = new Intent(this, Status_0_Activity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
 }

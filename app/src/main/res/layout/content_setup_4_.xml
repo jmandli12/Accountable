@@ -19,103 +19,139 @@
         android:id="@+id/textView12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter your Sources of Income"
         android:gravity="center"
+        android:text="Enter your Sources of Income"
         android:textSize="30dp" />
 
-    <!--    <TextView
-            android:id="@+id/textView13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="Income Name:"
-            android:textSize="24dp" />-->
-
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/incomeName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Income Name"
-            android:inputType="textPersonName"
-            android:layout_weight="1" />
-
-        <Button
-            android:text="'?'"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button13"
-            android:onClick="incomeNameHelp"
-            android:layout_weight="1" />
+            android:layout_weight="3.47"
+            android:ems="10"
+            android:hint="Income Name"
+            android:inputType="textPersonName" />
 
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="incomeNameHelp"
+            android:src="@drawable/ic_action_name" />
     </LinearLayout>
 
-    <!--   <TextView
-        android:id="@+id/textView14"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Income Amount:"
-        android:textSize="24dp" />-->
-
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1">
-
+        android:orientation="horizontal">
 
         <TextView
-            android:text="$"
-            android:layout_width="19dp"
+            android:id="@+id/textView13"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
-            android:id="@+id/textView13" />
+            android:text="$" />
 
         <EditText
             android:id="@+id/incomeAmount"
-            android:layout_width="81dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.99"
             android:ems="10"
             android:hint="Income Amount"
-            android:inputType="numberDecimal"
-            android:layout_weight="0.99" />
+            android:inputType="numberDecimal" />
 
-        <Button
-            android:text="'?'"
-            android:layout_width="40dp"
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
             android:onClick="incomeAmountHelp"
-            android:id="@+id/button14" />
-
+            android:src="@drawable/ic_action_name" />
     </LinearLayout>
 
-    <!--   <TextView
-        android:id="@+id/textView15"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hourly or Salary?:"
-        android:textSize="24dp" />-->
+        android:orientation="horizontal">
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/hoursSpinner" />
-
-    <!--    <TextView
-            android:id="@+id/textView16"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/dueDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PayPeriod"
-            android:textSize="24dp" />-->
+            android:layout_weight="3.47"
+            android:ems="10"
+            android:hint="Receiving Date (mm/dd/year)"
+            android:maxLength="10"
+            android:inputType="date" />
 
-    <Spinner
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="dueDateHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/payPeriodSpinner" />
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <Spinner
+                android:id="@+id/payPeriodSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:onClick="payPeriodHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <Spinner
+                android:id="@+id/hoursSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:onClick="workKindHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/button7"
