@@ -125,22 +125,24 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
 
     public void addUpdateGoal(View view) {
 
-        int timePeriod;
-        int unitSaving;
+        String timePeriod;
+        String unitSaving;
         String amount;
         String goalName;
 
         Spinner spinner1 = (Spinner) findViewById(R.id.timePeriodSpinner2);
-        timePeriod = spinner1.getSelectedItemPosition();
+        timePeriod = spinner1.getSelectedItemPosition() + "";
         Spinner spinner2 = (Spinner) findViewById(R.id.unitSavingSpinner2);
-        unitSaving = spinner2.getSelectedItemPosition();
+        unitSaving = spinner2.getSelectedItemPosition() + "";
 
         EditText text = (EditText) findViewById(R.id.amountToSave2);
         amount = text.getText().toString();
         EditText name = (EditText) findViewById(R.id.goalName2);
         goalName = name.getText().toString();
 
-        if (timePeriod != 0 && unitSaving != 0) {
+        boolean isValidAmount = amount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+
+        if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0")) {
 
             if(button.getText().equals("Add Goal")){
                 String[] goalArgs = {"1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
@@ -149,6 +151,10 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
                 String[] goalArgs = {"1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
                 ds.create("goal", goalArgs);
             }
+
+            Toast.makeText(this, "Goal Name: " + goalName + "TimePeriod Selected: " + timePeriod
+                    + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
+                    + amount, Toast.LENGTH_LONG).show();
 
             //Get Names of Incomes
             List<String> list = getGoalNames();
@@ -160,11 +166,21 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
             spinner.setAdapter(adapter1);
             spinner.setOnItemSelectedListener(this);
 
-        }
 
-        Toast.makeText(this, "Goal Name: " + goalName + "TimePeriod Selected: " + timePeriod
-                + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
-                + amount, Toast.LENGTH_LONG).show();
+        } else {
+            if (goalName.length() == 0) {
+                Toast.makeText(this, "Goal Name cannot be empty", Toast.LENGTH_LONG).show();
+            }
+            if (timePeriod.equals(timePeriod.equals("0"))) {
+                Toast.makeText(this, "Time Period must be selected", Toast.LENGTH_LONG).show();
+            }
+            if (timePeriod.equals(unitSaving.equals("0"))) {
+                Toast.makeText(this, "Unit of Saving must be selected", Toast.LENGTH_LONG).show();
+            }
+            if (amount.length() < 3 || !isValidAmount) {
+                Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+            }
+        }
 
     }
     public void savingsHelp(View view) {
