@@ -38,10 +38,12 @@ public class Setup_4_Activity extends AppCompatActivity {
                 R.array.pay_period_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
         Bundle prev = getIntent().getExtras();
-        pin = prev.getString("pin");
-        accountID = prev.getString("accountID");
+        if(prev != null){
+            pin = prev.getString("pin");
+            accountID = prev.getString("accountID");
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ds = new DataSource(Setup_4_Activity.this);

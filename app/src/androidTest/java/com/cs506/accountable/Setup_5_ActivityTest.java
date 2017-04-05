@@ -14,6 +14,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.core.deps.guava.base.Predicates.instanceOf;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
@@ -38,8 +39,8 @@ public class Setup_5_ActivityTest {
                 .perform(click());
         assertEquals(currentActivity, CurrentActivityUtil.getCurrentActivity());
 
-        selectSpinner(R.id.budgetSpinner, "Weekly");
-        onView(withId(R.id.button10))
+        selectSpinner(R.id.budgetSpinner, 1);
+        onView(withId(R.id.button9))
                 .perform(click());
         assertNotEquals(currentActivity, CurrentActivityUtil.getCurrentActivity());
     }
@@ -49,12 +50,11 @@ public class Setup_5_ActivityTest {
 
     }
 
-    public void selectSpinner(int spinnerID ,String selectionText){
-        onView(withId(spinnerID)).perform(click());
-//        onData(hasToString(startsWith(selectionText)).perform(click());
-        onView(withId(spinnerID)).check(matches(withSpinnerText(containsString(selectionText))));
+    public void selectSpinner(int spinnerID, int position){
+        onView(withId(R.id.budgetSpinner)).perform(click());
+        onData(anything()).atPosition(1).perform(click());
     }
 
-    
+
 
 }

@@ -1,7 +1,9 @@
 package com.cs506.accountable;
 
 import android.app.Activity;
+import android.support.test.rule.ActivityTestRule;
 
+import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
@@ -14,6 +16,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.core.deps.guava.base.Predicates.instanceOf;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
@@ -29,12 +32,23 @@ public class Setup_4_ActivityTest {
     int payPeriodSpinnerID = R.id.payPeriodSpinner;
     int hourSpinnerID = R.id.hoursSpinner;
     int addIncomeButtonID = R.id.button7;
-    Activity currentActivity = CurrentActivityUtil.getCurrentActivity();
+
+    @Rule
+    public ActivityTestRule<Setup_4_Activity> mActivityRule = new ActivityTestRule<>(
+            Setup_4_Activity.class);
 
 
     @Test
     public void addIncome() throws Exception {
-
+        String[] nameTestValues = {""};
+        String[] incomeTestValues = {"1234", "0", "9.23123", "1234.1", "0.1"};
+        String[] dateTestValues = {"2/2/2014", "4135423543", "19/1/2018", "1234.1", "../12/2045"}; //TODO: Add more
+        initializeTestValues("name");
+        testField(incomeNameID, nameTestValues);
+        initializeTestValues("amount");
+        testField(incomeAmountID, incomeTestValues);
+        initializeTestValues("date");
+        testField(dateID, dateTestValues);
     }
 
     @Test
@@ -67,13 +81,13 @@ public class Setup_4_ActivityTest {
 
     }
 
-    public void selectSpinner(int spinnerID ,String selectionText){
+    public void selectSpinner(int spinnerID, int position){
         onView(withId(spinnerID)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is(selectionText))).perform(click());
-        onView(withId(spinnerID)).check(matches(withSpinnerText(containsString(selectionText))));
+        onData(anything()).atPosition(position).perform(click());
     }
 
     public void testField(int id, String[] testValues){
+        Activity currentActivity = CurrentActivityUtil.getCurrentActivity();
         for (int i = 0; i < testValues.length; i++) {
             onView(withId(id))
                     .perform(clearText(), typeText(testValues[i]));
@@ -95,8 +109,8 @@ public class Setup_4_ActivityTest {
         onView(withId(incomeNameID))
                 .perform(clearText(), typeText("Chicken Tendies Sales Commission"));
         closeSoftKeyboard();
-        selectSpinner(hourSpinnerID, "Hourly"); //TODO: Worth it to test the spinners this iteration?
-        selectSpinner(payPeriodSpinnerID, "Weekly");
+        selectSpinner(hourSpinnerID, 1); //TODO: Worth it to test the spinners this iteration?
+        selectSpinner(payPeriodSpinnerID, 1);
         switch(leaveOut){
             case "name":
                 onView(withId(incomeNameID))

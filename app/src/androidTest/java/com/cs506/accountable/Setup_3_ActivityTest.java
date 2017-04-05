@@ -20,6 +20,7 @@ import static android.support.test.espresso.core.deps.guava.base.Predicates.inst
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static java.lang.Thread.sleep;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
@@ -35,7 +36,6 @@ public class Setup_3_ActivityTest {
     int billAmountID= R.id.billAmount;
     int dueDateID = R.id.dueDate;
     int occurenceSpinnerID = R.id.occurrenceSpinner;
-    Activity currentActivity = CurrentActivityUtil.getCurrentActivity();
 
 
     @Rule
@@ -94,14 +94,13 @@ public class Setup_3_ActivityTest {
 
     }
 
-    public void selectSpinner(int spinnerID ,String selectionText){
+    public void selectSpinner(int spinnerID, int position){
         onView(withId(spinnerID)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is(selectionText))).perform(click());
-        onView(withId(spinnerID)).check(matches(withSpinnerText(containsString(selectionText))));
-
+        onData(anything()).atPosition(position).perform(click());
     }
 
     public void testField(int id, String[] testValues){
+        Activity currentActivity = CurrentActivityUtil.getCurrentActivity();
         for (int i = 0; i < testValues.length; i++) {
             onView(withId(id))
                     .perform(clearText(), typeText(testValues[i]));
@@ -122,7 +121,7 @@ public class Setup_3_ActivityTest {
                 onView(withId(dueDateID))
                         .perform(clearText(), typeText("04/20/2018"));
                 closeSoftKeyboard();
-                selectSpinner(occurenceSpinnerID, "Weekly");
+                selectSpinner(occurenceSpinnerID, 2);
                 onView(withId(billNameID))
                         .perform(clearText());
                 closeSoftKeyboard();
@@ -134,7 +133,7 @@ public class Setup_3_ActivityTest {
                 onView(withId(dueDateID))
                         .perform(clearText(), typeText("04/20/2018"));
                 closeSoftKeyboard();
-                selectSpinner(occurenceSpinnerID, "Weekly");
+                selectSpinner(occurenceSpinnerID, 2);
                 onView(withId(billNameID))
                         .perform(clearText(), typeText("Ham Sandwiches"));
                 closeSoftKeyboard();
@@ -146,7 +145,7 @@ public class Setup_3_ActivityTest {
                 onView(withId(dueDateID))
                         .perform(clearText());
                 closeSoftKeyboard();
-                selectSpinner(occurenceSpinnerID, "Weekly");
+                selectSpinner(occurenceSpinnerID, 2);
                 onView(withId(billNameID))
                         .perform(clearText(), typeText("Ham Sandwiches"));
                 closeSoftKeyboard();
@@ -158,7 +157,7 @@ public class Setup_3_ActivityTest {
                 onView(withId(dueDateID))
                         .perform(clearText());
                 closeSoftKeyboard();
-                selectSpinner(occurenceSpinnerID, "Occurrence (Press to Select)");
+                selectSpinner(occurenceSpinnerID, 1);
                 onView(withId(billNameID))
                         .perform(clearText(), typeText("Ham Sandwiches"));
                 closeSoftKeyboard();
