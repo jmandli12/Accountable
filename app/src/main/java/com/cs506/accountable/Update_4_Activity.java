@@ -145,14 +145,14 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0")) {
 
             if(button.getText().equals("Add Goal")){
-                String[] goalArgs = {"1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
+                String[] goalArgs = { null, "1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
                 ds.create("goal", goalArgs);
             } else {
-                String[] goalArgs = {"1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
+                String[] goalArgs = { null, "1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
                 ds.create("goal", goalArgs);
             }
 
-            Toast.makeText(this, "Goal Name: " + goalName + "TimePeriod Selected: " + timePeriod
+            Toast.makeText(this, "Goal Name: " + goalName + " TimePeriod Selected: " + timePeriod
                     + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
                     + amount, Toast.LENGTH_LONG).show();
 

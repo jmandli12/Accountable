@@ -50,6 +50,7 @@ public class DataSource {
     };
 
     private String[] allColumnsGoal = {
+            SQLiteHelper.COLUMN_GOALID,
             SQLiteHelper.COLUMN_USERID,
             SQLiteHelper.COLUMN_GOALNAME,
             SQLiteHelper.COLUMN_TIMEPERIOD,
@@ -335,17 +336,22 @@ public class DataSource {
                     Goal newGoal;
 
 //                pull arguments from args[] and put into values for database
-                    values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[0]));
-                    values.put(SQLiteHelper.COLUMN_GOALNAME, args[1]);
-                    values.put(SQLiteHelper.COLUMN_TIMEPERIOD, Integer.parseInt(args[2]));
-                    values.put(SQLiteHelper.COLUMN_UNIT, Integer.parseInt(args[3]));
-                    values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[4]));
+                    if (args[0] != null) {
+                        values.put(SQLiteHelper.COLUMN_GOALID, Integer.parseInt(args[0]));
+                    } else {
+                        values.put(SQLiteHelper.COLUMN_GOALID, args[0]);
+                    }
+                    values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
+                    values.put(SQLiteHelper.COLUMN_GOALNAME, args[2]);
+                    values.put(SQLiteHelper.COLUMN_TIMEPERIOD, Integer.parseInt(args[3]));
+                    values.put(SQLiteHelper.COLUMN_UNIT, Integer.parseInt(args[4]));
+                    values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[5]));
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_GOALS, null, values);
                     if (returnValue == -1) {
                         int affectedRows = database.update(SQLiteHelper.TABLE_GOALS, values,
-                                SQLiteHelper.COLUMN_USERID + " = " + args[0], null);
+                                SQLiteHelper.COLUMN_GOALID + " = " + args[0], null);
                         if (affectedRows == 0) {
                             System.out.print("\n Error!! No rows affected!");
                             throw new Exception();
@@ -354,7 +360,7 @@ public class DataSource {
 
                     // move cursor to our new entry
                     cursor = database.query(SQLiteHelper.TABLE_GOALS,
-                            allColumnsGoal, SQLiteHelper.COLUMN_USERID + " = " + returnValue, null,
+                            allColumnsGoal, SQLiteHelper.COLUMN_GOALID + " = " + returnValue, null,
                             null, null, null);
 
                     //pull values from entry into java object
@@ -756,10 +762,12 @@ public class DataSource {
     private Goal cursorToGoal(Cursor cursor) {
         Goal goal = new Goal(
                 cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getInt(2),
+                cursor.getInt(1),
+                cursor.getString(2),
                 cursor.getInt(3),
-                cursor.getDouble(4));
+                cursor.getInt(4),
+                cursor.getDouble(5)
+        );
         return goal;
     }
 

@@ -39,19 +39,6 @@ public class Setup_0_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*String[] userArgs = {"1","user","1234","1234","1234","1","","0"};
-        user = (User) ds.create("user", userArgs);
-        String[] goalArgs = {"1","12","15","1.11"};
-        goal = (Goal) ds.create("goal", goalArgs);*/
-        //ds.wipe();
-        /*String[] accountArgs = {"1","1","account","500000"};
-        account = (Account) ds.create("account", accountArgs);
-        String[] billArgs = {"1","1","1","billsbitch","696969.00","07/25/2017","1"};
-        bill = (Bill) ds.create("bill", billArgs);
-        String[] incomeArgs = {"1","1","1","income","5000.00","07/25/2017","week","1"};
-        income = (Income) ds.create("income", incomeArgs);
-        String[] purchaseArgs = {"1","1","1","10.00","07/07/2017","8:15am","Food","",""};
-        purchase = (Purchase) ds.create("purchase", purchaseArgs);*/
     }
 
     public void buttonClickHandler(View view) {
