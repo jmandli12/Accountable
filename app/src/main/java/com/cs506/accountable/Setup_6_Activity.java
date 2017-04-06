@@ -69,10 +69,10 @@ public class Setup_6_Activity extends AppCompatActivity {
 
         if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0")) {
 
-            String[] goalArgs = {"1", goalName, timePeriod, unitSaving, amount};
+            String[] goalArgs = { null, "1", goalName, timePeriod, unitSaving, amount};
             ds.create("goal", goalArgs);
 
-            Toast.makeText(this, "Goal Name: " + goalName + "TimePeriod Selected: " + timePeriod
+            Toast.makeText(this, "Goal Name: " + goalName + " TimePeriod Selected: " + timePeriod
                     + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
                     + amount, Toast.LENGTH_LONG).show();
 
