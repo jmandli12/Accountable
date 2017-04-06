@@ -148,7 +148,7 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
                 String[] goalArgs = { null, "1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
                 ds.create("goal", goalArgs);
             } else {
-                String[] goalArgs = { null, "1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
+                String[] goalArgs = {String.valueOf(goal.getGoalId()), "1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
                 ds.create("goal", goalArgs);
             }
 
