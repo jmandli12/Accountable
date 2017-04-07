@@ -1,15 +1,20 @@
 package com.cs506.accountable;
 
+import android.app.Activity;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.view.View;
+
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.*;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -18,6 +23,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
+
+import static android.support.test.runner.lifecycle.Stage.RESUMED;
+import android.support.test.internal.runner.lifecycle.*;
+
+import java.util.Collection;
 
 
 /**
@@ -32,11 +42,6 @@ public class Setup_0_ActivityTest {
     public ActivityTestRule<Setup_0_Activity> mActivityRule = new ActivityTestRule<>(
             Setup_0_Activity.class);
 
-    @Before
-    public void initValidString() {
-        // Specify a valid string.
-        mStringToBetyped = "111111";
-    }
 
     @Test
     public void necessaryViewsExist() {
@@ -48,7 +53,6 @@ public class Setup_0_ActivityTest {
                 .check(matches(isDisplayed()));
         onView(withId(R.id.firstPin))
                 .check(matches(isDisplayed()));
-
     }
 
     @Test
@@ -59,15 +63,27 @@ public class Setup_0_ActivityTest {
                 .check(matches(isDisplayed()));
     }
 
-//    @Test
-//    public void changeText_shouldFail() {
-//        // Type text and then press the button.
-//        onView(withId(R.id.firstPin))
-//                .perform(typeText(mStringToBetyped));
-//
-//        // Check that the text was changed.
-//        onView(withId(R.id.firstPin))
-//                .check(matches(withText("222222")));
-//    }
+    @Test
+    public void buttonClickHandler(){
+        Activity expectedActivity = CurrentActivityUtil.getCurrentActivity();
+        onView(withId(R.id.firstPin))
+                .perform(typeText("123"));
+        closeSoftKeyboard();
+        onView(withId(R.id.button2))
+                .perform(click());
+        Activity expectedSameActivity = CurrentActivityUtil.getCurrentActivity();
+        assertEquals(expectedActivity, expectedSameActivity);
+
+        onView(withId(R.id.firstPin))
+                .perform(typeText("1234"));
+        closeSoftKeyboard();
+        onView(withId(R.id.button2))
+                .perform(click());
+
+
+        Activity currentActivity = CurrentActivityUtil.getCurrentActivity();
+        assertNotEquals(currentActivity, expectedActivity);
+
+    }
 
 }

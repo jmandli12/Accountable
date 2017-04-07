@@ -35,8 +35,10 @@ public class Setup_5_Activity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         Bundle prev = getIntent().getExtras();
-        pin = prev.getString("pin");
-        accountID = prev.getString("accountID");
+        if (prev != null){
+            pin = prev.getString("pin");
+            accountID = prev.getString("accountID");
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
