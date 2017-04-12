@@ -82,6 +82,10 @@
         <item>This Year</item>
         <item>Custom Date</item>
     </string-array>
+    <string-array name="amPM_array">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
     <string name="title_activity_lock__screen_">Lock_Screen_Activity</string>
     <string name="title_activity_status_0_">Status_0_Activity</string>
     <string name="title_activity_update_0_">Update_0_Activity</string>

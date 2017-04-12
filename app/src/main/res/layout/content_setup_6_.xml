@@ -19,7 +19,7 @@
         android:id="@+id/textView19"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:gravity="center"
         android:paddingBottom="50dp"
         android:text="Would you like to set a savings goal?" />
@@ -114,20 +114,32 @@
             android:src="@drawable/ic_action_name" />
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <Button
         android:id="@+id/button9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:onClick="addGoal"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:text="Add Goal" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <Button
         android:id="@+id/button10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:onClick="moveNext"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:text="Next" />
 
 </LinearLayout>

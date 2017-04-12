@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Confirm your PIN"
-        android:textSize="40dp" />
+        android:textSize="40sp" />
 
     <EditText
         android:id="@+id/secondPin"
@@ -37,7 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Confirm"
-        android:textSize="24dp"
+        android:textSize="24sp"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:onClick="confirmPin"/>
 
 

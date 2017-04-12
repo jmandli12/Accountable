@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Select an existing Income from the dropdown or add a new one"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <Space
         android:layout_width="match_parent"
@@ -161,19 +161,31 @@
             android:src="@drawable/ic_action_name" />
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
     <Button
         android:id="@+id/addUpdateIncome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:onClick="addUpdateIncome"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:text="Add Income" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <Button
         android:id="@+id/button17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:onClick="backToHome"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:text="Back" />
 </LinearLayout>

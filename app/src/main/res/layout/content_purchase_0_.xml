@@ -20,7 +20,7 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:paddingBottom="30dp"
         android:gravity="center"
         android:text="Add a Purchase" />
@@ -50,24 +50,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <EditText
             android:id="@+id/purchaseDate"
-            android:layout_width="173dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:hint="Date"
             android:ems="10"
-            android:maxLength="10"
-            android:inputType="date" />
+            android:hint="Date"
+            android:inputType="date"
+            android:maxLength="10" />
 
         <EditText
             android:id="@+id/purchaseTime"
-            android:layout_width="match_parent"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1.22"
             android:ems="10"
             android:hint="Time"
             android:inputType="time" />
+
+        <Spinner
+            android:id="@+id/amPMSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
@@ -92,20 +99,32 @@
         android:inputType="textPersonName"
         android:hint="Comments (Optional)" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text="Add Purchase"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:onClick="addPurchase"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text="Back to Home"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:onClick="backToHome"/>
 
 </LinearLayout>

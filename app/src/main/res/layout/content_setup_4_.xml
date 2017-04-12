@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Enter your Sources of Income"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -153,13 +153,23 @@
             android:src="@drawable/ic_action_name" />
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
     <Button
         android:id="@+id/button7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="addIncome"
         android:text="Add Income"
-        android:textSize="24dp" />
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <Button
         android:id="@+id/button8"
@@ -167,6 +177,8 @@
         android:layout_height="wrap_content"
         android:onClick="moveNext"
         android:text="Next"
-        android:textSize="24dp" />
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
 
 </LinearLayout>

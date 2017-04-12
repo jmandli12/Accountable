@@ -22,7 +22,7 @@
         android:layout_marginTop="42dp"
         android:gravity="center"
         android:text="Enter a PIN as your Password"
-        android:textSize="40dp" />
+        android:textSize="40sp" />
 
     <EditText
         android:id="@+id/firstPin"
@@ -35,11 +35,13 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:onClick="buttonClickHandler"
         android:text="Submit"
-        android:textSize="24dp" />
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
 
     <Space
         android:layout_width="match_parent"
@@ -49,7 +51,9 @@
         android:id="@+id/skipButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:onClick="skipButton"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:text="Skip" />
 </LinearLayout>

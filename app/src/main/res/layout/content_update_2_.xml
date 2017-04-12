@@ -14,7 +14,7 @@
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:gravity="center_horizontal"
         android:text="Select an existing Bill from the dropdown or add a new one" />
 
@@ -133,22 +133,35 @@
             android:background="#00000000"
             android:onClick="occurrenceHelp"
             android:src="@drawable/ic_action_name" />
+
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
 
     <Button
         android:id="@+id/addUpdateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:onClick="addUpdateBill"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:text="Add Bill" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <Button
         android:id="@+id/button14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:onClick="backToHome"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:text="Back" />
 
 </LinearLayout>

@@ -444,6 +444,7 @@ Test the getters and setters for an empty goal constructor
         Goal goal = new Goal();
 
         // Verify Values
+        assertEquals(-1, goal.getGoalId());
         assertEquals(-1, goal.getUserId());
         assertEquals("", goal.getGoalName());
         assertEquals(-1, goal.getTimePeriod());
@@ -457,6 +458,7 @@ Test the getters and setters for an empty goal constructor
     @Test
     public void goalCustomConstructor_isCorrect() throws Exception {
 
+        int goalId = 11;
         int userId = 1152;
         String name = "Test Name";
         int timePeriod = 1;
@@ -465,9 +467,10 @@ Test the getters and setters for an empty goal constructor
 
 
         //Create goal
-        Goal goal = new Goal(userId, name, timePeriod, unit, amount);
+        Goal goal = new Goal(goalId, userId, name, timePeriod, unit, amount);
 
         // Verify Values
+        assertEquals(goalId, goal.getGoalId());
         assertEquals(userId, goal.getUserId());
         assertEquals(name, goal.getGoalName());
         assertEquals(timePeriod, goal.getTimePeriod());
@@ -481,6 +484,7 @@ Test the getters and setters for an empty goal constructor
     @Test
     public void goalEmptyConstructorCustomSetters_isCorrect() throws Exception {
 
+        int goalId = 12135;
         int userId = 1152;
         String name = "Test Name";
         int timePeriod = 1;
@@ -490,6 +494,7 @@ Test the getters and setters for an empty goal constructor
         //Create goal
         Goal goal = new Goal();
 
+        goal.setGoalId(goalId);
         goal.setUserId(userId);
         goal.setGoalName(name);
         goal.setTimePeriod(timePeriod);
@@ -497,6 +502,7 @@ Test the getters and setters for an empty goal constructor
         goal.setAmount(amount);
 
         // Verify Values
+        assertEquals(goalId, goal.getGoalId());
         assertEquals(userId, goal.getUserId());
         assertEquals(name, goal.getGoalName());
         assertEquals(timePeriod, goal.getTimePeriod());

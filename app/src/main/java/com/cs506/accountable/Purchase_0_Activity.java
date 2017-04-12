@@ -19,6 +19,9 @@ public class Purchase_0_Activity extends AppCompatActivity {
     DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(this);
+        ds.open();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_0_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -32,17 +35,27 @@ public class Purchase_0_Activity extends AppCompatActivity {
         spinner.setAdapter(adapter);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Spinner spinner1 = (Spinner) findViewById(R.id.amPMSpinner);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.amPM_array, android.R.layout.simple_spinner_dropdown_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(adapter1);
+
         //Set the date and time so the user does not have to
         EditText date = (EditText)findViewById(R.id.purchaseDate);
         EditText time = (EditText)findViewById(R.id.purchaseTime);
         Date d = new Date();
         String pdate = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
-        String ptime = (String) DateFormat.format("hh:mm a", d.getTime());
+        String ptime = (String) DateFormat.format("hh:mm", d.getTime());
+        String amPM = (String) DateFormat.format("a", d.getTime());
+
+        if(amPM.equals("AM")){
+            spinner1.setSelection(0);
+        } else{
+            spinner1.setSelection(1);
+        }
         date.setText(pdate);
         time.setText(ptime);
-
-        ds = new DataSource(this);
-        ds.open();
 
     }
 
@@ -76,6 +89,9 @@ public class Purchase_0_Activity extends AppCompatActivity {
 
         Spinner categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
         category = categorySpinner.getSelectedItem().toString();
+
+        Spinner amPMSpinner = (Spinner) findViewById(R.id.amPMSpinner);
+        time = time + " " + amPMSpinner.getSelectedItem();
 
         boolean isValidAmount = price.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         boolean isValidDate = date.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])");
@@ -112,7 +128,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
             EditText time2 = (EditText)findViewById(R.id.purchaseTime);
             Date d = new Date();
             String pdate = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
-            String ptime = (String) DateFormat.format("hh:mm a", d.getTime());
+            String ptime = (String) DateFormat.format("hh:mm", d.getTime());
             date2.setText(pdate);
             time2.setText(ptime);
 

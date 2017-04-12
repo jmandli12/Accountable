@@ -22,7 +22,7 @@
         android:layout_marginTop="42dp"
         android:gravity="center"
         android:text="Enter Your Pin"
-        android:textSize="40dp" />
+        android:textSize="40sp" />
 
     <EditText
         android:id="@+id/passwordPin"
@@ -39,5 +39,7 @@
         android:layout_height="wrap_content"
         android:onClick="buttonClickHandler"
         android:text="Submit"
-        android:textSize="24dp" />
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
 </LinearLayout>

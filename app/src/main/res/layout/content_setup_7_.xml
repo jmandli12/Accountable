@@ -39,6 +39,8 @@
         android:layout_height="wrap_content"
         android:textSize="24dp"
         android:onClick="moveNext"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:text="Continue" />
 
 </LinearLayout>

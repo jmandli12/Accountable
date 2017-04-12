@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:text="Choose how you would like to budget." />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="100dp"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text="Select Budget:" />
 
     <LinearLayout
@@ -52,12 +52,18 @@
             android:src="@drawable/ic_action_name" />
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
     <Button
         android:id="@+id/button9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text="next"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:onClick="moveNext"/>
 
 </LinearLayout>

@@ -194,12 +194,18 @@
 
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="backToHome"
         android:text="Previous Purchases"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
         android:textSize="24dp" />
 
 </LinearLayout>
