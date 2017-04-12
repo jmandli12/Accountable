@@ -27,7 +27,11 @@ public class Setup_1_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle prev = getIntent().getExtras();
-        unconfirmedPIN = prev.getString("unconfirmedPIN");
+        if(prev != null){
+            unconfirmedPIN = prev.getString("unconfirmedPIN");
+        }else{
+            unconfirmedPIN = "1234";
+        }
     }
 
     /*
