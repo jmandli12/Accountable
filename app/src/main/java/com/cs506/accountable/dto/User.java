@@ -14,6 +14,7 @@ public class User {
     private int firstTime;
     private String budget;
     private int hasPin;
+    private String lastSync;
 
     public User() {
         id = -1;
@@ -24,10 +25,11 @@ public class User {
         firstTime = 1;
         budget = "";
         hasPin = 0;
+        lastSync = "";
     }
 
     public User(int ID, String USERNAME, int PIN_HASH, int PIN, String SALT,  /*int ACCOUNTID, int JOBID,*/
-                int FIRSTTIME, String budget, int hasPin) {
+                int FIRSTTIME, String budget, int hasPin, String lastSync) {
         id = ID;
         pin_hash = PIN_HASH;
         pin = PIN;
@@ -36,6 +38,7 @@ public class User {
         firstTime = FIRSTTIME;
         this.budget = budget;
         this.hasPin = hasPin;
+        this.lastSync = lastSync;
     }
 
     public int getId() {
@@ -70,11 +73,15 @@ public class User {
 
     public void setFirstTime(int firstTime) {this.firstTime = firstTime;}
 
-    public String getBudget() { return this.budget;}
+    public String getBudget() {return this.budget;}
 
     public void setBudget(String budget){this.budget = budget;}
 
-    public int getHasPin() { return this.hasPin;}
+    public int getHasPin() {return this.hasPin;}
 
     public void setHasPin(int hasPin){this.hasPin = hasPin;}
+
+    public String getLastSync() {return lastSync;}
+
+    public void setLastSync(String lastSync) {this.lastSync = lastSync;}
 }

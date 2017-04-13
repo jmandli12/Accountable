@@ -87,7 +87,8 @@ public class DataSource {
             SQLiteHelper.COLUMN_SALT,
             SQLiteHelper.COLUMN_FIRSTTIME,
             SQLiteHelper.COLUMN_BUDGET,
-            SQLiteHelper.COLUMN_HASPIN
+            SQLiteHelper.COLUMN_HASPIN,
+            SQLiteHelper.COLUMN_LASTSYNC
     };
 
     // constructs dbHelper
@@ -146,6 +147,7 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_FIRSTTIME, Integer.parseInt(args[5]));
                     values.put(SQLiteHelper.COLUMN_BUDGET, args[6]);
                     values.put(SQLiteHelper.COLUMN_HASPIN, Integer.parseInt(args[7]));
+                    values.put(SQLiteHelper.COLUMN_LASTSYNC, args[8]);
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_USERS, null, values);
@@ -754,7 +756,8 @@ public class DataSource {
                 cursor.getString(4),
                 cursor.getInt(5),
                 cursor.getString(6),
-                cursor.getInt(7)
+                cursor.getInt(7),
+                cursor.getString(8)
         );
         return user;
     }

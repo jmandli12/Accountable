@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -13,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.Date;
 
 public class Setup_6_Activity extends AppCompatActivity {
     DataSource ds;
@@ -130,9 +133,10 @@ public class Setup_6_Activity extends AppCompatActivity {
             } else {
                 hasPin = "1";
             }
-
+            Date d = new Date();
+            String now = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
             //userID, userName, pinHash, pin, salt, firstTime(now it is false), budget, hasPin
-            String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin};
+            String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin, now};
 
             ds.create("user", userArgs);
             Intent intent = new Intent(this, Setup_7_Activity.class);
