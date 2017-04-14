@@ -136,7 +136,7 @@ public class Setup_6_Activity extends AppCompatActivity {
             Date d = new Date();
             String now = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
             //userID, userName, pinHash, pin, salt, firstTime(now it is false), budget, hasPin
-            String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin, now};
+            String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin, "03/19/2017"};
 
             ds.create("user", userArgs);
             Intent intent = new Intent(this, Setup_7_Activity.class);

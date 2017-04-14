@@ -137,8 +137,10 @@ public class Purchase_0_Activity extends AppCompatActivity {
             ds.create("purchase", purchaseArgs);
 
             Account account = (Account) ds.retrieveById("account", "1");
-            Double balance = account.getBalance();
-            account.setBalance(balance - Double.parseDouble(price));
+            double balance = account.getBalance();
+            int intBalance = (int) (balance * 100.0);
+            int intPrice = (int) (Double.parseDouble(price) * 100.0);
+            account.setBalance((double) (intBalance - intPrice) / 100);
             String[] newAccountArgs = {"1", "1", account.getAccountName(), String.valueOf(account.getBalance())};
             ds.create("account", newAccountArgs);
 
