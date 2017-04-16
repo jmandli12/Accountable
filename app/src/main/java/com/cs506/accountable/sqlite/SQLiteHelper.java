@@ -40,6 +40,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     //public static final String COLUMN_USERID = "user_id";
     public static final String COLUMN_ACCOUNTNAME = "account_name";
     public static final String COLUMN_BALANCE = "balance";
+    public static final String COLUMN_STARTBALANCE = "start_balance";
 
     public static final String TABLE_INCOMES = "incomes";
     public static final String COLUMN_INCOMEID = "income_id";
@@ -98,7 +99,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_ACCOUNTID + " integer primary key autoincrement, "
             + COLUMN_USERID + " integer references user_id, "
             + COLUMN_ACCOUNTNAME + " text, "
-            + COLUMN_BALANCE + " double)";
+            + COLUMN_BALANCE + " double, "
+            + COLUMN_STARTBALANCE + " double)";
 
     private static final String DATABASE_CREATE_BILLS =  " create table "
            + TABLE_BILLS + "("

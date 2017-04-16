@@ -14,7 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.User;
@@ -61,6 +65,9 @@ public class Purchase_0_Activity extends AppCompatActivity {
         }
         date.setText(pdate);
         time.setText(ptime);
+
+        User user = (User) ds.retrieveById("user", "1");
+        Toast.makeText(this, "Allowance Remaining: $" + String.format("%.2f", user.getAllowance()), Toast.LENGTH_LONG).show();
 
     }
 
@@ -109,6 +116,16 @@ public class Purchase_0_Activity extends AppCompatActivity {
         //Save Income
         //^This will be its own method
 
+        if(isValidDate) {
+            String[] dateArray = date.split("/");
+            GregorianCalendar pd = new GregorianCalendar(Integer.parseInt(dateArray[2]),
+                    Integer.parseInt(dateArray[0])-1, Integer.parseInt(dateArray[1]));
+            GregorianCalendar temp = new GregorianCalendar();
+            GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+                    temp.get(Calendar.DAY_OF_MONTH));
+            isValidDate = !temp.equals(today);
+        }
+
         if (isValidTime && isValidDate && isValidAmount && price.length() > 2 && !category.equals("Category (Select One)")) {
 
             if(!price.isEmpty() && !date.isEmpty() && !time.isEmpty() && !category.isEmpty() && !location.isEmpty() && !comments.isEmpty()){
@@ -146,7 +163,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
             int intBalance = (int) (balance * 100.0);
             int intPrice = (int) (Double.parseDouble(price) * 100.0);
             account.setBalance((double) (intBalance - intPrice) / 100);
-            String[] newAccountArgs = {"1", "1", account.getAccountName(), String.valueOf(account.getBalance())};
+            String[] newAccountArgs = {"1", "1", account.getAccountName(), String.valueOf(account.getBalance()), String.valueOf(account.getStartBalance())};
             ds.create("account", newAccountArgs);
 
             User user = (User) ds.retrieveById("user", "1");
@@ -160,8 +177,12 @@ public class Purchase_0_Activity extends AppCompatActivity {
                     user.getBudget(), String.valueOf(user.getHasPin()), user.getLastSync(),
                     user.getLastCalc(), String.valueOf(user.getAllowance())};
             ds.create("user", newUserArgs);
+
             if(user.getAllowance() < 0.0) {
-                Toast.makeText(this, "ALERT: You have exceeded today's spending allowance!" + user.getAllowance(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "ALERT: You have exceeded today's spending allowance! " + user.getAllowance(), Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, "Allowance Remaining: $" + String.format("%.2f", user.getAllowance()), Toast.LENGTH_LONG).show();
             }
         } else {
             if (price.length() < 3 || !isValidAmount) {
@@ -169,7 +190,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
                 //TODO:Check for invalid leading 0 in dollar side?
             }
             if (!isValidDate) {
-                Toast.makeText(this, "Purchase date must be in the format of a valid mm/dd/year", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Purchase date must be in the format of a valid mm/dd/year \nFuture and Past dates are not yet supported.", Toast.LENGTH_LONG).show();
             }
             if (!isValidTime){
                 Toast.makeText(this, "Purchase time must be in the format of a valid {hr}:{min}", Toast.LENGTH_LONG).show();

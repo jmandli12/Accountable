@@ -37,7 +37,8 @@ public class DataSource {
             SQLiteHelper.COLUMN_ACCOUNTID,
             SQLiteHelper.COLUMN_USERID,
             SQLiteHelper.COLUMN_ACCOUNTNAME,
-            SQLiteHelper.COLUMN_BALANCE
+            SQLiteHelper.COLUMN_BALANCE,
+            SQLiteHelper.COLUMN_STARTBALANCE
     };
     private String[] allColumnsBill = {
             SQLiteHelper.COLUMN_BILLID,
@@ -229,6 +230,7 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTNAME, args[2]);
                     values.put(SQLiteHelper.COLUMN_BALANCE, Double.parseDouble(args[3]));
+                    values.put(SQLiteHelper.COLUMN_STARTBALANCE, Double.parseDouble(args[4]));
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
@@ -706,7 +708,8 @@ public class DataSource {
                 cursor.getInt(0),
                 cursor.getInt(1),
                 cursor.getString(2),
-                cursor.getDouble(3));
+                cursor.getDouble(3),
+                cursor.getDouble(4));
         return account;
     }
 

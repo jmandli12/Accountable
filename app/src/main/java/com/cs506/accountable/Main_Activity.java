@@ -85,8 +85,10 @@ public class Main_Activity extends AppCompatActivity {
     Moves to Purchase Activity
      */
     public void moveToPurchase(View view) {
-        Intent intent = new Intent(this, Purchase_0_Activity.class);
-        startActivity(intent);
+        Intent intent1 = new Intent(this, Status_0_Activity.class);
+        intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION); //Load Status Activity to calculate allowance
+        intent1.putExtra("forPurchase", true);
+        startActivity(intent1);
     }
 
     /*
@@ -94,6 +96,7 @@ public class Main_Activity extends AppCompatActivity {
      */
     public void moveToStatus(View view) {
         Intent intent = new Intent(this, Status_0_Activity.class);
+        intent.putExtra("forPurchase", false);
         startActivity(intent);
     }
 
@@ -245,7 +248,7 @@ public class Main_Activity extends AppCompatActivity {
         double balance = account.getBalance();
         int intBalance = (int) (balance * 100.0);
         account.setBalance((double) (intBalance - sum) / 100);
-        String[] newAccountArgs = {"1", "1", account.getAccountName(), String.valueOf(account.getBalance())};
+        String[] newAccountArgs = {"1", "1", account.getAccountName(), String.valueOf(account.getBalance()), String.valueOf(account.getBalance())};
         ds.create("account", newAccountArgs);
         Date d = new Date();
         String now = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
