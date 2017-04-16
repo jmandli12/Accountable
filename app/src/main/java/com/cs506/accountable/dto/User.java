@@ -15,6 +15,8 @@ public class User {
     private String budget;
     private int hasPin;
     private String lastSync;
+    private String lastCalc;
+    private double allowance;
 
     public User() {
         id = -1;
@@ -26,10 +28,13 @@ public class User {
         budget = "";
         hasPin = 0;
         lastSync = "";
+        lastCalc = "";
+        allowance = -1.00;
     }
 
     public User(int ID, String USERNAME, int PIN_HASH, int PIN, String SALT,  /*int ACCOUNTID, int JOBID,*/
-                int FIRSTTIME, String budget, int hasPin, String lastSync) {
+                int FIRSTTIME, String budget, int hasPin, String lastSync, String lastCalc,
+                double allowance) {
         id = ID;
         pin_hash = PIN_HASH;
         pin = PIN;
@@ -39,6 +44,8 @@ public class User {
         this.budget = budget;
         this.hasPin = hasPin;
         this.lastSync = lastSync;
+        this.lastCalc = lastCalc;
+        this.allowance = allowance;
     }
 
     public int getId() {
@@ -84,4 +91,12 @@ public class User {
     public String getLastSync() {return lastSync;}
 
     public void setLastSync(String lastSync) {this.lastSync = lastSync;}
+
+    public String getLastCalc() {return lastCalc;}
+
+    public void setLastCalc(String lastCalc) {this.lastCalc = lastCalc;}
+
+    public double getAllowance() {return allowance;}
+
+    public void setAllowance(double allowance) {this.allowance = allowance;}
 }

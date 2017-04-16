@@ -69,11 +69,18 @@ public class Setup_6_Activity extends AppCompatActivity {
         amount = text.getText().toString();
         EditText name = (EditText) findViewById(R.id.goalName);
         goalName = name.getText().toString();
-
-        boolean isValidAmount = amount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+        boolean isValidAmount = false;
+        if(unitSaving.equals("1")) {
+            isValidAmount = amount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+        }
+        if(unitSaving.equals("2") || unitSaving.equals("3")) {
+            isValidAmount = amount.matches("([0-9]|([1-9][0-9])|100)");
+        }
 
         if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0")) {
-
+            if(unitSaving.equals("2") || unitSaving.equals("3")) {
+                amount = String.valueOf((double) Integer.parseInt(amount));
+            }
             String[] goalArgs = { null, "1", goalName, timePeriod, unitSaving, amount};
             ds.create("goal", goalArgs);
 
@@ -97,8 +104,15 @@ public class Setup_6_Activity extends AppCompatActivity {
             if (timePeriod.equals(unitSaving.equals("0"))) {
                 Toast.makeText(this, "Unit of Saving must be selected", Toast.LENGTH_LONG).show();
             }
-            if (amount.length() < 3 || !isValidAmount) {
-                Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+            if(unitSaving.equals("1")) {
+                if (amount.length() < 3 || !isValidAmount) {
+                    Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                }
+            }
+            else if(unitSaving.equals("2") || unitSaving.equals("3")) {
+                if(!isValidAmount) {
+                    Toast.makeText(this, "\"% of Income\" Goal Amount must be between 0 and 100", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
@@ -136,7 +150,7 @@ public class Setup_6_Activity extends AppCompatActivity {
             Date d = new Date();
             String now = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
             //userID, userName, pinHash, pin, salt, firstTime(now it is false), budget, hasPin
-            String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin, "03/19/2017"};
+            String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin, now, "", "0.0"};
 
             ds.create("user", userArgs);
             Intent intent = new Intent(this, Setup_7_Activity.class);

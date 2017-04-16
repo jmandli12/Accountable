@@ -23,6 +23,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BUDGET = "budget";
     public static final String COLUMN_HASPIN = "has_pin";
     public static final String COLUMN_LASTSYNC = "last_sync";
+    public static final String COLUMN_LASTCALC = "last_calc";
+    public static final String COLUMN_ALLOWANCE = "allowance";
 
     public static final String TABLE_BILLS = "bills";
     public static final String COLUMN_BILLID = "bill_id";
@@ -87,7 +89,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_FIRSTTIME + " integer, "
             + COLUMN_BUDGET + " text, "
             + COLUMN_HASPIN + " integer, "
-            + COLUMN_LASTSYNC + " text)";
+            + COLUMN_LASTSYNC + " text, "
+            + COLUMN_LASTCALC + " text, "
+            + COLUMN_ALLOWANCE + " double)";
 
     private static final String DATABASE_CREATE_ACCOUNTS =  " create table "
             + TABLE_ACCOUNTS + "("

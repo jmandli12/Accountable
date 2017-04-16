@@ -26,13 +26,18 @@ public class Setup_7_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds.close();
     }
 
     /*
     Save Goal and move to next Activity
      */
     public void moveNext(View view) {
-        Intent intent = new Intent(this, Main_Activity.class);
+        Intent intent = new Intent(this, Status_0_Activity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+        Intent intent2 = new Intent(this, Main_Activity.class);
+        startActivity(intent2);
     }
 }

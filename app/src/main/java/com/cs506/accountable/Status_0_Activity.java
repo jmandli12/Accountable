@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -76,7 +77,23 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         user = (User) ds.retrieveById("user", "1");
         accountBalance.setText("$" + formatDoubleMoney(account.getBalance()));
         incomeEarned.setText("$" + todayIncome());
-        spendingAllowance.setText("$" + todayAllowance());
+        if(!user.getLastCalc().isEmpty()) {
+            String[] lastCalc = user.getLastCalc().split("/");
+            GregorianCalendar lc = new GregorianCalendar(Integer.parseInt(lastCalc[2]),
+                    Integer.parseInt(lastCalc[0])-1, Integer.parseInt(lastCalc[1]));
+            GregorianCalendar temp = new GregorianCalendar();
+            GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+                    temp.get(Calendar.DAY_OF_MONTH));
+            if(lc.before(today)) {
+                spendingAllowance.setText("$" + todayAllowance());
+            }
+            else {
+                spendingAllowance.setText("$" + formatDoubleMoney(user.getAllowance()));
+            }
+        }
+        else {
+            spendingAllowance.setText("$" + todayAllowance());
+        }
         amountSpent.setText("$" + todaySpent());
         goalStatus.setText("$" + "0.00");
 
@@ -145,7 +162,7 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
     public String todayIncome() {
         return todayIncome(new GregorianCalendar());
     }
-    //TODO: Change code to only check bills and paychecks that haven't occurred yet
+
     public String todayIncome(GregorianCalendar temp) {
         Iterator<Income> iterateIncomes = allIncomes.iterator();
         validIncomes = new ArrayList<Income>();
@@ -210,6 +227,7 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         Goal savings = null;
         boolean monthly = false;
         boolean yearly = false;
+        double incomePercent = 1.00;
 
         List<Goal> allGoals = (List<Goal>) (List<?>) ds.retrieveAll("goal");
         Iterator<Goal> iterator = allGoals.iterator();
@@ -246,6 +264,12 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
             end.add(GregorianCalendar.DAY_OF_WEEK, -end.get(Calendar.DAY_OF_WEEK));
         }
 
+        if(income != null) {
+            if(income.getAmount() != 0.0) {
+                incomePercent = ((100.0 - income.getAmount()) / 100.0);
+            }
+        }
+
         d.add(GregorianCalendar.DAY_OF_YEAR, 1);
         while(d.before(end)) {
             if(dollar != null) {
@@ -270,7 +294,7 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
                 }
             }
             allowance -= (int) (Double.parseDouble(todaySpent(d)) * 100.0);
-            allowance += (int) (Double.parseDouble(todayIncome(d)) * 100.0);
+            allowance += (int) (Math.floor(Double.parseDouble(todayIncome(d))*incomePercent*100.0));
             d.add(GregorianCalendar.DAY_OF_YEAR, 1);
         }
 
@@ -279,6 +303,15 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         long span = end.getTimeInMillis() - d.getTimeInMillis();
         int daySpan = (int) (span / (long)(1000*60*60*24));
         allowance = allowance / daySpan; //TODO: POSSIBLY OPTIMIZE THIS
+        String now = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
+        user.setLastCalc(now);
+        user.setAllowance((double) allowance / 100);
+
+        String[] newUserArgs = {"1", "User", "0", String.valueOf(user.getPin()), "0", "0",
+                user.getBudget(), String.valueOf(user.getHasPin()), user.getLastSync(),
+                user.getLastCalc(), String.valueOf(user.getAllowance())};
+        ds.create("user", newUserArgs);
+
         return formatDoubleMoney((double) allowance / 100);
     }
 
