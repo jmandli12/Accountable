@@ -10,19 +10,22 @@ public class Account {
     private int userId;
     private String accountName;
     private double balance;
+    private double startBalance;
 
     public Account() {
         this.accountId = -1;
         this.userId = -1;
         this.accountName = "";
         this.balance = -1.00;
+        this.startBalance = -1.00;
     }
 
-    public Account(int accountId, int userId, String accountName, Double balance) {
+    public Account(int accountId, int userId, String accountName, Double balance, Double startBalance) {
         this.accountId = accountId;
         this.userId = userId;
         this.accountName = accountName;
         this.balance = balance;
+        this.startBalance = startBalance;
     }
 
     public int getAccountId() {return accountId;}
@@ -40,5 +43,9 @@ public class Account {
     public double getBalance() {return balance;}
 
     public void setBalance(double balance) {this.balance = balance;}
+
+    public double getStartBalance() {return startBalance;}
+
+    public void setStartBalance(double startBalance) {this.startBalance = startBalance;}
 
 }

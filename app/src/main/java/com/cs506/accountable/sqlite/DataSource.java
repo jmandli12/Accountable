@@ -699,7 +699,8 @@ public class DataSource {
                 cursor.getInt(0),
                 cursor.getInt(1),
                 cursor.getString(2),
-                cursor.getDouble(3));
+                cursor.getDouble(3),
+                cursor.getDouble(4));
         return account;
     }
 

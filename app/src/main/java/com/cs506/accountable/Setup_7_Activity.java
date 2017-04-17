@@ -26,6 +26,8 @@ public class Setup_7_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ds.close();
     }
 
     /*
