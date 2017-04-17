@@ -63,6 +63,7 @@ public class Setup_1_Activity extends AppCompatActivity {
                 ds.create("user", userArgs);
                 Toast.makeText(this, "Updated PIN", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, Main_Activity.class);
+                intent.putExtra("changePIN", "NO");
                 startActivity(intent);
             } else {
                 //Move onto next screen

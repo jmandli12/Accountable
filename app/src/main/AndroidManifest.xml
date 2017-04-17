@@ -69,7 +69,6 @@
         <activity
             android:name=".Setup_7_Activity"
             android:label="@string/title_activity_setup_7_"
-            android:parentActivityName=".Setup_6_Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

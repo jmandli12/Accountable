@@ -25,8 +25,6 @@ public class Setup_7_Activity extends AppCompatActivity {
         toolbar.setTitle("Accountable Setup");
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ds.close();
     }
 
@@ -36,5 +34,10 @@ public class Setup_7_Activity extends AppCompatActivity {
     public void moveNext(View view) {
         Intent intent = new Intent(this, Main_Activity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 }

@@ -24,20 +24,28 @@ public class Lock_Screen_Activity extends AppCompatActivity {
     DataSource ds;
     int pin;
     boolean changePIN = false;
+    boolean keepGoing = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ds = new DataSource(Lock_Screen_Activity.this);
         ds.open();
+        Bundle prev = getIntent().getExtras();
 
-        if (getIntent().getExtras() != null) {
-            List<Object> obj = ds.retrieveAll("user");
-            User user = (User) obj.get(0);
-            if (user.getHasPin() == 1) {
-                pin = user.getPin();
+        if (prev != null) {
+            if(prev.getString("changePIN") != null){
+                if(prev.getString("changePIN").equals("YES")){
+                    keepGoing=false;
+                    User user = (User) ds.retrieveById("user", "1");
+                    if (user.getHasPin() == 1) {
+                        pin = user.getPin();
+                    }
+                    changePIN = true;
+                }
             }
-            changePIN = true;
-        } else {
+        }
+
+        if(keepGoing) {
             //Check to see if it is users first time running application
             boolean firstTime = false;
             boolean hasPin = false;
@@ -58,11 +66,10 @@ public class Lock_Screen_Activity extends AppCompatActivity {
                 ds.wipe();
                 startActivity(intent);
             } else {
-                List<Object> obj = ds.retrieveAll("user");
-                User user = (User) obj.get(0);
-                if (user.getHasPin() == 1) {
+                User user1 = (User) ds.retrieveById("user", "1");
+                if (user1.getHasPin() == 1) {
                     hasPin = true;
-                    pin = user.getPin();
+                    pin = user1.getPin();
                 }
 
                 if (!hasPin) {
@@ -71,6 +78,7 @@ public class Lock_Screen_Activity extends AppCompatActivity {
                 }
             }
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock__screen_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -85,24 +93,34 @@ public class Lock_Screen_Activity extends AppCompatActivity {
     public void buttonClickHandler(View view) {
 
         EditText et = (EditText) findViewById(R.id.passwordPin);
-        int pin1 = Integer.parseInt(et.getText().toString());
+        String pinString = et.getText().toString();
 
 
-        if (pin == pin1) {
-            //If the pins match then go to main view
-            if(changePIN){
-                Intent intent = new Intent(this, Setup_0_Activity.class);
-                intent.putExtra("changePIN", "YES");
-                startActivity(intent);
+        if(pinString.length() == 4) {
+            // Move to next Screen
+            int pin1 = Integer.parseInt(pinString);
+            if (pin == pin1) {
+                //If the pins match then go to main view
+                if(changePIN){
+                    Intent intent = new Intent(this, Setup_0_Activity.class);
+                    intent.putExtra("changePIN", "YES");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(this, Main_Activity.class);
+                    startActivity(intent);
+                }
+
             } else {
-                Intent intent = new Intent(this, Main_Activity.class);
-                startActivity(intent);
+                et.setText("");
+                Toast.makeText(this, "Pins do not Match.  Try Again", Toast.LENGTH_LONG).show();
             }
-
-        } else {
-            et.setText("");
-            Toast.makeText(this, "Pins do not Match.  Try Again", Toast.LENGTH_LONG).show();
         }
+        else {
+            Toast.makeText(this, "PIN must be 4 digits long", Toast.LENGTH_LONG).show();
+        }
+
+
+
 
     }
 }

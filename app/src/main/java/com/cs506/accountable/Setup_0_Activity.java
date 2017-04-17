@@ -75,6 +75,7 @@ public class Setup_0_Activity extends AppCompatActivity {
                     "0", user.getLastSync(), user.getLastCalc(), String.valueOf(user.getAllowance())};
             ds.create("user", userArgs);
             Intent intent = new Intent(this, Main_Activity.class);
+            intent.putExtra("changePIN", "NO");
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, Setup_2_Activity.class);
