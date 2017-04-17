@@ -254,7 +254,7 @@ public class Main_Activity extends AppCompatActivity {
         String now = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
         //userID, userName, pinHash, pin, salt, firstTime(now it is false), budget, hasPin
         String[] newUserArgs = {"1", "User", "0", String.valueOf(user.getPin()), "0", "0",
-                user.getBudget(), String.valueOf(user.getHasPin()), now, user.getLastCalc(), String.valueOf(user.getAllowance())};
+                String.valueOf(user.getHasPin()), now, user.getLastCalc(), String.valueOf(user.getAllowance())};
         ds.create("user", newUserArgs);
     }
 }

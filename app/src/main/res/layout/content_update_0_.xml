@@ -79,20 +79,6 @@
         android:layout_height="10dp" />
 
     <Button
-        android:id="@+id/updateBudget"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
-        android:text="Budget" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
-    <Button
         android:id="@+id/backToHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

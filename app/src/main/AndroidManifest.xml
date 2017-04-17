@@ -58,22 +58,13 @@
                 android:value="com.cs506.accountable.Setup_3_Activity" />
         </activity>
         <activity
-            android:name=".Setup_5_Activity"
-            android:label="@string/title_activity_setup_5_"
+            android:name=".Setup_6_Activity"
+            android:label="@string/title_activity_setup_6_"
             android:parentActivityName=".Setup_4_Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs506.accountable.Setup_4_Activity" />
-        </activity>
-        <activity
-            android:name=".Setup_6_Activity"
-            android:label="@string/title_activity_setup_6_"
-            android:parentActivityName=".Setup_5_Activity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cs506.accountable.Setup_5_Activity" />
         </activity>
         <activity
             android:name=".Setup_7_Activity"
@@ -155,15 +146,6 @@
         <activity
             android:name=".Update_4_Activity"
             android:label="@string/title_activity_update_4_"
-            android:parentActivityName=".Update_0_Activity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cs506.accountable.Update_0_Activity" />
-        </activity>
-        <activity
-            android:name=".Update_5_Activity"
-            android:label="@string/title_activity_update_5_"
             android:parentActivityName=".Update_0_Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

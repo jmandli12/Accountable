@@ -68,7 +68,6 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         TextView incomeEarned = (TextView) findViewById(R.id.incomeEarned);
         TextView spendingAllowance = (TextView) findViewById(R.id.spendingAllowance);
         TextView amountSpent = (TextView) findViewById(R.id.amountSpent);
-        TextView goalStatus = (TextView) findViewById(R.id.goalStatus);
 
         allBills = (List<Bill>)(List<?>) ds.retrieveAll("bill"); //TODO
         allIncomes = (List<Income>)(List<?>) ds.retrieveAll("income"); //TODO
@@ -77,25 +76,24 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         user = (User) ds.retrieveById("user", "1");
         accountBalance.setText("$" + formatDoubleMoney(account.getBalance()));
         incomeEarned.setText("$" + todayIncome());
-        if(!user.getLastCalc().isEmpty()) {
-            String[] lastCalc = user.getLastCalc().split("/");
-            GregorianCalendar lc = new GregorianCalendar(Integer.parseInt(lastCalc[2]),
-                    Integer.parseInt(lastCalc[0])-1, Integer.parseInt(lastCalc[1]));
-            GregorianCalendar temp = new GregorianCalendar();
-            GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
-                    temp.get(Calendar.DAY_OF_MONTH));
-            if(lc.before(today)) {
-                spendingAllowance.setText("$" + todayAllowance());
-            }
-            else {
-                spendingAllowance.setText("$" + formatDoubleMoney(user.getAllowance()));
-            }
-        }
-        else {
+//        if(!user.getLastCalc().isEmpty()) {
+//            String[] lastCalc = user.getLastCalc().split("/");
+//            GregorianCalendar lc = new GregorianCalendar(Integer.parseInt(lastCalc[2]),
+//                    Integer.parseInt(lastCalc[0])-1, Integer.parseInt(lastCalc[1]));
+//            GregorianCalendar temp = new GregorianCalendar();
+//            GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+//                    temp.get(Calendar.DAY_OF_MONTH));
+//            if(lc.before(today)) {
+//                spendingAllowance.setText("$" + todayAllowance());
+//            }
+//            else {
+//                spendingAllowance.setText("$" + formatDoubleMoney(user.getAllowance()));
+//            }
+//        }
+//        else {
             spendingAllowance.setText("$" + todayAllowance());
-        }
+//        }
         amountSpent.setText("$" + todaySpent());
-        goalStatus.setText("$" + "0.00");
 
         ds.close();
         Bundle extras = getIntent().getExtras();
@@ -116,7 +114,6 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         TextView incomeEarned = (TextView) findViewById(R.id.incomeEarned);
         TextView spendingAllowance = (TextView) findViewById(R.id.spendingAllowance);
         TextView amountSpent = (TextView) findViewById(R.id.amountSpent);
-        TextView goalStatus = (TextView) findViewById(R.id.goalStatus);
         LinearLayout dates = (LinearLayout) findViewById(R.id.customDateLayout);
 
         String statusRange = (String) parent.getItemAtPosition(pos);
@@ -160,7 +157,6 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
                     break;
             default: break;
         }
-        goalStatus.setText("$" + goalStatus());
 
         ds.close();
     }
@@ -217,7 +213,10 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
                                     sum += (int) (currIncome.getAmount() * 100.0);
                                 }
                                 break;
-                //TODO: What to do in case of Other???
+                case "One-time Deposit": if(d.equals(incomeDate)) {
+                                    sum += (int) (currIncome.getAmount() * 100.0);
+                                }
+                                break;
                 default: break;
             }
         }
@@ -243,7 +242,6 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         int allowance = accountBalance;
         Goal dollar = null;
         Goal income = null;
-        Goal savings = null;
         boolean monthly = false;
         boolean yearly = false;
         double incomePercent = 1.00;
@@ -256,8 +254,6 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
                 case 1: dollar = currGoal;
                     break;
                 case 2: income = currGoal;
-                    break;
-                case 3: savings = currGoal;
                     break;
                 default: break;
             }
@@ -330,7 +326,7 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         user.setAllowance((double) allowance / 100);
 
         String[] newUserArgs = {"1", "User", "0", String.valueOf(user.getPin()), "0", "0",
-                user.getBudget(), String.valueOf(user.getHasPin()), user.getLastSync(),
+                String.valueOf(user.getHasPin()), user.getLastSync(),
                 user.getLastCalc(), String.valueOf(user.getAllowance())};
         ds.create("user", newUserArgs);
 
@@ -434,12 +430,6 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         }
 
         return (double) sum / 100;
-    }
-
-    public String goalStatus() {
-
-
-        return formatDoubleMoney(0.0);
     }
 
     private String formatDoubleMoney(double i) {

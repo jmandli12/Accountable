@@ -42,10 +42,6 @@ public class Update_0_Activity extends AppCompatActivity {
                 intent = new Intent(this, Update_4_Activity.class);;
                 startActivity(intent);
                 break;
-            case R.id.updateBudget:
-                intent = new Intent(this, Update_5_Activity.class);;
-                startActivity(intent);
-                break;
             case R.id.backToHome:
                 intent = new Intent(this, Main_Activity.class);;
                 startActivity(intent);

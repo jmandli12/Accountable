@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.cs506.accountable.sqlite.DataSource;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Setup_4_Activity extends AppCompatActivity {
     DataSource ds;
     String pin;
@@ -30,14 +33,8 @@ public class Setup_4_Activity extends AppCompatActivity {
         toolbar.setTitle("Accountable Setup");
         setSupportActionBar(toolbar);
 
-        Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
+        Spinner spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.income_hours_array, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
-        adapter = ArrayAdapter.createFromResource(this,
                 R.array.pay_period_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -58,7 +55,6 @@ public class Setup_4_Activity extends AppCompatActivity {
         String incomeName;
         String incomeAmount;
         String dueDate;
-        String hoursOrSalary;
         String payPeriod;
 
 
@@ -69,24 +65,31 @@ public class Setup_4_Activity extends AppCompatActivity {
         EditText date = (EditText) findViewById(R.id.dueDate);
         dueDate = date.getText().toString();
 
-        Spinner hOrS = (Spinner) findViewById(R.id.hoursSpinner);
-        hoursOrSalary = hOrS.getSelectedItemPosition() + "";
         Spinner payPer = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = payPer.getSelectedItem().toString();
 
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][1][7-9]|[2][0][2-9][0-9])"); //TODO:
 
-        if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("0") && !payPeriod.equals("Pay Period (Select One)")) {
+        if(isValidDate) {
+            String[] dateArray = dueDate.split("/");
+            GregorianCalendar pd = new GregorianCalendar(Integer.parseInt(dateArray[2]),
+                    Integer.parseInt(dateArray[0])-1, Integer.parseInt(dateArray[1]));
+            GregorianCalendar temp = new GregorianCalendar();
+            GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+                    temp.get(Calendar.DAY_OF_MONTH));
+            isValidDate = !pd.before(today);
+        }
 
-            String[] incomeArgs = {null, "1", accountID, incomeName, incomeAmount, dueDate, payPeriod, hoursOrSalary};
+        if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !payPeriod.equals("Pay Period (Select One)")) {
+
+            String[] incomeArgs = {null, "1", accountID, incomeName, incomeAmount, dueDate, payPeriod};
             ds.create("income", incomeArgs);
 
-            Toast.makeText(this, "(Added Income Type)" + "\nIncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nRecievingDate: " + dueDate + "\nHours: " + hOrS.getSelectedItem().toString() + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "(Added Income Type)" + "\nIncomeName: " + incomeName + "\nIncomeAmount: " + incomeAmount + "\nRecievingDate: " + dueDate + "\nPayPeriod: " + payPeriod, Toast.LENGTH_LONG).show();
 
             name.setText("");
             amount.setText("");
-            hOrS.setSelection(0);
             payPer.setSelection(0);
             date.setText("");
 
@@ -106,9 +109,6 @@ public class Setup_4_Activity extends AppCompatActivity {
             if (payPeriod.equals("Pay Period (Select One)")) {
                 Toast.makeText(this, "Pay Period must be selected", Toast.LENGTH_LONG).show();
             }
-            if (hoursOrSalary.equals("Hourly or Salary? (Select One)")) {
-                Toast.makeText(this, "Method of pay must be selected", Toast.LENGTH_LONG).show();
-            }
         }
 
     }
@@ -120,7 +120,6 @@ public class Setup_4_Activity extends AppCompatActivity {
 
         String incomeName;
         String incomeAmount;
-        String hoursOrSalary;
         String payPeriod;
         String dueDate;
 
@@ -132,14 +131,11 @@ public class Setup_4_Activity extends AppCompatActivity {
         et = (EditText) findViewById(R.id.dueDate);
         dueDate = et.getText().toString();
 
-        Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner);
-        hoursOrSalary = spinner.getSelectedItemPosition() + "";
-
-        spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
+        Spinner spinner = (Spinner) findViewById(R.id.payPeriodSpinner);
         payPeriod = spinner.getSelectedItem().toString();
 
-        if (incomeName.equals("") && incomeAmount.equals("") && dueDate.equals("") && hoursOrSalary.equals("0") && payPeriod.equals("Pay Period (Select One)")) {
-            Intent intent = new Intent(this, Setup_5_Activity.class);
+        if (incomeName.equals("") && incomeAmount.equals("") && dueDate.equals("") && payPeriod.equals("Pay Period (Select One)")) {
+            Intent intent = new Intent(this, Setup_6_Activity.class);
             intent.putExtra("accountID", accountID);
             intent.putExtra("pin", pin);
             startActivity(intent);
@@ -165,11 +161,6 @@ public class Setup_4_Activity extends AppCompatActivity {
 
     public void payPeriodHelp(View view) {
         Snackbar.make(view, "How often you get a Paycheck \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Action", null).show();
-    }
-
-    public void workKindHelp(View view) {
-        Snackbar.make(view, "Do you work Hourly or Salary\n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 }

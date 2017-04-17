@@ -159,11 +159,21 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         if(unitSaving.equals("1")) {
             isValidAmount = amount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         }
-        if(unitSaving.equals("2") || unitSaving.equals("3")) {
+        if(unitSaving.equals("2")) {
             isValidAmount = amount.matches("([0-9]|([1-9][0-9])|100)");
         }
 
-        if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0")) {
+        List<Goal> goals = (List<Goal>) (List<?>) ds.retrieveAll("goal");
+        boolean duplicate = false;
+        if(!goals.isEmpty()) {
+            duplicate = goals.get(0).getUnit() == Integer.parseInt(unitSaving);
+            if(goals.size() == 2) {
+                duplicate = goals.get(0).getUnit() == Integer.parseInt(unitSaving)
+                        || goals.get(1).getUnit() == Integer.parseInt(unitSaving);
+            }
+        }
+
+        if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0") && !duplicate) {
             if(unitSaving.equals("2") || unitSaving.equals("3")) {
                 amount = String.valueOf((double) Integer.parseInt(amount));
             }
@@ -191,6 +201,9 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
 
 
         } else {
+            if(duplicate) {
+                Toast.makeText(this, "Only one goal per unit type supported", Toast.LENGTH_LONG).show();
+            }
             if (goalName.length() == 0) {
                 Toast.makeText(this, "Goal Name cannot be empty", Toast.LENGTH_LONG).show();
             }
@@ -205,7 +218,7 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
                     Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 }
             }
-            else if(unitSaving.equals("2") || unitSaving.equals("3")) {
+            else if(unitSaving.equals("2")) {
                 if(!isValidAmount) {
                     Toast.makeText(this, "\"% of Income\" Goal Amount must be between 0 and 100", Toast.LENGTH_LONG).show();
                 }

@@ -123,7 +123,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
             GregorianCalendar temp = new GregorianCalendar();
             GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
                     temp.get(Calendar.DAY_OF_MONTH));
-            isValidDate = !temp.equals(today);
+            isValidDate = pd.equals(today);
         }
 
         if (isValidTime && isValidDate && isValidAmount && price.length() > 2 && !category.equals("Category (Select One)")) {
@@ -174,7 +174,7 @@ public class Purchase_0_Activity extends AppCompatActivity {
             int intAllowance = (int) (allowance * 100.0);
             user.setAllowance((double) (intAllowance - intPrice) / 100);
             String[] newUserArgs = {"1", "User", "0", String.valueOf(user.getPin()), "0", "0",
-                    user.getBudget(), String.valueOf(user.getHasPin()), user.getLastSync(),
+                    String.valueOf(user.getHasPin()), user.getLastSync(),
                     user.getLastCalc(), String.valueOf(user.getAllowance())};
             ds.create("user", newUserArgs);
 

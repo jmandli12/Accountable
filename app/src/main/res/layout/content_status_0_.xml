@@ -170,30 +170,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <TextView
-            android:id="@+id/textView113"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Goal Status:"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/goalStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="TextView"
-            android:textSize="24sp" />
-
-    </LinearLayout>
-
     <Space
         android:layout_width="match_parent"
         android:layout_height="25dp" />

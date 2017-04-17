@@ -20,7 +20,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PIN = "pin";
     public static final String COLUMN_SALT = "salt";
     public static final String COLUMN_FIRSTTIME = "first_time";
-    public static final String COLUMN_BUDGET = "budget";
     public static final String COLUMN_HASPIN = "has_pin";
     public static final String COLUMN_LASTSYNC = "last_sync";
     public static final String COLUMN_LASTCALC = "last_calc";
@@ -50,7 +49,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_AMOUNT = "amount";
     //public static final String COLUMN_DATE = "date";
     public static final String COLUMN_PAYPERIOD = "pay_period";
-    public static final String COLUMN_HOURS = "hours";
 
     public static final String TABLE_PURCHASES = "purchases";
     public static final String COLUMN_PURCHASEID = "purchase_id";
@@ -88,7 +86,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_PIN + " integer, "
             + COLUMN_SALT +" integer, "
             + COLUMN_FIRSTTIME + " integer, "
-            + COLUMN_BUDGET + " text, "
             + COLUMN_HASPIN + " integer, "
             + COLUMN_LASTSYNC + " text, "
             + COLUMN_LASTCALC + " text, "
@@ -120,8 +117,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_INCOMENAME + " text, "
             + COLUMN_AMOUNT + " double, "
             + COLUMN_DATE + " text, "
-            + COLUMN_PAYPERIOD + " text, "
-            + COLUMN_HOURS + " integer)";
+            + COLUMN_PAYPERIOD + " text)";
 
     private static final String DATABASE_CREATE_PURCHASES =  " create table "
             + TABLE_PURCHASES + "("
