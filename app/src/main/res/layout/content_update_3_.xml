@@ -154,12 +154,12 @@
         android:layout_height="20dp" />
 
     <Button
-        android:id="@+id/button17"
+        android:id="@+id/deleteIncome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:onClick="backToHome"
-        android:background="@color/colorPrimary"
+        android:onClick="deleteIncome"
+        android:background="#ff0000"
         android:textColor="#FFFFFF"
-        android:text="Back" />
+        android:text="Delete Income" />
 </LinearLayout>

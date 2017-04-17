@@ -26,6 +26,7 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
     List<Bill> billList;
     Bill bill;
     Button button;
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(this);
 
+        deleteButton = (Button) findViewById(R.id.deleteBill);
+        deleteButton.setVisibility(View.GONE);
     }
 
     public List<String> getBillNames() {
@@ -97,6 +100,7 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
             dueDate.setText("");
             occurrence.setSelection(0);
             button.setText("Add Bill");
+            deleteButton.setVisibility(View.INVISIBLE);
         } else {
             billName.setText(bill.getBillName());
 
@@ -109,6 +113,7 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
             occurrence.setSelection(bill.getOccurrenceRte());
 
             button.setText("Update Bill");
+            deleteButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -194,10 +199,20 @@ public class Update_2_Activity extends AppCompatActivity implements AdapterView.
                 .setAction("Action", null).show();
     }
 
-    public void backToHome(View view) {
-        Intent intent = new Intent(this, Update_0_Activity.class);
-        startActivity(intent);
-    }
+    public void deleteBill(View view) {
+        ds.deleteById("bill", String.valueOf(bill.getBillId()));
 
+        Toast.makeText(this, bill.getBillName() + " deleted!", Toast.LENGTH_LONG).show();
+
+        //Get Names of Goals
+        List<String> list = getBillNames();
+
+        Spinner spinner = (Spinner) findViewById(R.id.billSpinner);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item,list);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter1);
+        spinner.setOnItemSelectedListener(this);
+    }
 
 }

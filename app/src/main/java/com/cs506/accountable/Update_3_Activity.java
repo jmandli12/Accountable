@@ -32,6 +32,7 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
     List<Income> incomeList;
     Income income;
     Button button;
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,8 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(this);
 
+        deleteButton = (Button) findViewById(R.id.deleteIncome);
+        deleteButton.setVisibility(View.GONE);
     }
 
     public List<String> getIncomeNames() {
@@ -200,6 +203,7 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
             receivingDate.setText("");
             payPeriod.setSelection(0);
             button.setText("Add Income");
+            deleteButton.setVisibility(View.INVISIBLE);
         } else{
             incomeName.setText(income.getIncomeName());
 
@@ -211,6 +215,7 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
             int spinnerPosition = adapter.getPosition(income.getPayPeriod());
             payPeriod.setSelection(spinnerPosition);
             button.setText("Update Income");
+            deleteButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -219,10 +224,20 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
     }
 
 
+    public void deleteIncome(View view) {
+        ds.deleteById("income", String.valueOf(income.getIncomeId()));
 
-    public void backToHome(View view) {
-        Intent intent = new Intent(this, Update_0_Activity.class);
-        startActivity(intent);
+        Toast.makeText(this, income.getIncomeName() + " deleted!", Toast.LENGTH_LONG).show();
+
+        //Get Names of Goals
+        List<String> list = getIncomeNames();
+
+        Spinner spinner = (Spinner) findViewById(R.id.incomeSpinner);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item,list);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter1);
+        spinner.setOnItemSelectedListener(this);
     }
 
     public void incomeNameHelp(View view) {

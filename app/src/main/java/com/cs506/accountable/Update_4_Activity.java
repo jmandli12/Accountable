@@ -265,8 +265,4 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         }
     }
 
-    public void backToHome(View view) {
-        Intent intent = new Intent(this, Update_0_Activity.class);
-        startActivity(intent);
-    }
 }

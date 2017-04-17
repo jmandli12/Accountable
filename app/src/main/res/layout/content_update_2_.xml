@@ -155,13 +155,13 @@
         android:layout_height="20dp" />
 
     <Button
-        android:id="@+id/button14"
+        android:id="@+id/deleteBill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:onClick="backToHome"
-        android:background="@color/colorPrimary"
+        android:onClick="deleteBill"
+        android:background="#ff0000"
         android:textColor="#FFFFFF"
-        android:text="Back" />
+        android:text="Delete Bill" />
 
 </LinearLayout>
