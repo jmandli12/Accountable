@@ -80,8 +80,6 @@ public class Main_Activity extends AppCompatActivity {
             Intent intent = new Intent(this, About_Activity.class);
             startActivity(intent);
         } else if (id == R.id.changePIN_settings){
-            List<Object> obj = ds.retrieveAll("user");
-            User user = (User) obj.get(0);
             if(user.getHasPin() == 1){
                 Intent intent = new Intent(this, Lock_Screen_Activity.class);
                 intent.putExtra("changePIN", "YES");

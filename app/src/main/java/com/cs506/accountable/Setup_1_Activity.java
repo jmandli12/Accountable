@@ -58,7 +58,8 @@ public class Setup_1_Activity extends AppCompatActivity {
             if(changePIN){
                 List<Object> obj = ds.retrieveAll("user");
                 User user = (User) obj.get(0);
-                String[] userArgs = {"1", "User", "0", pinString, "0", "0", user.getBudget(), "1"};
+                String[] userArgs = {"1", "User", "0", pinString, "0", "0",
+                        "1", user.getLastSync(), user.getLastCalc(), String.valueOf(user.getAllowance())};
                 ds.create("user", userArgs);
                 Toast.makeText(this, "Updated PIN", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, Main_Activity.class);

@@ -68,10 +68,11 @@ public class Setup_0_Activity extends AppCompatActivity {
 
     public void skipButton(View view) {
 
-        if(prev.getString("changePIN") != null){
+        if(prev.getString("changePIN").equals("YES")){
             List<Object> obj = ds.retrieveAll("user");
-            User user = (User) obj.get(0);
-            String[] userArgs = {"1", "User", "0", "-1", "0", "0", user.getBudget(), "0"};
+            User user = (User) ds.retrieveById("user", "1");
+            String[] userArgs = {"1", "User", "0", "-1", "0", "0",
+                    "0", user.getLastSync(), user.getLastCalc(), String.valueOf(user.getAllowance())};
             ds.create("user", userArgs);
             Intent intent = new Intent(this, Main_Activity.class);
             startActivity(intent);
