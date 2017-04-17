@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,7 +22,7 @@ import com.cs506.accountable.sqlite.DataSource;
 import java.util.Date;
 import java.util.List;
 
-public class Setup_6_Activity extends AppCompatActivity {
+public class Setup_6_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     DataSource ds;
     String pin;
     String accountID;
@@ -40,11 +43,13 @@ public class Setup_6_Activity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+
         spinner = (Spinner) findViewById(R.id.unitSavingSpinner);
         adapter = ArrayAdapter.createFromResource(this,
                 R.array.unit_of_saving_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
         Bundle prev = getIntent().getExtras();
         if(prev != null){
             pin = prev.getString("pin");
@@ -53,7 +58,23 @@ public class Setup_6_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        LinearLayout timePeriodLayout = (LinearLayout) findViewById(R.id.timePeriodLayout);
+        if(pos == 2){
+            timePeriodLayout.setVisibility(View.INVISIBLE);
+        } else{
+            timePeriodLayout.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
     public void addGoal(View view) {
+
 
         String timePeriod;
         String unitSaving;
