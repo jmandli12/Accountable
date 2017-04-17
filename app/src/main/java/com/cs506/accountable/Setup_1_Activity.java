@@ -10,11 +10,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cs506.accountable.dto.User;
 import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.List;
 
 public class Setup_1_Activity extends AppCompatActivity {
     String unconfirmedPIN;
     DataSource ds;
+    boolean changePIN = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ds = new DataSource(this);
@@ -29,9 +33,13 @@ public class Setup_1_Activity extends AppCompatActivity {
         Bundle prev = getIntent().getExtras();
         if(prev != null){
             unconfirmedPIN = prev.getString("unconfirmedPIN");
+            if(prev.getString("changePIN") != null){
+                changePIN = true;
+            }
         }else{
             unconfirmedPIN = "1234";
         }
+
     }
 
     /*
@@ -47,12 +55,22 @@ public class Setup_1_Activity extends AppCompatActivity {
 
             Toast.makeText(this, "PIN confirmed", Toast.LENGTH_LONG).show();
 
-            //Move onto next screen
-            Intent intent = new Intent(this, Setup_2_Activity.class);
-            //intent.putExtra("userID", "0");
-            intent.putExtra("pin", pinString);
-            startActivity(intent);
-            finish();
+            if(changePIN){
+                List<Object> obj = ds.retrieveAll("user");
+                User user = (User) obj.get(0);
+                String[] userArgs = {"1", "User", "0", pinString, "0", "0", user.getBudget(), "1"};
+                ds.create("user", userArgs);
+                Toast.makeText(this, "Updated PIN", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, Main_Activity.class);
+                startActivity(intent);
+            } else {
+                //Move onto next screen
+                Intent intent = new Intent(this, Setup_2_Activity.class);
+                //intent.putExtra("userID", "0");
+                intent.putExtra("pin", pinString);
+                startActivity(intent);
+                finish();
+            }
         }
         else if(pinString.length() != 4) {
             Toast.makeText(this, "PIN must be 4 digits long", Toast.LENGTH_LONG).show();

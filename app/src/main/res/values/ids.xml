@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="about_settings" type="id">About</item>
+    <item name="changePIN_settings" type="id">changePIN_settings</item>
+</resources>

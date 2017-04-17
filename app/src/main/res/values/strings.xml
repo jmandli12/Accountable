@@ -95,5 +95,15 @@
     <string name="title_activity_update_4_">Update_4_Activity</string>
     <string name="title_activity_update_5_">Update_5_Activity</string>
     <string name="title_activity_status_6_">Status_6_Activity</string>
+    <string name="title_activity_about_">About_Activity</string>
+    <string name="AboutScreen">Accountable was created by a group of 7 guys at the University of Wisconsin-Madison for CS506, Software Engineering, Spring semester 2017.</string>
+    <string name="aboutMembers">\n\nMembers:
+        \n\nAlec M
+        \nChensong H
+        \nJonah M
+        \nMike B
+        \nSean-Patrick S
+        \nThomas S
+        \nTony K</string>
 
 </resources>

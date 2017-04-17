@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs506.accountable.dto.User;
@@ -22,44 +23,54 @@ public class Lock_Screen_Activity extends AppCompatActivity {
 
     DataSource ds;
     int pin;
+    boolean changePIN = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Check to see if it is users first time running application
-        boolean firstTime = false; //TODO: get this value from the database
-        boolean hasPin = false; //TODO: get this value from the database
-
-        try {
-            SQLiteDatabase checkDB = SQLiteDatabase.openDatabase("/data/data/com.cs506.accountable/databases/accountable.db", null, SQLiteDatabase.OPEN_READONLY);
-            checkDB.close();
-        } catch (Exception e) {
-            firstTime = true;
-        }
         ds = new DataSource(Lock_Screen_Activity.this);
         ds.open();
-        if(!firstTime && ds.retrieveAll("user").size()==0){
-            firstTime=true;
-        }
 
-        if (firstTime) {
-            Intent intent = new Intent(this, WelcomeActivity.class);
-            ds.wipe();
-            startActivity(intent);
-        } else {
+        if (getIntent().getExtras() != null) {
             List<Object> obj = ds.retrieveAll("user");
             User user = (User) obj.get(0);
             if (user.getHasPin() == 1) {
-                hasPin = true;
                 pin = user.getPin();
             }
+            changePIN = true;
+        } else {
+            //Check to see if it is users first time running application
+            boolean firstTime = false;
+            boolean hasPin = false;
 
-            if (!hasPin) {
-                Intent intent = new Intent(this, Main_Activity.class);
+            try {
+                SQLiteDatabase checkDB = SQLiteDatabase.openDatabase("/data/data/com.cs506.accountable/databases/accountable.db", null, SQLiteDatabase.OPEN_READONLY);
+                checkDB.close();
+            } catch (Exception e) {
+                firstTime = true;
+            }
+
+            if (!firstTime && ds.retrieveAll("user").size() == 0) {
+                firstTime = true;
+            }
+
+            if (firstTime) {
+                Intent intent = new Intent(this, WelcomeActivity.class);
+                ds.wipe();
                 startActivity(intent);
+            } else {
+                List<Object> obj = ds.retrieveAll("user");
+                User user = (User) obj.get(0);
+                if (user.getHasPin() == 1) {
+                    hasPin = true;
+                    pin = user.getPin();
+                }
+
+                if (!hasPin) {
+                    Intent intent = new Intent(this, Main_Activity.class);
+                    startActivity(intent);
+                }
             }
         }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock__screen_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,12 +88,18 @@ public class Lock_Screen_Activity extends AppCompatActivity {
         int pin1 = Integer.parseInt(et.getText().toString());
 
 
-        if(pin == pin1){
+        if (pin == pin1) {
             //If the pins match then go to main view
-            Intent intent = new Intent(this, Main_Activity.class);
-            startActivity(intent);
-        }
-        else{
+            if(changePIN){
+                Intent intent = new Intent(this, Setup_0_Activity.class);
+                intent.putExtra("changePIN", "YES");
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, Main_Activity.class);
+                startActivity(intent);
+            }
+
+        } else {
             et.setText("");
             Toast.makeText(this, "Pins do not Match.  Try Again", Toast.LENGTH_LONG).show();
         }

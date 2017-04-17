@@ -7,4 +7,16 @@
         android:orderInCategory="100"
         android:title="Update Information"
         app:showAsAction="never" />
+
+    <item
+        android:id="@id/changePIN_settings"
+        android:orderInCategory="150"
+        android:title="Update PIN"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/about_settings"
+        android:orderInCategory="200"
+        android:title="About"
+        app:showAsAction="never" />
 </menu>

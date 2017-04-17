@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
         android:gravity="center"
-        android:text="Enter a PIN as your Password"
+        android:text="Enter a new PIN as your Password"
         android:textSize="40sp" />
 
     <EditText
@@ -55,5 +55,5 @@
         android:onClick="skipButton"
         android:background="@color/colorPrimary"
         android:textColor="#FFFFFF"
-        android:text="Skip" />
+        android:text="  Dont Use A PIN  " />
 </LinearLayout>

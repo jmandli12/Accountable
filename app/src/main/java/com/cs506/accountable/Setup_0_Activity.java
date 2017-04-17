@@ -17,6 +17,8 @@ import com.cs506.accountable.dto.Purchase;
 import com.cs506.accountable.dto.User;
 import com.cs506.accountable.sqlite.DataSource;
 
+import java.util.List;
+
 public class Setup_0_Activity extends AppCompatActivity {
 
     DataSource ds;
@@ -26,6 +28,7 @@ public class Setup_0_Activity extends AppCompatActivity {
     Income income;
     Purchase purchase;
     Goal goal;
+    Bundle prev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class Setup_0_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        prev = getIntent().getExtras();
+
     }
 
     public void buttonClickHandler(View view) {
@@ -51,6 +56,9 @@ public class Setup_0_Activity extends AppCompatActivity {
             // Move to next Screen
             Intent intent = new Intent(this, Setup_1_Activity.class);
             intent.putExtra("unconfirmedPIN", pinString);
+            if(prev.getString("changePIN").equals("YES")){
+                intent.putExtra("changePIN", prev.getString("changePIN"));
+            }
             startActivity(intent);
         }
         else {
@@ -59,8 +67,22 @@ public class Setup_0_Activity extends AppCompatActivity {
     }
 
     public void skipButton(View view) {
-        Intent intent = new Intent(this, Setup_2_Activity.class);
-        startActivity(intent);
+
+        if(prev.getString("changePIN") != null){
+            List<Object> obj = ds.retrieveAll("user");
+            User user = (User) obj.get(0);
+            String[] userArgs = {"1", "User", "0", "-1", "0", "0", user.getBudget(), "0"};
+            ds.create("user", userArgs);
+            Intent intent = new Intent(this, Main_Activity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, Setup_2_Activity.class);
+            startActivity(intent);
+        }
+
+
+
+
     }
 }
 

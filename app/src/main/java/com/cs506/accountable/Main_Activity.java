@@ -12,11 +12,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cs506.accountable.dto.User;
+import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.List;
+
 
 public class Main_Activity extends AppCompatActivity {
 
+    DataSource ds;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ds = new DataSource(Main_Activity.this);
+        ds.open();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_);
@@ -47,6 +56,22 @@ public class Main_Activity extends AppCompatActivity {
             Intent intent = new Intent(this, Update_0_Activity.class);
             startActivity(intent);
             return true;
+        } else if (id == R.id.about_settings){
+            Intent intent = new Intent(this, About_Activity.class);
+            startActivity(intent);
+        } else if (id == R.id.changePIN_settings){
+            List<Object> obj = ds.retrieveAll("user");
+            User user = (User) obj.get(0);
+            if(user.getHasPin() == 1){
+                Intent intent = new Intent(this, Lock_Screen_Activity.class);
+                intent.putExtra("changePIN", "YES");
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, Setup_0_Activity.class);
+                intent.putExtra("changePIN", "YES");
+                startActivity(intent);
+            }
+
         }
 
         return super.onOptionsItemSelected(item);
