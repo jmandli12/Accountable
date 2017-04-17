@@ -27,7 +27,7 @@ import static android.view.View.GONE;
 import static com.cs506.accountable.R.id.incomeAmount;
 import static com.cs506.accountable.R.id.incomeName;
 
-public class Update_4_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class Update_4_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     DataSource ds;
     List<Goal> goalList;
@@ -58,13 +58,14 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
                 R.array.unit_of_saving_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         //Get Names of Incomes
         List<String> list = getGoalNames();
 
         spinner = (Spinner) findViewById(R.id.goalSpinner);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item,list);
+                android.R.layout.simple_spinner_dropdown_item, list);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(this);
@@ -82,12 +83,12 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         goal.setGoalName("New Goal");
         goalList.add(goal);
 
-        for(Object object : obj){
+        for (Object object : obj) {
             goal = (Goal) object;
             goalList.add(goal);
         }
 
-        for(Goal g : goalList){
+        for (Goal g : goalList) {
             goalNames.add(g.getGoalName());
         }
         return goalNames;
@@ -95,6 +96,7 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         Spinner timePeriod = (Spinner) findViewById(R.id.timePeriodSpinner2);
@@ -104,33 +106,44 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         button = (Button) findViewById(R.id.addUpdateGoal);
         deleteButton = (Button) findViewById(R.id.deleteGoal);
 
-        goal = goalList.get(pos);
+        switch (parent.getId()) {
+            case R.id.unitSavingSpinner2:
+                LinearLayout timePeriodLayout = (LinearLayout) findViewById(R.id.timePeriodLayout2);
+                if (pos == 2) {
+                    timePeriodLayout.setVisibility(View.INVISIBLE);
+                } else {
+                    timePeriodLayout.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.goalSpinner:
+                goal = goalList.get(pos);
 
-        //Get all information about bill
-        if(pos==0){
-            goalName.setText("");
-            timePeriod.setSelection(0);
-            unitSaving.setSelection(0);
-            amountToSave.setText("");
-            button.setText("Add Goal");
-            deleteButton.setVisibility(View.GONE);
-        } else{
-            deleteButton.setVisibility(View.VISIBLE);
-            goalName.setText(goal.getGoalName());
-            timePeriod.setSelection(goal.getTimePeriod());
-            unitSaving.setSelection(goal.getUnit());
+                //Get all information about bill
+                if (pos == 0) {
+                    goalName.setText("");
+                    timePeriod.setSelection(0);
+                    unitSaving.setSelection(0);
+                    amountToSave.setText("");
+                    button.setText("Add Goal");
+                    deleteButton.setVisibility(View.GONE);
+                } else {
+                    deleteButton.setVisibility(View.VISIBLE);
+                    goalName.setText(goal.getGoalName());
+                    timePeriod.setSelection(goal.getTimePeriod());
+                    unitSaving.setSelection(goal.getUnit());
 
-            String amount;
-            if(goal.getUnit() > 1) {
-                amount = String.valueOf((int) goal.getAmount());
-            }
-            else {
-                amount = String.valueOf(goal.getAmount());
-            }
-            if(amount.charAt(amount.length()-2) == '.') amount = amount.concat("0");
-            amountToSave.setText(String.valueOf(amount));
+                    String amount;
+                    if (goal.getUnit() > 1) {
+                        amount = String.valueOf((int) goal.getAmount());
+                    } else {
+                        amount = String.valueOf(goal.getAmount());
+                    }
+                    if (amount.charAt(amount.length() - 2) == '.') amount = amount.concat("0");
+                    amountToSave.setText(String.valueOf(amount));
 
-            button.setText("Update Goal");
+                    button.setText("Update Goal");
+                }
+
         }
     }
 
@@ -156,29 +169,29 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
         goalName = name.getText().toString();
 
         boolean isValidAmount = false;
-        if(unitSaving.equals("1")) {
+        if (unitSaving.equals("1")) {
             isValidAmount = amount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         }
-        if(unitSaving.equals("2")) {
+        if (unitSaving.equals("2")) {
             isValidAmount = amount.matches("([0-9]|([1-9][0-9])|100)");
         }
 
         List<Goal> goals = (List<Goal>) (List<?>) ds.retrieveAll("goal");
         boolean duplicate = false;
-        if(!goals.isEmpty()) {
+        if (!goals.isEmpty()) {
             duplicate = goals.get(0).getUnit() == Integer.parseInt(unitSaving);
-            if(goals.size() == 2) {
+            if (goals.size() == 2) {
                 duplicate = goals.get(0).getUnit() == Integer.parseInt(unitSaving)
                         || goals.get(1).getUnit() == Integer.parseInt(unitSaving);
             }
         }
 
         if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0") && !duplicate) {
-            if(unitSaving.equals("2") || unitSaving.equals("3")) {
+            if (unitSaving.equals("2") || unitSaving.equals("3")) {
                 amount = String.valueOf((double) Integer.parseInt(amount));
             }
-            if(button.getText().equals("Add Goal")){
-                String[] goalArgs = { null, "1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
+            if (button.getText().equals("Add Goal")) {
+                String[] goalArgs = {null, "1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
                 ds.create("goal", goalArgs);
             } else {
                 String[] goalArgs = {String.valueOf(goal.getGoalId()), "1", goalName, String.valueOf(timePeriod), String.valueOf(unitSaving), amount};
@@ -194,14 +207,14 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
 
             Spinner spinner = (Spinner) findViewById(R.id.goalSpinner);
             ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_dropdown_item,list);
+                    android.R.layout.simple_spinner_dropdown_item, list);
             adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter1);
             spinner.setOnItemSelectedListener(this);
 
 
         } else {
-            if(duplicate) {
+            if (duplicate) {
                 Toast.makeText(this, "Only one goal per unit type supported", Toast.LENGTH_LONG).show();
             }
             if (goalName.length() == 0) {
@@ -213,13 +226,12 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
             if (timePeriod.equals(unitSaving.equals("0"))) {
                 Toast.makeText(this, "Unit of Saving must be selected", Toast.LENGTH_LONG).show();
             }
-            if(unitSaving.equals("1")) {
+            if (unitSaving.equals("1")) {
                 if (amount.length() < 3 || !isValidAmount) {
                     Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
                 }
-            }
-            else if(unitSaving.equals("2")) {
-                if(!isValidAmount) {
+            } else if (unitSaving.equals("2")) {
+                if (!isValidAmount) {
                     Toast.makeText(this, "\"% of Income\" Goal Amount must be between 0 and 100", Toast.LENGTH_LONG).show();
                 }
             }
@@ -237,7 +249,7 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
 
         Spinner spinner = (Spinner) findViewById(R.id.goalSpinner);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item,list);
+                android.R.layout.simple_spinner_dropdown_item, list);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(this);
