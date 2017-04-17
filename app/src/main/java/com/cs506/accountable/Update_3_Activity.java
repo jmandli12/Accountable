@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,11 +15,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.Bill;
 import com.cs506.accountable.dto.Income;
 import com.cs506.accountable.sqlite.DataSource;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Update_3_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -40,14 +45,8 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Spinner spinner = (Spinner) findViewById(R.id.hoursSpinner2);
+        Spinner spinner = (Spinner) findViewById(R.id.payPeriodSpinner2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.income_hours_array, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner = (Spinner) findViewById(R.id.payPeriodSpinner2);
-        adapter = ArrayAdapter.createFromResource(this,
                 R.array.pay_period_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -75,11 +74,15 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
 
         for(Object object : obj){
             income = (Income) object;
-            incomeList.add(income);
+            if(!income.getPayPeriod().equals("One-time Deposit")) {
+                incomeList.add(income);
+            }
         }
 
         for(Income i : incomeList){
-            incomeNames.add(i.getIncomeName());
+            if(!i.getPayPeriod().equals("One-time Deposit")) {
+                incomeNames.add(i.getIncomeName());
+            }
         }
         return incomeNames;
     }
@@ -89,7 +92,6 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
        String incomeName;
         String incomeAmount;
         String dueDate;
-        String hoursOrSalary;
         String payPeriod;
 
 
@@ -100,8 +102,6 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         EditText date = (EditText) findViewById(R.id.receivingDate2);
         dueDate = date.getText().toString();
 
-        Spinner hOrS = (Spinner) findViewById(R.id.hoursSpinner2);
-        hoursOrSalary = hOrS.getSelectedItemPosition() + "";
         Spinner payPer = (Spinner) findViewById(R.id.payPeriodSpinner2);
         payPeriod = payPer.getSelectedItem().toString();
 
@@ -109,13 +109,43 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         boolean isValidAmount = incomeAmount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
         boolean isValidDate = dueDate.matches("([0][1-9]|[1][0-2])/([0][1-9]|[1-2][0-9]|[3][0-1])/([2][0][0-9][0-9])"); //TODO:
 
-        if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !hoursOrSalary.equals("0") && !payPeriod.equals("Pay Period (Select One)")) {
+        if(isValidDate) {
+            String[] dateArray = dueDate.split("/");
+            GregorianCalendar pd = new GregorianCalendar(Integer.parseInt(dateArray[2]),
+                    Integer.parseInt(dateArray[0])-1, Integer.parseInt(dateArray[1]));
+            GregorianCalendar temp = new GregorianCalendar();
+            GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+                    temp.get(Calendar.DAY_OF_MONTH));
+            isValidDate = !pd.before(today);
+        }
+
+        if (isValidAmount && isValidDate && incomeName.length() > 0 && incomeAmount.length() > 2 && !payPeriod.equals("Pay Period (Select One)")) {
 
             if(button.getText().equals("Add Income")){
-                String[] incomeArgs = {null, "1", String.valueOf(income.getAccountId()), incomeName, incomeAmount, dueDate, payPeriod, hoursOrSalary};
+                String[] incomeArgs = {null, "1", String.valueOf(income.getAccountId()), incomeName, incomeAmount, dueDate, payPeriod};
                 ds.create("income", incomeArgs);
+                Date d = new Date();
+                String today = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
+                if(dueDate.equals(today)) {
+                    Account account = (Account) ds.retrieveById("account", "1");
+                    String accountName = account.getAccountName();
+                    double accountBalance = account.getBalance();
+                    double startBalance = account.getStartBalance();
+                    int intBalance = (int) (accountBalance * 100.0);
+                    int intStart = (int) (startBalance * 100.0);
+                    int intAmount = (int) (Double.parseDouble(incomeAmount) * 100.0);
+                    intBalance += intAmount;
+                    intStart += intAmount;
+                    accountBalance = (double) intBalance / 100;
+                    startBalance = (double) intStart / 100;
+
+                    String[] accountArgs = {"1", "1", accountName, String.valueOf(accountBalance),
+                            String.valueOf(startBalance)};
+                    //accountID, userID, accountName, accountBalance
+                    ds.create("account", accountArgs);
+                }
             } else {
-                String[] incomeArgs = {String.valueOf(income.getIncomeId()), "1", String.valueOf(income.getAccountId()), incomeName, incomeAmount, dueDate, payPeriod, hoursOrSalary};
+                String[] incomeArgs = {String.valueOf(income.getIncomeId()), "1", String.valueOf(income.getAccountId()), incomeName, incomeAmount, dueDate, payPeriod};
                 ds.create("income", incomeArgs);
             }
 
@@ -145,9 +175,6 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
             if (payPeriod.equals("Pay Period (Select One)")) {
                 Toast.makeText(this, "Pay Period must be selected", Toast.LENGTH_LONG).show();
             }
-            if (hoursOrSalary.equals("Hourly or Salary? (Select One)")) {
-                Toast.makeText(this, "Method of pay must be selected", Toast.LENGTH_LONG).show();
-            }
         }
     }
 
@@ -159,7 +186,6 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         EditText incomeAmount = (EditText) findViewById(R.id.incomeAmount2);
         EditText receivingDate = (EditText) findViewById(R.id.receivingDate2);
         Spinner payPeriod = (Spinner) findViewById(R.id.payPeriodSpinner2);
-        Spinner hours = (Spinner) findViewById(R.id.hoursSpinner2);
         button = (Button) findViewById(R.id.addUpdateIncome);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.pay_period_array, android.R.layout.simple_spinner_dropdown_item);
@@ -173,7 +199,6 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
             incomeAmount.setText("");
             receivingDate.setText("");
             payPeriod.setSelection(0);
-            hours.setSelection(0);
             button.setText("Add Income");
         } else{
             incomeName.setText(income.getIncomeName());
@@ -185,7 +210,6 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
             receivingDate.setText(income.getDate());
             int spinnerPosition = adapter.getPosition(income.getPayPeriod());
             payPeriod.setSelection(spinnerPosition);
-            hours.setSelection(income.getHours());
             button.setText("Update Income");
         }
     }
@@ -220,11 +244,5 @@ public class Update_3_Activity extends AppCompatActivity implements AdapterView.
         Snackbar.make(view, "How often you get a Paycheck \n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
-
-    public void workKindHelp(View view) {
-        Snackbar.make(view, "Do you work Hourly or Salary\n(Swipe to Dismiss)", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Action", null).show();
-    }
-
 
 }

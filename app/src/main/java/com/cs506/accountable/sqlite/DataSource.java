@@ -37,7 +37,8 @@ public class DataSource {
             SQLiteHelper.COLUMN_ACCOUNTID,
             SQLiteHelper.COLUMN_USERID,
             SQLiteHelper.COLUMN_ACCOUNTNAME,
-            SQLiteHelper.COLUMN_BALANCE
+            SQLiteHelper.COLUMN_BALANCE,
+            SQLiteHelper.COLUMN_STARTBALANCE
     };
     private String[] allColumnsBill = {
             SQLiteHelper.COLUMN_BILLID,
@@ -65,8 +66,7 @@ public class DataSource {
             SQLiteHelper.COLUMN_INCOMENAME,
             SQLiteHelper.COLUMN_AMOUNT,
             SQLiteHelper.COLUMN_DATE,
-            SQLiteHelper.COLUMN_PAYPERIOD,
-            SQLiteHelper.COLUMN_HOURS
+            SQLiteHelper.COLUMN_PAYPERIOD
     };
     private String[] allColumnsPurchase = {
             SQLiteHelper.COLUMN_PURCHASEID,
@@ -86,8 +86,10 @@ public class DataSource {
             SQLiteHelper.COLUMN_PIN,
             SQLiteHelper.COLUMN_SALT,
             SQLiteHelper.COLUMN_FIRSTTIME,
-            SQLiteHelper.COLUMN_BUDGET,
-            SQLiteHelper.COLUMN_HASPIN
+            SQLiteHelper.COLUMN_HASPIN,
+            SQLiteHelper.COLUMN_LASTSYNC,
+            SQLiteHelper.COLUMN_LASTCALC,
+            SQLiteHelper.COLUMN_ALLOWANCE
     };
 
     // constructs dbHelper
@@ -144,8 +146,10 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_PIN, Integer.parseInt(args[3]));
                     values.put(SQLiteHelper.COLUMN_SALT, args[4]);
                     values.put(SQLiteHelper.COLUMN_FIRSTTIME, Integer.parseInt(args[5]));
-                    values.put(SQLiteHelper.COLUMN_BUDGET, args[6]);
-                    values.put(SQLiteHelper.COLUMN_HASPIN, Integer.parseInt(args[7]));
+                    values.put(SQLiteHelper.COLUMN_HASPIN, Integer.parseInt(args[6]));
+                    values.put(SQLiteHelper.COLUMN_LASTSYNC, args[7]);
+                    values.put(SQLiteHelper.COLUMN_LASTCALC, args[8]);
+                    values.put(SQLiteHelper.COLUMN_ALLOWANCE, Double.parseDouble(args[9]));
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_USERS, null, values);
@@ -185,7 +189,6 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_AMOUNT, Double.parseDouble(args[4]));
                     values.put(SQLiteHelper.COLUMN_DATE, args[5]);
                     values.put(SQLiteHelper.COLUMN_PAYPERIOD, args[6]);
-                    values.put(SQLiteHelper.COLUMN_HOURS, Integer.parseInt(args[7]));
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_INCOMES, null, values);
@@ -223,6 +226,7 @@ public class DataSource {
                     values.put(SQLiteHelper.COLUMN_USERID, Integer.parseInt(args[1]));
                     values.put(SQLiteHelper.COLUMN_ACCOUNTNAME, args[2]);
                     values.put(SQLiteHelper.COLUMN_BALANCE, Double.parseDouble(args[3]));
+                    values.put(SQLiteHelper.COLUMN_STARTBALANCE, Double.parseDouble(args[4]));
 
                     //insert values as entry into database
                     returnValue = database.insert(SQLiteHelper.TABLE_ACCOUNTS, null, values);
@@ -385,18 +389,19 @@ public class DataSource {
      * @param id  the ID of the entry to delete
      * @return
      */
-    public Object deleteById(String str, Integer id) {
+    public Object deleteById(String str, String id) {
         Integer result = 0;
         try {
             //create empty ContentValues
             ContentValues values;
+            String[] whereArgs;
             switch (str.toLowerCase()) {
 
                 //user case
                 case "user":
 
                     //move cursor to to user table
-                    String[] whereArgs = new String[id];
+                    whereArgs = new String[]{id};
                     result = 0;
                     Cursor cursor = database.query(SQLiteHelper.TABLE_USERS, null, null, null, null, null, null);
                     if (cursor.moveToFirst()) {
@@ -404,14 +409,14 @@ public class DataSource {
                         //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_USERS, //User Table
-                                "? = " + SQLiteHelper.COLUMN_USERID, whereArgs);
+                                SQLiteHelper.COLUMN_USERID + " = ?", whereArgs);
                     }
                     cursor.close();
                     break;
 
                 //bill case
                 case "bill":
-                    whereArgs = new String[id];
+                    whereArgs = new String[]{id};
                     result = 0;
 
                     //move cursor to to user table
@@ -421,7 +426,7 @@ public class DataSource {
                         //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_BILLS, //Table
-                                "? = " + SQLiteHelper.COLUMN_BILLID, //Where clause
+                                SQLiteHelper.COLUMN_BILLID + " = ?", //Where clause
                                 whereArgs //Replaces ? with where args incrementally
                         );
                     }
@@ -430,7 +435,7 @@ public class DataSource {
 
                 //account case
                 case "account":
-                    whereArgs = new String[id];
+                    whereArgs = new String[]{id};
                     result = 0;
 
                     //move cursor to to user table
@@ -440,7 +445,7 @@ public class DataSource {
                         //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_ACCOUNTS, //Table
-                                "? = " + SQLiteHelper.COLUMN_ACCOUNTID, //Where clause
+                                SQLiteHelper.COLUMN_ACCOUNTID + " = ?", //Where clause
                                 whereArgs //Replaces ? with where args incrementally
                         );
                     }
@@ -449,7 +454,7 @@ public class DataSource {
 
                 //purchase
                 case "purchase":
-                    whereArgs = new String[id];
+                    whereArgs = new String[]{id};
                     result = 0;
 
                     //move cursor to to user table
@@ -459,7 +464,7 @@ public class DataSource {
                         //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_PURCHASES, //Table
-                                "? = " + SQLiteHelper.COLUMN_PURCHASEID, //Where clause
+                                SQLiteHelper.COLUMN_PURCHASEID + " = ?", //Where clause
                                 whereArgs //Replaces ? with where args incrementally
                         );
                     }
@@ -468,7 +473,7 @@ public class DataSource {
 
                 //income
                 case "income":
-                    whereArgs = new String[id];
+                    whereArgs = new String[]{id};
                     result = 0;
 
                     //move cursor to to user table
@@ -478,14 +483,14 @@ public class DataSource {
                         //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_INCOMES, //Table
-                                "? = " + SQLiteHelper.COLUMN_INCOMEID, //Where clause
+                                SQLiteHelper.COLUMN_INCOMEID + " = ?", //Where clause
                                 whereArgs //Replaces ? with where args incrementally
                         );
                     }
                     cursor.close();
                     break;
                 case "goal":
-                    whereArgs = new String[id];
+                    whereArgs = new String[]{id};
                     result = 0;
 
                     //move cursor to to user table
@@ -495,7 +500,7 @@ public class DataSource {
                         //delete query based on id
                         result = database.delete(
                                 SQLiteHelper.TABLE_GOALS, //Table
-                                "? = " + SQLiteHelper.COLUMN_USERID, //Where clause
+                                SQLiteHelper.COLUMN_GOALID + " = ?", //Where clause
                                 whereArgs //Replaces ? with where args incrementally
                         );
                     }
@@ -574,7 +579,7 @@ public class DataSource {
                     return newAccount;
                 case "goal":
                     cursor = database.query(SQLiteHelper.TABLE_GOALS,
-                            allColumnsGoal, SQLiteHelper.COLUMN_USERID + " = " + id,
+                            allColumnsGoal, SQLiteHelper.COLUMN_GOALID + " = " + id,
                             null, null, null, null);
                     cursor.moveToFirst();
                     newGoal = cursorToGoal(cursor);
@@ -725,8 +730,7 @@ public class DataSource {
                 cursor.getString(3),
                 cursor.getDouble(4),
                 cursor.getString(5),
-                cursor.getString(6),
-                cursor.getInt(7)
+                cursor.getString(6)
         );
         return income;
     }
@@ -754,8 +758,10 @@ public class DataSource {
                 cursor.getInt(3),
                 cursor.getString(4),
                 cursor.getInt(5),
-                cursor.getString(6),
-                cursor.getInt(7)
+                cursor.getInt(6),
+                cursor.getString(7),
+                cursor.getString(8),
+                cursor.getDouble(9)
         );
         return user;
     }

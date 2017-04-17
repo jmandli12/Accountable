@@ -6,19 +6,23 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cs506.accountable.dto.Goal;
 import com.cs506.accountable.sqlite.DataSource;
+
+import java.util.Date;
+import java.util.List;
 
 public class Setup_6_Activity extends AppCompatActivity {
     DataSource ds;
     String pin;
     String accountID;
-    String budget;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ds = new DataSource(this);
@@ -45,7 +49,6 @@ public class Setup_6_Activity extends AppCompatActivity {
         if(prev != null){
             pin = prev.getString("pin");
             accountID = prev.getString("accountID");
-            budget = prev.getString("budget");
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -66,11 +69,26 @@ public class Setup_6_Activity extends AppCompatActivity {
         amount = text.getText().toString();
         EditText name = (EditText) findViewById(R.id.goalName);
         goalName = name.getText().toString();
-
-        boolean isValidAmount = amount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
-
-        if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0")) {
-
+        boolean isValidAmount = false;
+        if(unitSaving.equals("1")) {
+            isValidAmount = amount.matches("([0-9]|([1-9][0-9]+))\\.[0-9][0-9]");
+        }
+        if(unitSaving.equals("2")) {
+            isValidAmount = amount.matches("([0-9]|([1-9][0-9])|100)");
+        }
+        List<Goal> goals = (List<Goal>) (List<?>) ds.retrieveAll("goal");
+        boolean duplicate = false;
+        if(!goals.isEmpty()) {
+            duplicate = goals.get(0).getUnit() == Integer.parseInt(unitSaving);
+            if(goals.size() == 2) {
+                duplicate = goals.get(0).getUnit() == Integer.parseInt(unitSaving)
+                        || goals.get(1).getUnit() == Integer.parseInt(unitSaving);
+            }
+        }
+        if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0") && !duplicate) {
+            if(unitSaving.equals("2")) {
+                amount = String.valueOf((double) Integer.parseInt(amount));
+            }
             String[] goalArgs = { null, "1", goalName, timePeriod, unitSaving, amount};
             ds.create("goal", goalArgs);
 
@@ -85,6 +103,9 @@ public class Setup_6_Activity extends AppCompatActivity {
 
 
         } else {
+            if(duplicate) {
+                Toast.makeText(this, "Only one goal per unit type supported", Toast.LENGTH_LONG).show();
+            }
             if (goalName.length() == 0) {
                 Toast.makeText(this, "Goal Name cannot be empty", Toast.LENGTH_LONG).show();
             }
@@ -94,8 +115,15 @@ public class Setup_6_Activity extends AppCompatActivity {
             if (timePeriod.equals(unitSaving.equals("0"))) {
                 Toast.makeText(this, "Unit of Saving must be selected", Toast.LENGTH_LONG).show();
             }
-            if (amount.length() < 3 || !isValidAmount) {
-                Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+            if(unitSaving.equals("1")) {
+                if (amount.length() < 3 || !isValidAmount) {
+                    Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                }
+            }
+            else if(unitSaving.equals("2") || unitSaving.equals("3")) {
+                if(!isValidAmount) {
+                    Toast.makeText(this, "\"% of Income\" Goal Amount must be between 0 and 100", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
@@ -130,9 +158,10 @@ public class Setup_6_Activity extends AppCompatActivity {
             } else {
                 hasPin = "1";
             }
-
-            //userID, userName, pinHash, pin, salt, firstTime(now it is false), budget, hasPin
-            String[] userArgs = {"1", "User", "0", pin, "0", "0", budget, hasPin};
+            Date d = new Date();
+            String now = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
+            //userID, userName, pinHash, pin, salt, firstTime(now it is false), hasPin
+            String[] userArgs = {"1", "User", "0", pin, "0", "0", hasPin, now, "", "0.0"};
 
             ds.create("user", userArgs);
             Intent intent = new Intent(this, Setup_7_Activity.class);

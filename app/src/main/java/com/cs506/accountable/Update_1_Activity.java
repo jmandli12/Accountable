@@ -65,7 +65,7 @@ public class Update_1_Activity extends AppCompatActivity {
             //Toast.makeText(this, "Account Name: " + accountName + " Account Balance: " + accountBalance, Toast.LENGTH_LONG).show();
 
             //Save Bank Info
-            String[] accountArgs = {"1", "1", accountName, accountBalance};
+            String[] accountArgs = {"1", "1", accountName, accountBalance, accountBalance};
             //accountID, userID, accountName, accountBalance
             Account account = (Account) ds.create("account", accountArgs);
 

@@ -6,16 +6,10 @@
     <string name="title_activity_setup_2_">Setup_2_Activity</string>
     <string name="title_activity_setup_3_">Setup_3_Activity</string>
     <string name="title_activity_setup_4_">Setup_4_Activity</string>
-    <string name="title_activity_setup_5_">Setup_5_Activity</string>
     <string name="title_activity_setup_6_">Setup_6_Activity</string>
     <string name="title_activity_setup_7_">Setup_7_Activity</string>
     <string name="title_activity_main_">Main_Activity</string>
     <string name="title_activity_purchase_0_">Purchase_0_Activity</string>
-    <string-array name="budget_array">
-        <item>(Select One)</item>
-        <item>Weekly</item>
-        <item>Monthly</item>
-    </string-array>
     <string-array name="time_period_array">
         <item>Time Period (Select One)</item>
         <item>Daily</item>
@@ -27,7 +21,6 @@
         <item>Unit of Saving (Select One)</item>
         <item>$</item>
         <item>% of Income</item>
-        <item>% of Savings</item>
     </string-array>
     <string-array name="bill_occurrence_array">
         <item>Occurrence (Press to Select)</item>
@@ -40,12 +33,7 @@
         <item>Weekly</item>
         <item>BiWeekly</item>
         <item>Monthly</item>
-        <item>Other</item>
-    </string-array>
-    <string-array name="income_hours_array">
-        <item>Hourly or Salary? (Select One)</item>
-        <item>Hourly</item>
-        <item>Salary</item>
+        <item>One-time Deposit</item>
     </string-array>
     <string-array name="category_array">
         <item>Category (Select One)</item>
@@ -93,7 +81,6 @@
     <string name="title_activity_update_2_">Update_2_Activity</string>
     <string name="title_activity_update_3_">Update_3_Activity</string>
     <string name="title_activity_update_4_">Update_4_Activity</string>
-    <string name="title_activity_update_5_">Update_5_Activity</string>
     <string name="title_activity_status_6_">Status_6_Activity</string>
     <string name="title_activity_about_">About_Activity</string>
     <string name="AboutScreen">Accountable was created by a group of 7 guys at the University of Wisconsin-Madison for CS506, Software Engineering, Spring semester 2017.</string>

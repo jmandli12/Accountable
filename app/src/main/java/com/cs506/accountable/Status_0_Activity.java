@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.cs506.accountable.dto.Account;
 import com.cs506.accountable.dto.Bill;
+import com.cs506.accountable.dto.Goal;
 import com.cs506.accountable.dto.Income;
 import com.cs506.accountable.dto.Purchase;
 import com.cs506.accountable.dto.User;
@@ -66,20 +68,41 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         TextView incomeEarned = (TextView) findViewById(R.id.incomeEarned);
         TextView spendingAllowance = (TextView) findViewById(R.id.spendingAllowance);
         TextView amountSpent = (TextView) findViewById(R.id.amountSpent);
-        TextView goalStatus = (TextView) findViewById(R.id.goalStatus);
 
         allBills = (List<Bill>)(List<?>) ds.retrieveAll("bill"); //TODO
         allIncomes = (List<Income>)(List<?>) ds.retrieveAll("income"); //TODO
         allPurchases = (List<Purchase>)(List<?>) ds.retrieveAll("purchase");
         account = (Account) ds.retrieveById("account", "1");
         user = (User) ds.retrieveById("user", "1");
-        accountBalance.setText(formatDoubleMoney(account.getBalance()));
-        incomeEarned.setText(todayIncome());
-        spendingAllowance.setText(todayAllowance());
-        amountSpent.setText(todaySpent());
-        goalStatus.setText("0.00");
+        accountBalance.setText("$" + formatDoubleMoney(account.getBalance()));
+        incomeEarned.setText("$" + todayIncome());
+//        if(!user.getLastCalc().isEmpty()) {
+//            String[] lastCalc = user.getLastCalc().split("/");
+//            GregorianCalendar lc = new GregorianCalendar(Integer.parseInt(lastCalc[2]),
+//                    Integer.parseInt(lastCalc[0])-1, Integer.parseInt(lastCalc[1]));
+//            GregorianCalendar temp = new GregorianCalendar();
+//            GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+//                    temp.get(Calendar.DAY_OF_MONTH));
+//            if(lc.before(today)) {
+//                spendingAllowance.setText("$" + todayAllowance());
+//            }
+//            else {
+//                spendingAllowance.setText("$" + formatDoubleMoney(user.getAllowance()));
+//            }
+//        }
+//        else {
+            spendingAllowance.setText("$" + todayAllowance());
+//        }
+        amountSpent.setText("$" + todaySpent());
 
         ds.close();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            if(extras.getBoolean("forPurchase")) {
+                Intent intent = new Intent(this, Purchase_0_Activity.class);
+                startActivity(intent);
+            }
+        }
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -91,7 +114,6 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         TextView incomeEarned = (TextView) findViewById(R.id.incomeEarned);
         TextView spendingAllowance = (TextView) findViewById(R.id.spendingAllowance);
         TextView amountSpent = (TextView) findViewById(R.id.amountSpent);
-        TextView goalStatus = (TextView) findViewById(R.id.goalStatus);
         LinearLayout dates = (LinearLayout) findViewById(R.id.customDateLayout);
 
         String statusRange = (String) parent.getItemAtPosition(pos);
@@ -103,27 +125,38 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
         //TODO: Use current selection to get values from database
         //Account account = (Account) ds.retrieveById("account", "1");
 
-        accountBalance.setText(formatDoubleMoney(account.getBalance()));
+        String[] lastCalc = user.getLastCalc().split("/");
+        GregorianCalendar lc = new GregorianCalendar(Integer.parseInt(lastCalc[2]),
+                Integer.parseInt(lastCalc[0])-1, Integer.parseInt(lastCalc[1]));
+        GregorianCalendar temp = new GregorianCalendar();
+        GregorianCalendar today = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+                temp.get(Calendar.DAY_OF_MONTH));
+
+        accountBalance.setText("$" + formatDoubleMoney(account.getBalance()));
         switch (pos) {
-            case 0: incomeEarned.setText(todayIncome());
-                    spendingAllowance.setText(todayAllowance());
-                    amountSpent.setText(todaySpent());
+            case 0: incomeEarned.setText("$" + todayIncome());
+                    if(lc.before(today)) {
+                        spendingAllowance.setText("$" + todayAllowance());
+                    }
+                    else {
+                        spendingAllowance.setText("$" + formatDoubleMoney(user.getAllowance()));
+                    }
+                    amountSpent.setText("$" + todaySpent());
                     break;
-            case 1: incomeEarned.setText(weeklyIncome());
-                    spendingAllowance.setText(weeklyAllowance());
-                    amountSpent.setText(weeklySpent());
+            case 1: incomeEarned.setText("$" + weeklyIncome());
+                    spendingAllowance.setText("$" + weeklyAllowance());
+                    amountSpent.setText("$" + weeklySpent());
                     break;
-            case 2: incomeEarned.setText(monthlyIncome());
-                    spendingAllowance.setText(monthlyAllowance());
-                    amountSpent.setText(monthlySpent());
+            case 2: incomeEarned.setText("$" + monthlyIncome());
+                    spendingAllowance.setText("$" + monthlyAllowance());
+                    amountSpent.setText("$" + monthlySpent());
                     break;
-            case 3: incomeEarned.setText(yearlyIncome());
-                    spendingAllowance.setText(yearlyAllowance());
-                    amountSpent.setText(yearlySpent());
+            case 3: incomeEarned.setText("$" + yearlyIncome());
+                    spendingAllowance.setText("$" + yearlyAllowance());
+                    amountSpent.setText("$" + yearlySpent());
                     break;
             default: break;
         }
-        goalStatus.setText("0.00");
 
         ds.close();
     }
@@ -148,7 +181,7 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
     public String todayIncome(GregorianCalendar temp) {
         Iterator<Income> iterateIncomes = allIncomes.iterator();
         validIncomes = new ArrayList<Income>();
-        double sum = 0.0;
+        int sum = 0;
         String[] date;
         GregorianCalendar d = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
                     temp.get(Calendar.DAY_OF_MONTH));
@@ -162,7 +195,7 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
             switch (currIncome.getPayPeriod()) {
                 case "Weekly":
                                 if(d.get(Calendar.DAY_OF_WEEK) == incomeDate.get(Calendar.DAY_OF_WEEK)) {
-                                    sum += currIncome.getAmount();
+                                    sum += (int) (currIncome.getAmount() * 100.0);
                                 }
                                 break;
                 case "BiWeekly": int dDay = d.get(Calendar.DAY_OF_WEEK);
@@ -171,20 +204,24 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
                                 long iMill = incomeDate.getTimeInMillis();
                                 long diff = dMill - iMill;
                                 long quot = diff%TWO_WEEKS;
+                                // Check for extra hour in case of daylight savings
                                 if(dDay == iDay && (quot == 0 || quot == HOUR || quot == HOUR * 335)) {
-                                    sum += currIncome.getAmount();
+                                    sum += (int) (currIncome.getAmount() * 100.0);
                                 }
                                 break;
                 case "Monthly": if(d.get(Calendar.DAY_OF_MONTH) == incomeDate.get(Calendar.DAY_OF_MONTH)) {
-                                    sum += currIncome.getAmount();
+                                    sum += (int) (currIncome.getAmount() * 100.0);
                                 }
                                 break;
-                //TODO: What to do in case of Other???
+                case "One-time Deposit": if(d.equals(incomeDate)) {
+                                    sum += (int) (currIncome.getAmount() * 100.0);
+                                }
+                                break;
                 default: break;
             }
         }
 
-        return formatDoubleMoney(sum);
+        return formatDoubleMoney((double) sum / 100);
     }
 
     public String weeklyIncome() {
@@ -201,25 +238,99 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
 
     public String todayAllowance() {
 
-        double accountBalance = account.getBalance();
-        double allowance = accountBalance;
+        int accountBalance = (int) (account.getStartBalance() * 100.0);
+        int allowance = accountBalance;
+        Goal dollar = null;
+        Goal income = null;
+        boolean monthly = false;
+        boolean yearly = false;
+        double incomePercent = 1.00;
+
+        List<Goal> allGoals = (List<Goal>) (List<?>) ds.retrieveAll("goal");
+        Iterator<Goal> iterator = allGoals.iterator();
+        while(iterator.hasNext()) {
+            Goal currGoal = iterator.next();
+            switch (currGoal.getUnit()) {
+                case 1: dollar = currGoal;
+                    break;
+                case 2: income = currGoal;
+                    break;
+                default: break;
+            }
+            if(currGoal.getTimePeriod() == 4) yearly = true;
+            else if(currGoal.getTimePeriod() == 3) monthly = true;
+
+        }
 
         GregorianCalendar temp = new GregorianCalendar();
         GregorianCalendar d = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
                 temp.get(Calendar.DAY_OF_MONTH));
         GregorianCalendar end = (GregorianCalendar) d.clone();
+        if(yearly) {
+            end.set(end.get(Calendar.YEAR), Calendar.JANUARY, 1);
+            end.roll(Calendar.YEAR, 1);
+        }
+        else if(monthly) {
+            end.set(end.get(Calendar.YEAR), end.get(Calendar.MONTH), 1);
+            end.roll(Calendar.MONTH, 1);
+        }
+        else {
+            end.add(GregorianCalendar.WEEK_OF_YEAR, 2);
+            end.add(GregorianCalendar.DAY_OF_WEEK, -end.get(Calendar.DAY_OF_WEEK));
+        }
 
-        end.add(GregorianCalendar.WEEK_OF_YEAR, 2);
-        end.add(GregorianCalendar.DAY_OF_WEEK, -end.get(Calendar.DAY_OF_WEEK));
+        if(income != null) {
+            if(income.getAmount() != 0.0) {
+                incomePercent = ((100.0 - income.getAmount()) / 100.0);
+            }
+        }
 
         d.add(GregorianCalendar.DAY_OF_YEAR, 1);
         while(d.before(end)) {
-            allowance -= Double.parseDouble(todaySpent(d));
-            allowance += Double.parseDouble(todayIncome(d));
+            if(dollar != null) {
+                switch (dollar.getTimePeriod()) {
+                    case 1: allowance -= (int) (dollar.getAmount() * 100.0);
+                            break;
+                    case 2: if(d.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                                allowance -= (int) (dollar.getAmount() * 100.0);
+                            }
+                            break;
+                    case 3: int monthDay = d.get(Calendar.DAY_OF_MONTH);
+                            if(monthDay == 1) {
+                                allowance -= (int) (dollar.getAmount() * 100.0);
+                            }
+                            break;
+                    case 4: int yearDay = d.get(Calendar.DAY_OF_YEAR);
+                            if(yearDay == 1) {
+                                allowance -= (int) (dollar.getAmount() * 100.0);
+                            }
+                            break;
+                    default: break;
+                }
+            }
+            allowance -= (int) (Double.parseDouble(todayBills(d)) * 100.0);
+            allowance += (int) (Math.floor(Double.parseDouble(todayIncome(d))*incomePercent*100.0));
             d.add(GregorianCalendar.DAY_OF_YEAR, 1);
         }
-        
-        return formatDoubleMoney(allowance);
+
+        double todayPurchases = todayPurchases();
+        int intTP = (int) (todayPurchases * 100.0);
+
+        d = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+                temp.get(Calendar.DAY_OF_MONTH));
+        long span = end.getTimeInMillis() - d.getTimeInMillis();
+        int daySpan = (int) (span / (long)(1000*60*60*24));
+        allowance = (allowance / daySpan) - intTP; //TODO: POSSIBLY OPTIMIZE THIS
+        String now = (String) DateFormat.format("MM/dd/yyyy", d.getTime());
+        user.setLastCalc(now);
+        user.setAllowance((double) allowance / 100);
+
+        String[] newUserArgs = {"1", "User", "0", String.valueOf(user.getPin()), "0", "0",
+                String.valueOf(user.getHasPin()), user.getLastSync(),
+                user.getLastCalc(), String.valueOf(user.getAllowance())};
+        ds.create("user", newUserArgs);
+
+        return formatDoubleMoney((double) allowance / 100);
     }
 
     public String weeklyAllowance() {
@@ -235,13 +346,16 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
     }
 
     public String todaySpent() {
-        return todaySpent(new GregorianCalendar());
+        int bills = (int) (Double.parseDouble(todayBills(new GregorianCalendar())) * 100.0);
+        int purchases = (int) (todayPurchases() * 100.0);
+        double spent = (double) (bills + purchases) / 100;
+        return formatDoubleMoney(spent);
     }
 
-    public String todaySpent(GregorianCalendar temp) {
+    public String todayBills(GregorianCalendar temp) {
         Iterator<Bill> iterateBills = allBills.iterator();
         validBills = new ArrayList<Bill>();
-        double sum = 0.0;
+        int sum = 0;
         String[] date;
 
         GregorianCalendar d = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
@@ -257,12 +371,12 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
             switch (currBill.getOccurrenceRte()) {
                 case 1:
                     if(d.get(Calendar.DAY_OF_WEEK) == billDate.get(Calendar.DAY_OF_WEEK)) {
-                        sum += currBill.getBillAmount();
+                        sum += (int) (currBill.getBillAmount() * 100.0);
                     }
                     break;
                 case 2:
                     if(d.get(Calendar.DAY_OF_MONTH) == billDate.get(Calendar.DAY_OF_MONTH)) {
-                        sum += currBill.getBillAmount();
+                        sum += (int) (currBill.getBillAmount() * 100.0);
                     }
                     break;
                 case 3:
@@ -271,29 +385,14 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
                         actualDate--;
                     }
                     if(d.get(Calendar.DAY_OF_YEAR) == actualDate) {
-                        sum += currBill.getBillAmount();
+                        sum += (int) (currBill.getBillAmount() * 100.0);
                     }
                     break;
                 default: break;
             }
         }
 
-        Iterator<Purchase> iteratePurchases = allPurchases.iterator();
-        validPurchases = new ArrayList<Purchase>();
-
-        GregorianCalendar purchaseDate;
-        Purchase currPurchase;
-        while(iteratePurchases.hasNext()) {
-            currPurchase = iteratePurchases.next();
-            date = currPurchase.getDate().split("/");
-            purchaseDate = new GregorianCalendar(Integer.parseInt(date[2]),
-                    Integer.parseInt(date[0])-1, Integer.parseInt(date[1]));
-            if(d.equals(purchaseDate)) {
-                sum += currPurchase.getPrice();
-            }
-        }
-
-        return formatDoubleMoney(sum);
+        return formatDoubleMoney((double) sum / 100);
     }
 
     public String weeklySpent() {
@@ -306,6 +405,31 @@ public class Status_0_Activity extends AppCompatActivity implements AdapterView.
 
     public String yearlySpent() {
         return "void";
+    }
+
+    public double todayPurchases() {
+        int sum = 0;
+        String[] date;
+        GregorianCalendar temp = new GregorianCalendar();
+        GregorianCalendar d = new GregorianCalendar(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH),
+                temp.get(Calendar.DAY_OF_MONTH));
+
+        Iterator<Purchase> iteratePurchases = allPurchases.iterator();
+        validPurchases = new ArrayList<Purchase>();
+
+        GregorianCalendar purchaseDate;
+        Purchase currPurchase;
+        while(iteratePurchases.hasNext()) {
+            currPurchase = iteratePurchases.next();
+            date = currPurchase.getDate().split("/");
+            purchaseDate = new GregorianCalendar(Integer.parseInt(date[2]),
+                    Integer.parseInt(date[0])-1, Integer.parseInt(date[1]));
+            if(d.equals(purchaseDate)) {
+                sum += (int) (currPurchase.getPrice() * 100.0);
+            }
+        }
+
+        return (double) sum / 100;
     }
 
     private String formatDoubleMoney(double i) {

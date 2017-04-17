@@ -61,27 +61,6 @@
         android:orientation="horizontal">
 
         <Spinner
-            android:id="@+id/timePeriodSpinner2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:id="@+id/timePeriodHelp"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="#00000000"
-            android:onClick="savingsHelp"
-            android:src="@drawable/ic_action_name" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Spinner
             android:id="@+id/unitSavingSpinner2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,9 +98,29 @@
             android:background="#00000000"
             android:onClick="savingsHelp"
             android:src="@drawable/ic_action_name" />
-
-
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/timePeriodSpinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/timePeriodHelp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:onClick="savingsHelp"
+            android:src="@drawable/ic_action_name" />
+    </LinearLayout>
+
     <Space
         android:layout_width="wrap_content"
         android:layout_height="10dp"/>
@@ -134,6 +133,20 @@
         android:background="@color/colorPrimary"
         android:textColor="#FFFFFF"
         android:text="Add Goal" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <Button
+        android:id="@+id/deleteGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:onClick="deleteGoal"
+        android:background="#ff0000"
+        android:textColor="#FFFFFF"
+        android:text="Delete Goal" />
 
     <Space
         android:layout_width="match_parent"
