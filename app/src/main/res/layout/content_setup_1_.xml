@@ -38,8 +38,8 @@
         android:layout_height="wrap_content"
         android:text="Confirm"
         android:textSize="24sp"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/my_button_bg"
+        android:textColor="#000000"
         android:onClick="confirmPin"/>
 
 

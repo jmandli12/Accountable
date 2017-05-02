@@ -146,8 +146,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="addUpdateBill"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/my_button_bg"
+        android:textColor="#000000"
         android:text="Add Bill" />
 
     <Space
@@ -160,8 +160,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="deleteBill"
-        android:background="#ff0000"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/delete_button_bg"
+        android:textColor="#000000"
         android:text="Delete Bill" />
 
 </LinearLayout>

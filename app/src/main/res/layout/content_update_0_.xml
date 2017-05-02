@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/my_button_bg"
+        android:textColor="#000000"
         android:text="Balance" />
 
     <Space
@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/my_button_bg"
+        android:textColor="#000000"
         android:text="Bills" />
 
     <Space
@@ -56,8 +56,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/my_button_bg"
+        android:textColor="#000000"
         android:text="Income" />
 
     <Space
@@ -70,8 +70,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/my_button_bg"
+        android:textColor="#000000"
         android:text="Goals" />
 
     <Space
@@ -84,8 +84,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/my_button_bg"
+        android:textColor="#000000"
         android:text="Back to Home" />
 
 </LinearLayout>

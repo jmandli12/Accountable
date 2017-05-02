@@ -180,8 +180,8 @@
         android:layout_height="wrap_content"
         android:onClick="backToHome"
         android:text="Previous Purchases"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/my_button_bg"
+        android:textColor="#000000"
         android:textSize="24dp" />
 
 </LinearLayout>
