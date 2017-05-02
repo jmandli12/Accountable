@@ -131,8 +131,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="addUpdateGoal"
-        android:background="@drawable/my_button_bg"
-        android:textColor="#000000"
+        android:background="@drawable/button_container"
+        android:textColor="@drawable/text_container"
         android:text="Add Goal" />
 
     <Space
@@ -146,7 +146,7 @@
         android:textSize="24sp"
         android:onClick="deleteGoal"
         android:background="@drawable/delete_button_bg"
-        android:textColor="#000000"
+        android:textColor="@drawable/text_container"
         android:text="Delete Goal" />
 
 

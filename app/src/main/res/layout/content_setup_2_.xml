@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:text="Submit"
-        android:background="@drawable/my_button_bg"
-        android:textColor="#000000"
+        android:background="@drawable/button_container"
+        android:textColor="@drawable/text_container"
         android:onClick="addAccount"/>
 </LinearLayout>
