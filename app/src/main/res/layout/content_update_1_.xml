@@ -73,8 +73,8 @@
         android:layout_height="wrap_content"
         android:onClick="updateAccount"
         android:text="Update"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:textColor="@drawable/text_container"
         android:textSize="24sp" />
 
 </LinearLayout>

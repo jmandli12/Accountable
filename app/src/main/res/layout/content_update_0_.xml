@@ -16,8 +16,9 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:gravity="center_horizontal"
+        android:layout_margin="25dp"
         android:text="Select to update:" />
-
+    
     <Space
         android:layout_width="match_parent"
         android:layout_height="15dp" />
@@ -27,9 +28,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:textColor="@drawable/text_container"
         android:text="Balance" />
 
     <Space
@@ -42,8 +45,10 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@drawable/text_container"
         android:text="Bills" />
 
     <Space
@@ -56,8 +61,10 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@drawable/text_container"
         android:text="Income" />
 
     <Space
@@ -70,8 +77,10 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@drawable/text_container"
         android:text="Goals" />
 
     <Space
@@ -84,8 +93,10 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:onClick="onClick"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@drawable/text_container"
         android:text="Back to Home" />
 
 </LinearLayout>

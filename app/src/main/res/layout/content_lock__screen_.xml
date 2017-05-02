@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:onClick="buttonClickHandler"
         android:text="Submit"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:textColor="@drawable/text_container"
         android:textSize="24sp" />
 </LinearLayout>

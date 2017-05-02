@@ -109,8 +109,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:text="Add Purchase"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:textColor="@drawable/text_container"
         android:onClick="addPurchase"/>
 
     <Space
@@ -123,8 +123,8 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:text="Back to Home"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_container"
+        android:textColor="@drawable/text_container"
         android:onClick="backToHome"/>
 
 </LinearLayout>
