@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:paddingBottom="50dp"
-        android:text="Update your Account Balance Below"
+        android:text="Update Account Balance"
         android:textSize="30sp" />
 
     <TextView

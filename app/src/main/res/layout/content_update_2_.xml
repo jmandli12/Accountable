@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:gravity="center_horizontal"
-        android:text="Select an existing Bill from the dropdown or add a new one" />
+        android:text="Update Bill(s)" />
 
     <Space
         android:layout_width="match_parent"

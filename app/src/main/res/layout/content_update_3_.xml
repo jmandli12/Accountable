@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Select an existing Income from the dropdown or add a new one"
+        android:text="Update Income(s)"
         android:textSize="30sp" />
 
     <Space

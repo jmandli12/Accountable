@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:gravity="center_horizontal"
-        android:text="What Information do you want to Update?" />
+        android:text="Select to update:" />
 
     <Space
         android:layout_width="match_parent"

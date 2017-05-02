@@ -186,7 +186,7 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
             }
         }
 
-        if (isValidAmount && goalName.length() > 0 && !timePeriod.equals("0") && !unitSaving.equals("0") && !duplicate) {
+        if (isValidAmount && goalName.length() > 0 && (!timePeriod.equals("0") || unitSaving.equals("2")) && !unitSaving.equals("0") && !duplicate) {
             if (unitSaving.equals("2") || unitSaving.equals("3")) {
                 amount = String.valueOf((double) Integer.parseInt(amount));
             }
@@ -198,9 +198,16 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
                 ds.create("goal", goalArgs);
             }
 
-            Toast.makeText(this, "Goal Name: " + goalName + " TimePeriod Selected: " + timePeriod
-                    + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
-                    + amount, Toast.LENGTH_LONG).show();
+            if(unitSaving.equals("1")) {
+                Toast.makeText(this, "Goal Name: " + goalName + " TimePeriod Selected: " + timePeriod
+                        + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
+                        + amount, Toast.LENGTH_LONG).show();
+            }
+            if(unitSaving.equals("2")) {
+                Toast.makeText(this, "Goal Name: " + goalName
+                        + " UnitSaving Selected: " + unitSaving + " Amount to Save: "
+                        + amount, Toast.LENGTH_LONG).show();
+            }
 
             //Get Names of Goals
             List<String> list = getGoalNames();
@@ -220,15 +227,15 @@ public class Update_4_Activity extends AppCompatActivity implements AdapterView.
             if (goalName.length() == 0) {
                 Toast.makeText(this, "Goal Name cannot be empty", Toast.LENGTH_LONG).show();
             }
-            if (timePeriod.equals(timePeriod.equals("0"))) {
-                Toast.makeText(this, "Time Period must be selected", Toast.LENGTH_LONG).show();
-            }
-            if (timePeriod.equals(unitSaving.equals("0"))) {
+            if (unitSaving.equals("0")) {
                 Toast.makeText(this, "Unit of Saving must be selected", Toast.LENGTH_LONG).show();
             }
             if (unitSaving.equals("1")) {
                 if (amount.length() < 3 || !isValidAmount) {
                     Toast.makeText(this, "Goal Amount must be in the format \"{dollars}.{cents}\"", Toast.LENGTH_LONG).show();
+                }
+                if (timePeriod.equals("0")) {
+                    Toast.makeText(this, "Time Period must be selected", Toast.LENGTH_LONG).show();
                 }
             } else if (unitSaving.equals("2")) {
                 if (!isValidAmount) {

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:gravity="center"
-        android:text="Select an existing Savings Goal from the dropdown or add a new one" />
+        android:text="Update Goal(s)" />
 
     <Space
         android:layout_width="match_parent"
